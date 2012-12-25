@@ -842,5 +842,10 @@ char* tabela_textos[] PROGMEM =
 "NIVEL:", // tabela_textos[194]
 "TPA:", // tabela_textos[195]
 "BAIXO!", // tabela_textos[196]
-"NORMAL" // tabela_textos[197]
+"NORMAL", // tabela_textos[197]
+"Q", // tabela_textos[198] // Quinta
+"S", //  tabela_textos[199] // Sexta 
+"S", // tabela_textos[200] // Sábado
+"CONFIG. LEDS",// tabela_textos[201]
+"CONFIGURAR LEDS" // tabela_textos[202]
 };
