@@ -1,14 +1,12 @@
-//---------------------------------------main screen ----------------------------------------------tela =0
+//---------------------------------------Tela inicial ----------------------------------------------tela =0
 void mainScreen(boolean refreshAll=false)
 {
   int ledLevel, s, u;
   String oldval, rtc1, rtcm;
   oldval = day;
-  day = String(t.date);                             //refresh date if different
+  day = String(t.date);                             //Atualiza se a data for diferente
 
-  myGLCD.setColor(64, 64, 64);
-  myGLCD.fillRect(0, 226, 400, 239);
-  setFont(SMALL, 255, 255, 0, 64, 64, 64);
+  setFont(SMALL, 255, 255, 0, 0, 0, 0);
   myGLCD.print(rtc.getDOWStr(FORMAT_LONG), 10, 227);
   myGLCD.printNumI(t.date, 75, 227);
   myGLCD.print("DE", 95, 227);
@@ -37,8 +35,11 @@ void mainScreen(boolean refreshAll=false)
     else { 
       myGLCD.printNumF(lunarCycle*100, 1, 240, 210);
     }
-    myGLCD.print(tabela_textos[181], 280, 210); // tabela_textos[181] = "% ILUMINADA"
-    myGLCD.print(tabela_textos[182], 10, 210); // tabela_textos[182] = "FASE LUNAR:"
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[181])));
+    myGLCD.print(buffer, 280, 210); // tabela_textos[181] = "% ILUMINADA"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[182])));
+    myGLCD.print(buffer, 10, 210); // tabela_textos[182] = "FASE LUNAR:"
   }
   if ((blueLed != bled_out) || refreshAll)       //refresh blue led displays
   {
@@ -84,23 +85,51 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.drawLine(373, 25, 373, 39);
   }
 
-  if ( refreshAll)                                  //draw static elements
+  if ( refreshAll == true)                                  //draw static elements
   {
-    setFont(SMALL, 255, 255, 255, 0, 0, 0);
-    myGLCD.print(tabela_textos[183], 12, 86);  // tabela_textos[183] = "T.DISSIPADOR:"  
-    myGLCD.print(tabela_textos[184], 12, 67); // tabela_textos[184] = "TEMP. AGUA:"
-    myGLCD.print(tabela_textos[185], 12, 105); // tabela_textos[185] = "PH DO AQUARIO:"
-    myGLCD.print(tabela_textos[186], 12, 124); // tabela_textos[186] =  "PH DO REATOR:"
-    myGLCD.print(tabela_textos[187], 12, 143); // tabela_textos[187] = "DENSIDADE:"
-    myGLCD.print(tabela_textos[188], 12, 162); // tabela_textos[188] = "ORP:"
+     myGLCD.setColor(64, 64, 64);
+     myGLCD.fillRect(0, 226, 400, 239);
 
-    myGLCD.print(tabela_textos[189], 212, 67); // tabela_textos[189] = "CHILLER:"
-    myGLCD.print(tabela_textos[190], 212, 86); // tabela_textos[190] = "AQUECEDOR:"
-    myGLCD.print(tabela_textos[191], 212, 105); // tabela_textos[191] = "REATOR:"
-    myGLCD.print(tabela_textos[192], 212, 124); // tabela_textos[192] = "OZONIO:"
-    myGLCD.print(tabela_textos[193], 212, 143); // tabela_textos[193] = "REPOSICAO:"
-    myGLCD.print(tabela_textos[194], 212, 162); // tabela_textos[194] = "NIVEL:"
-    myGLCD.print(tabela_textos[195], 212, 181); // tabela_textos[195] = "TPA:" // Troca de Água Parcial
+    setFont(SMALL, 255, 255, 255, 0, 0, 0);
+    
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[183])));
+    myGLCD.print(buffer, 12, 86);  // tabela_textos[183] = "T.DISSIPADOR:"  
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[184])));
+    myGLCD.print(buffer, 12, 67); // tabela_textos[184] = "TEMP. AGUA:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[185])));
+    myGLCD.print(buffer, 12, 105); // tabela_textos[185] = "PH DO AQUARIO:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[186])));
+    myGLCD.print(buffer, 12, 124); // tabela_textos[186] =  "PH DO REATOR:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[187])));
+    myGLCD.print(buffer, 12, 143); // tabela_textos[187] = "DENSIDADE:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[188])));
+    myGLCD.print(buffer, 12, 162); // tabela_textos[188] = "ORP:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[189])));
+    myGLCD.print(buffer, 212, 67); // tabela_textos[189] = "CHILLER:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[190])));
+    myGLCD.print(buffer, 212, 86); // tabela_textos[190] = "AQUECEDOR:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[191])));
+    myGLCD.print(buffer, 212, 105); // tabela_textos[191] = "REATOR:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[192])));
+    myGLCD.print(buffer, 212, 124); // tabela_textos[192] = "OZONIO:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[193])));
+    myGLCD.print(buffer, 212, 143); // tabela_textos[193] = "REPOSICAO:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[194])));
+    myGLCD.print(buffer, 212, 162); // tabela_textos[194] = "NIVEL:"
+
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[195])));
+    myGLCD.print(buffer, 212, 181); // tabela_textos[195] = "TPA:" // Troca de Água Parcial
 
     setFont (LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.drawCircle(179, 84, 2);
@@ -195,12 +224,14 @@ void mainScreen(boolean refreshAll=false)
   }
   if (nivel_status==true) {             
     setFont(LARGE, 255, 0, 0, 0, 0, 0);
-    myGLCD.print(tabela_textos[196], 265, 160);           // Nivel baixo em vermelho // tabela_textos[196] = "BAIXO!"
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[196])));
+    myGLCD.print(buffer, 265, 160);           // Nivel baixo em vermelho // tabela_textos[196] = "BAIXO!"
   }
   else if (nivel_status==false) 
   {             
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
-    myGLCD.print(tabela_textos[197], 265, 160);           // Nivel nornal // tabela_textos[197] = "NORMAL"
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[197])));
+    myGLCD.print(buffer, 265, 160);           // Nivel nornal // tabela_textos[197] = "NORMAL"
   }  
   if (ato==true) 
   {             
@@ -241,7 +272,8 @@ void mainScreen(boolean refreshAll=false)
   if (falha_tpa == true)
   {             
     setFont(LARGE, 255, 0, 0, 0, 0, 0);
-    myGLCD.print(tabela_textos[86], 250, 180);           // Sinaliza falha durante uma TPA // tabela_textos[86] = "FALHA!"
+    strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[86])));
+    myGLCD.print(buffer, 250, 180);           // Sinaliza falha durante uma TPA // tabela_textos[86] = "FALHA!"
   }  
 }
 
