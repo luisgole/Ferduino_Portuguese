@@ -21,7 +21,7 @@
 //******* Dúvidas, sugestões e elogios: fefegarcia_1@hotmail.com ***************************************************************************************
 //*****************************************************************************************************************************************************/
 
-// Este programa é compatível com a IDE 1.0.4 desde que as bibliotecas "WConstants.h" e "wiring.h" sejam colocadas na pasta ...arduino-1.0.2\hardware\arduino\cores\arduino.
+// Este programa é compatível com a IDE 1.0.4 desde que as bibliotecas "WConstants.h" e "wiring.h" sejam colocadas na pasta ...arduino-1.0.4\hardware\arduino\cores\arduino.
 
 //---------------------------------------------------------
 
