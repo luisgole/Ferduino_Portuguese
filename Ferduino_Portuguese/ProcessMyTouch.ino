@@ -2,14 +2,15 @@
 void processMyTouch()
 {
   myTouch.read();
+  int x, y;                  // Coordenadas do touch screen
   x=myTouch.getX();
   y=myTouch.getY();
   if ((x>=iniC[0]) && (x<=iniC[2]) && (y>=iniC[1]) && (y<=iniC[3]) && (dispScreen!=0) && (LEDtestTick == false))  // volta ao inicio
   {
     waitForIt(iniC[0], iniC[1], iniC[2], iniC[3]);
-    if(dispScreen == 5)
+    if((dispScreen == 5) || (dispScreen == 28)) 
     {
-     ReadFromEEPROM();
+      ReadFromEEPROM();
     }
     periodo_selecionado = false;
     dispScreen=0;
@@ -115,19 +116,7 @@ void processMyTouch()
           else
           {
             myGLCD.printNumI(t_temp.hour, 70, 48);
-          }
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));            
-            myGLCD.print(buffer, 10, 200); // tabela_textos[163]
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }      
+          }   
         }
         else if ((x>=minU[0]) && (x<=minU[2]))
         {
@@ -142,18 +131,6 @@ void processMyTouch()
           {
             myGLCD.printNumI(t_temp.min, 160, 48);
           }   
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }
         }
         else if ((x>=segC[0]) && (x<=segC[2]))
         {
@@ -169,19 +146,7 @@ void processMyTouch()
           else
           {
             myGLCD.printNumI(t_temp.sec, 250, 48);
-          } 
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }      
+          }     
         }
       }
       else if ((y>=houD[1]) && (y<=houD[3])) // Buttons: Time DOWN
@@ -199,18 +164,6 @@ void processMyTouch()
           {
             myGLCD.printNumI(t_temp.hour, 70, 48);
           }            
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }
         }
         else if ((x>=minD[0]) && (x<=minD[2]))
         {
@@ -225,18 +178,6 @@ void processMyTouch()
           {
             myGLCD.printNumI(t_temp.min, 160, 48);
           } 
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-     
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-   
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }
         }
         else if ((x>=segB[0]) && (x<=segB[2]))
         {
@@ -250,18 +191,6 @@ void processMyTouch()
           else
           {
             myGLCD.printNumI(t_temp.sec, 250, 48);
-          }
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));            
-            myGLCD.print(buffer, 10, 200);
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
           }
         }
       }
@@ -281,18 +210,6 @@ void processMyTouch()
           else
           {
             myGLCD.printNumI(t_temp.date, 70, 132);
-          }
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
           }
         }
         else if ((x>=monU[0]) && (x<=monU[2]))
@@ -314,18 +231,6 @@ void processMyTouch()
           }
 
           t_temp.date=validateDateForMonth(t_temp.date, t_temp.mon, t_temp.year);
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }
         }
         else if ((x>=yeaU[0]) && (x<=yeaU[2]))   
         {
@@ -336,18 +241,6 @@ void processMyTouch()
           myGLCD.printNumI(t_temp.year, 230, 132);
 
           t_temp.date=validateDateForMonth(t_temp.date, t_temp.mon, t_temp.year);
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-            
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }
         }
         t_temp.dow=calcDOW(t_temp.date, t_temp.mon, t_temp.year);
       }
@@ -366,18 +259,6 @@ void processMyTouch()
           else
           {
             myGLCD.printNumI(t_temp.date, 70, 132);
-          }
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-          
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
           }
         }
         else if ((x>=monD[0]) && (x<=monD[2]))   
@@ -398,18 +279,6 @@ void processMyTouch()
             myGLCD.printNumI(t_temp.mon, 160, 132);
           }
           t_temp.date=validateDateForMonth(t_temp.date, t_temp.mon, t_temp.year);
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }
         }
 
         else if ((x>=yeaD[0]) && (x<=yeaD[2]))
@@ -418,19 +287,7 @@ void processMyTouch()
           t_temp.year = (t_temp.year +2099) %2100;
 
           myGLCD.printNumI(t_temp.year, 230, 132);
-          t_temp.date=validateDateForMonth(t_temp.date, t_temp.mon, t_temp.year);
-          if (ct==false)
-          {
-            ct=true;
-            myGLCD.setColor(255, 0, 0);
-            myGLCD.setFont(SmallFont);
-            
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[163])));
-            myGLCD.print(buffer, 10, 200);
-
-            myGLCD.setColor(255, 255, 255);
-            myGLCD.setFont(BigFont);
-          }          
+          t_temp.date=validateDateForMonth(t_temp.date, t_temp.mon, t_temp.year);        
         }
         t_temp.dow=calcDOW(t_temp.date, t_temp.mon, t_temp.year);
       }
@@ -504,12 +361,12 @@ void processMyTouch()
           clearScreen();
           menuScreen(); 
         }
-        if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3])&& (LEDtestTick == false))           // volta a tela configurar leds
+        if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3])&& (LEDtestTick == false))           // volta a tela configurar leds
         {
           waitForIt(volT[0], volT[1], volT[2], volT[3]);
-          dispScreen=40;
+          dispScreen=25;
           clearScreen();
-          config_leds(); 
+          escolher_teste(); 
         }
 
       }    
@@ -521,10 +378,10 @@ void processMyTouch()
         setTempC = temp2beS;
         offTempC = temp2beO;
         alarmTempC = temp2beA;
-        dispScreen=0;
+        dispScreen=14;
         SaveTempToEEPROM();
         clearScreen();
-        mainScreen(true);
+        parametroScreen();
       } 
       else
       {
@@ -534,7 +391,7 @@ void processMyTouch()
           {
             waitForIt(temM[0], temM[1], temM[2], temM[3]);
             temp2beS -= 0.1;
-            if (temp2beS<10) {
+            if (temp2beS < 10) {
               temp2beS = 10; 
             }
             tempScreen();
@@ -588,7 +445,7 @@ void processMyTouch()
             tempScreen();
           }
         }
-        if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+        if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
         {
           waitForIt(menU[0], menU[1], menU[2], menU[3]);
           dispScreen=14;
@@ -598,7 +455,7 @@ void processMyTouch()
 
       }
       break;
-    case 5:         // --------------------------------Tela alterar valores led------------------------------------------------------------
+    case 5:         // -------------------------------- Tela alterar valores led ------------------------------------------------------------
       if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
@@ -607,27 +464,12 @@ void processMyTouch()
         menuScreen();
         ReadFromEEPROM();
       }
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // volta a tela configurar leds
-      {
-        waitForIt(volT[0], volT[1], volT[2], volT[3]);
-        dispScreen=40;
-        clearScreen();
-        config_leds();
-        ReadFromEEPROM();
-      } 
-      if ((x>=leWB[0]) && (x<=leWB[2]) && (y>=leWB[1]) && (y<=leWB[3]))       // Alterna entre a tabela do azuis e brancos
+      if ((x>=leWB[0]) && (x<=leWB[2]) && (y>=leWB[1]) && (y<=leWB[3]))       // Mais cores
       {
         waitForIt(leWB[0], leWB[1], leWB[2], leWB[3]);
-        if (WorB == true)
-        {
-          WorB = false;
-        }
-        else
-        {
-          WorB = true;
-        }
+        dispScreen=28;
         clearScreen();
-        ledSetScreen();
+        escolher_canal();
       } 
       else if ((x>=leST[0]) && (x<=leST[2]) && (y>=leST[1]) && (y<=leST[3]))       // Alterar valores dos leds
       {
@@ -640,30 +482,51 @@ void processMyTouch()
       {
         waitForIt(savE[0], savE[1], savE[2], savE[3]);
         SaveLEDToEEPROM();
-        dispScreen=0;
+        dispScreen=28;
         clearScreen();
-        mainScreen(true);
+        escolher_canal();
       }
       break;
     case 6:             //---------------------------------- Tela alterar potencia dos leds ---------------------
       if ((x>=salV[0]) && (x<=salV[2]) && (y>=salV[1]) && (y<=salV[3]))       // Salvar tabela temporária
       {
         waitForIt(salV[0], salV[1], salV[2], salV[3]);
-        dispScreen=5;
-        if (WorB == true) 
+        if(bitRead(cor_selecionada,1) == true)
         {
-          for (int i; i<96; i++) 
+          for (int i= 0; i < 97; i++) 
           {
             wled[i]=tled[i]; 
           }
-        } 
-        else 
+        }
+        else if(bitRead(cor_selecionada,2) == true)
         {
-          for (int i; i<96; i++) 
+          for (int i= 0; i < 97; i++) 
           {
             bled[i]=tled[i]; 
           }
         }
+        else if(bitRead(cor_selecionada,3) == true)
+        {
+          for (int i= 0; i < 97; i++) 
+          {
+            rbled[i]=tled[i]; 
+          }
+        }
+        else if(bitRead(cor_selecionada,4) == true)
+        {
+          for (int i= 0; i < 97; i++) 
+          {
+            rled[i]=tled[i]; 
+          }
+        }
+        else if(bitRead(cor_selecionada,5) == true)
+        {
+          for (int i= 0; i < 97; i++) 
+          {
+            uvled[i]=tled[i]; 
+          }
+        }
+        dispScreen=5;
         clearScreen();
         ledSetScreen();
         periodo_selecionado = false;
@@ -673,12 +536,15 @@ void processMyTouch()
         if ((x>=4) && (x<=316))
         {
           periodo_selecionado = true;
-          ledChangeScreen();
           int oldLCT = LedChangTime;
           LedChangTime = map(x, 3, 320, 0, 12);                
 
           if (oldLCT != LedChangTime)                        // Realçar período tocado
           {
+            if(mensagem == true)
+            {
+            ledChangeScreen();
+            }
             myGLCD.setColor(0, 0, 0);
             myGLCD.fillRect((oldLCT*26)+5, 21, (oldLCT*26)+29, 45);
             setFont(SMALL, 0, 255, 255, 0, 0, 0);
@@ -689,60 +555,106 @@ void processMyTouch()
             setFont(SMALL, 255, 255, 255, 255, 0, 0);
             myGLCD.printNumI((LedChangTime*2), (LedChangTime*26)+10, 22);
             myGLCD.printNumI(((LedChangTime*2)+2), (LedChangTime*26)+10, 33);
+            myGLCD.setColor(100, 100, 100);
+            myGLCD.drawLine(4, 45, 316,45);
 
-            for (int i=0; i<8; i++)                          // Imprime valores do período.
+            for (int i = 0; i < 8; i++)                          // Imprime valores do período.
             {
-              int k=(LedChangTime*8)+i;
+              int k=(LedChangTime * 8) + i;
+              myGLCD.setColor(0,0,0);
+              myGLCD.fillRect((i * 38) + 12, 200, (i * 38) + 36, 210); 
               setFont(SMALL, 255, 255, 255, 0, 0, 0);
-              myGLCD.print("   ", (i*38)+12, 105);
-              myGLCD.printNumI( tled[k], (i*38)+12, 105);
+              myGLCD.printNumI( tled[k], (i * 38) + 12, 200);
+              y_tocado = map(tled[k], 255, 0, 80, 195);
+              setor_selecionado = i;
+              desenhar_barras_periodo ();
             }
-          }
-        }
-      } 
-      else if ((y>=70) && (y<=95) && (periodo_selecionado == true))       // Botão +
-      {
-        for (int i=0; i<8; i++) {                
-          if ((x>=(i*38)+10) && (x<=(i*38)+35)) {
-            int k= (LedChangTime*8)+i;
-            tled[k]++;
-            if (tled[k]>255) {
-              tled[k]=255; 
-            }
-            myGLCD.printNumI( tled[k], (i*38)+12, 105);
           }
         }
       }
-      else if ((y>=125) && (y<=150)  && (periodo_selecionado == true))     // Botão -
+      else if((y >= 80) && (y <= 195))
       {
-        for (int i=0; i<8; i++) {                
-          if ((x>=(i*38)+10) && (x<=(i*38)+35)) {
-            int k= (LedChangTime*8)+i;
-            tled[k]--;
-            if (tled[k]<0) {
-              tled[k]=0; 
+        for (int i = 0; i < 8; i++) {                
+          if ((x >= (i * 38) + 5) && (x <= (i * 38) + 39)) 
+          {
+            int k= (LedChangTime * 8) + i;
+            y_tocado = y;
+            tled[k] = map(y_tocado, 195, 80, 0, 255);
+            myGLCD.setColor(0,0,0);
+            myGLCD.fillRect((i * 38) + 12, 200, (i * 38) + 36, 210);
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+            myGLCD.printNumI( tled[k], (i * 38) + 12, 200);
+            setor_selecionado = i;
+            desenhar_barras_periodo ();
+          }
+        }     
+      } 
+      else if ((y >= 50) && (y <= 75) && (periodo_selecionado == true))       // Botão +
+      {
+        for (int i = 0; i < 8; i++) 
+        {                
+          if ((x >= (i * 38) + 5) && (x <= (i * 38) + 39)) 
+          {
+            waitForIt((i*38)+5, 50, (i*38)+39, 75); 
+            int k= (LedChangTime * 8) + i;
+            tled[k] += 1;
+            delay(50);
+            if (tled[k] > 255) 
+            {
+              tled[k] = 255; 
             }
-            myGLCD.print("  ", (i*38)+20, 105);
-            myGLCD.printNumI( tled[k], (i*38)+12, 105);
+            myGLCD.setColor(0,0,0);
+            myGLCD.fillRect((i * 38) + 12, 200, (i * 38) + 36, 210);
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+            myGLCD.printNumI( tled[k], (i * 38) + 12, 200);
+            y_tocado = map(tled[k], 255, 0, 80, 195);
+            setor_selecionado = i;
+            desenhar_barras_periodo ();
+          }
+        }
+      }
+      else if ((y>=214) && (y<=239)  && (periodo_selecionado == true))     // Botão -
+      {
+        for (int i = 0; i < 8; i++) 
+        {                
+          if ((x >= (i * 38) + 5) && (x <= (i * 38) + 39)) 
+          {
+            waitForIt((i*38)+5, 214, (i*38)+39, 239);
+            int k= (LedChangTime * 8) + i;
+            tled[k] -= 1;
+            delay(50);
+            if (tled[k] > 255) 
+            {
+              tled[k] = 255; 
+            }
+            myGLCD.setColor(0,0,0);
+            myGLCD.fillRect((i * 38) + 12, 200, (i * 38) + 36, 210);
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+            myGLCD.printNumI( tled[k], (i * 38) + 12, 200);
+            y_tocado = map(tled[k], 255, 0, 80, 195);
+            setor_selecionado = i;
+            desenhar_barras_periodo ();
           }
         }  
       }
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // Volta ao menu
+      else if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // Volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
         clearScreen();
         menuScreen();
+        ReadFromEEPROM();
         periodo_selecionado = false; 
       }
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // Volta a tela configurar leds
+       else if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta a tela configurar leds
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen=5;
         clearScreen();
         ledSetScreen();
-        periodo_selecionado = false; 
-      }
+        ReadFromEEPROM();
+        periodo_selecionado = false;
+      } 
       break;
     case 7: //--------------------------------------------- configurar tpa autom.-----------------------------------
       if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
@@ -894,85 +806,66 @@ void processMyTouch()
       break;
     case 8: //--------------------------------------------- Escolher dosadora -----------------------------------
 
-      if ((x>=manU[0]) && x<=manU[2] && (y>=manU[1]) && (y<=manU[3]))
+      if ((x>=manU[0]) && (x<=manU[2]) && (y>=manU[1]) && (y<=manU[3]))
       {
         waitForIt(manU[0], manU[1], manU[2], manU[3]);
         modo_manual = true;
-        modo_automatico = false;
         modo_personalizado = false;
         modo_calibrar = false;
         dispScreen = 21;
         clearScreen();
         selecionar_dosadora();
         setFont(SMALL, 255, 255, 255, 0, 0, 0);
-        
+
         strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[164])));
         myGLCD.print(buffer, 15, 220); // "MODO MANUAL SELECIONADO"
       }
-      if ((x>=autO[0]) && x<=autO[2] && (y>=autO[1]) && (y<=autO[3]))
-      {
-        waitForIt(autO[0], autO[1], autO[2], autO[3]);
-        modo_manual = false;
-        modo_automatico = true;
-        modo_personalizado = false;
-        modo_calibrar = false;
-        dispScreen = 21;
-        clearScreen();
-        selecionar_dosadora();
-        setFont(SMALL, 255, 255, 255, 0, 0, 0);
-        
-        strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-        myGLCD.print(buffer, 15, 220);      
-      } 
-      if ((x>=perS[0]) && x<=perS[2] && (y>=perS[1]) && (y<=perS[3]))
+      if ((x>=perS[0]) && (x<=perS[2]) && (y>=perS[1]) && (y<=perS[3]))
       {
         waitForIt(perS[0], perS[1], perS[2], perS[3]);
         modo_manual = false;
-        modo_automatico = false;
         modo_personalizado = true;
         modo_calibrar = false;
         dispScreen = 21;
         clearScreen();
         selecionar_dosadora();
         setFont(SMALL, 255, 255, 255, 0, 0, 0);
-        
+
         strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[171])));
         myGLCD.print(buffer, 15, 220);      
       }
-      if ((x>=caliB[0]) && x<=caliB[2] && (y>=caliB[1]) && (y<=caliB[3]))
+      if ((x>=orP[0]) && (x<=orP[2]) && (y>=orP[1]) && (y<=orP[3]))
       {
-        waitForIt(caliB[0], caliB[1], caliB[2], caliB[3]);
+        waitForIt(orP[0], orP[1], orP[2], orP[3]);
         modo_manual = false;
-        modo_automatico = false;
         modo_personalizado = false;
         modo_calibrar = true;
         dispScreen=21;
         clearScreen();
         selecionar_dosadora();
         setFont(SMALL, 255, 255, 255, 0, 0, 0);
-        
+
         strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
         myGLCD.print(buffer, 15, 220);      
       }    
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
+      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
         clearScreen();
         menuScreen();
         modo_manual = false;
-        modo_automatico = false;
         modo_personalizado = false;
         modo_calibrar = false; 
       }          
-      if ((x>=reV[0]) && x<=reV[2] && (y>=reV[1]) && (y<=reV[3]))           /// volta ao menu
+      if ((x>=reV[0]) && (x<=reV[2]) && (y>=reV[1]) && (y<=reV[3]))           /// Rever config
       {
         waitForIt(reV[0], reV[1], reV[2], reV[3]);
         dispScreen=32;
         clearScreen();
         rever_configuracao_dosadoras();
       }
-      if ((x>=atiV[0]) && x<=atiV[2] && (y>=atiV[1]) && (y<=atiV[3]))
+      if ((x>=atiV[0]) && (x<=atiV[2]) && (y>=atiV[1]) && (y<=atiV[3]))
       {
         waitForIt(atiV[0], atiV[1], atiV[2], atiV[3]);
         dispScreen = 35;
@@ -982,35 +875,35 @@ void processMyTouch()
       break;    
 
     case 9: //  -----------------------------------------Tela escolher graficos-----------------------------------------
-      if ((x>=orP[0]) && x<=orP[2] && (y>=orP[1]) && (y<=orP[3]))           
+      if ((x >= orP[0]) && (x <= orP[2]) && (y >= orP[1]) && (y <= orP[3]))           
       {
         waitForIt(orP[0], orP[1], orP[2], orP[3]);
         dispScreen=12;
         clearScreen();
         orpScreen(); 
       } 
-      if ((x>=phR[0]) && x<=phR[2] && (y>=phR[1]) && (y<=phR[3]))           
+      if ((x >= phR[0]) && (x <= phR[2]) && (y >= phR[1]) && (y <= phR[3]))           
       {
         waitForIt(phR[0], phR[1], phR[2], phR[3]);
         dispScreen=13;
         clearScreen();
         PHRScreen(); 
       } 
-      if ((x>=tempG[0]) && x<=tempG[2] && (y>=tempG[1]) && (y<=tempG[3]))           
+      if ((x >= tempG[0]) && (x <= tempG[2]) && (y >= tempG[1]) && (y <= tempG[3]))           
       {
         waitForIt(tempG[0], tempG[1], tempG[2], tempG[3]);
         dispScreen=13;
         clearScreen();
         tempgScreen(); 
       }
-      if ((x>=phA[0]) && x<=phA[2] && (y>=phA[1]) && (y<=phA[3]))           
+      if ((x >= phA[0]) && (x <= phA[2]) && (y >= phA[1]) && (y <= phA[3]))           
       {
         waitForIt(phA[0], phA[1], phA[2], phA[3]);
         dispScreen=17;
         clearScreen();
         PHAScreen(); 
       } 
-      if ((x>=denS[0]) && x<=denS[2] && (y>=denS[1]) && (y<=denS[3]))           
+      if ((x >= denS[0]) && (x <= denS[2]) && (y >= denS[1]) && (y <= denS[3]))           
       {
         waitForIt(denS[0], denS[1], denS[2], denS[3]);
         dispScreen=19;
@@ -1018,7 +911,7 @@ void processMyTouch()
         densidadeScreen(); 
       }       
 
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
+      if ((x >= menU[0]) && (x <= menU[2]) && (y >= menU[1]) && (y <= menU[3]))           /// volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
@@ -1028,7 +921,7 @@ void processMyTouch()
       break;
 
     case 10: //--------------------------------- Tela wavemaker ----------------------------
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+      if ((x >= menU[0]) && (x <= menU[2]) && (y >= menU[1]) && (y <= menU[3]))           // volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen = 1;
@@ -1038,14 +931,14 @@ void processMyTouch()
       break;
 
     case 11:  //----------------------------- Tela grafico de temperatura ------------------------------
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
+      if ((x >= menU[0]) && (x <= menU[2]) && (y >= menU[1]) && (y <= menU[3]))           /// volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
         clearScreen();
         menuScreen(); 
       }
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // volta a tela de graficos
+      if ((x >= volT[0]) && (x <= volT[2]) && (y >= volT[1]) && (y <= volT[3]))           // volta a tela de graficos
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen=9;
@@ -1055,14 +948,14 @@ void processMyTouch()
       break;
 
     case 12:  //--------------------------- Tela grafico de orp---------------------------------------
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
+      if ((x >= menU[0]) && (x <= menU[2]) && (y >= menU[1]) && (y <= menU[3]))           /// volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
         clearScreen();
         menuScreen(); 
       }
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // volta a tela de graficos
+      if ((x >= volT[0]) && (x <= volT[2]) && (y >= volT[1]) && (y <= volT[3]))           // volta a tela de graficos
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen=9;
@@ -1072,14 +965,14 @@ void processMyTouch()
       break;           
 
     case 13:   //-----------------Tela grafico de ph do aquario----------------------------------
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+      if ((x >= menU[0]) && (x <= menU[2]) && (y >= menU[1]) && (y <= menU[3]))           // volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
         clearScreen();
         menuScreen(); 
       }
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))         // volta a tela de graficos
+      if ((x >= volT[0]) && (x <= volT[2]) && (y >= volT[1]) && (y <= volT[3]))         // volta a tela de graficos
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen=9;
@@ -1089,49 +982,49 @@ void processMyTouch()
       break; 
 
     case 14:  //--------------------------------Tela escolher parametro para configurar-----------------------------------
-      if ((x>=orP[0]) && x<=orP[2] && (y>=orP[1]) && (y<=orP[3]))           
+      if ((x >= orP[0]) && (x <= orP[2]) && (y >= orP[1]) && (y <= orP[3]))           
       {
         waitForIt(orP[0], orP[1], orP[2], orP[3]);
         dispScreen=16;
         clearScreen();
         config_orp_Screen(true); 
       } 
-      if ((x>=phR[0]) && x<=phR[2] && (y>=phR[1]) && (y<=phR[3]))           
+      if ((x >= phR[0]) && (x <= phR[2]) && (y >= phR[1]) && (y <= phR[3]))           
       {
         waitForIt(phR[0], phR[1], phR[2], phR[3]);
         dispScreen=15;
         clearScreen();
         config_phR_Screen(true); 
       }
-      if ((x>=phA[0]) && x<=phA[2] && (y>=phA[1]) && (y<=phA[3]))           
+      if ((x >= phA[0]) && (x <= phA[2]) && (y>=phA[1]) && (y<=phA[3]))           
       {
         waitForIt(phA[0], phA[1], phA[2], phA[3]);
         dispScreen=18;
         clearScreen();
         config_phA_Screen(true); 
       } 
-      if ((x>=tempG[0]) && x<=tempG[2] && (y>=tempG[1]) && (y<=tempG[3]))           
+      if ((x >= tempG[0]) && (x <= tempG[2]) && (y >= tempG[1]) && (y <= tempG[3]))           
       {
         waitForIt(tempG[0], tempG[1], tempG[2], tempG[3]);
         dispScreen=4;
         clearScreen();
         tempScreen(true); 
       }
-      if ((x>=caliB[0]) && x<=caliB[2] && (y>=caliB[1]) && (y<=caliB[3]))           
+      if ((x >= caliB[0]) && (x <= caliB[2]) && (y >= caliB[1]) && (y <= caliB[3]))           
       {
         waitForIt(caliB[0], caliB[1], caliB[2], caliB[3]);
         dispScreen=0;
         clearScreen();
         mainScreen(true); 
       }
-      if ((x>=denS[0]) && x<=denS[2] && (y>=denS[1]) && (y<=denS[3]))           
+      if ((x >= denS[0]) && (x <= denS[2]) && (y >= denS[1]) && (y <= denS[3]))           
       {
         waitForIt(denS[0], denS[1], denS[2], denS[3]);
         dispScreen=20;
         clearScreen();
         config_dens_Screen(true); 
       }  
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
+      if ((x >= menU[0]) && (x <= menU[2]) && (y >= menU[1]) && (y <= menU[3]))           /// volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
@@ -1146,10 +1039,10 @@ void processMyTouch()
         setPHR = PHR2beS;
         offPHR = PHR2beO;
         alarmPHR = PHR2beA;
-        dispScreen=0;
+        dispScreen=14;
         SavePHRToEEPROM();
         clearScreen();
-        mainScreen(true);
+        parametroScreen();
       } 
       else
       {
@@ -1159,6 +1052,10 @@ void processMyTouch()
           {
             waitForIt(temM[0], temM[1], temM[2], temM[3]);
             PHR2beS -= 0.1;
+            if(PHR2beS < 0)
+            {
+              PHR2beS = 0.0;
+            }         
             config_phR_Screen();
           }
           if ((y>=offM[1]) && (y<=offM[3]))                       //press offset minus
@@ -1214,7 +1111,7 @@ void processMyTouch()
             config_phR_Screen();
           }
         }
-        if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+        if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
         {
           waitForIt(menU[0], menU[1], menU[2], menU[3]);
           dispScreen=14;
@@ -1231,10 +1128,10 @@ void processMyTouch()
         setORP = ORP2beS;
         offORP = ORP2beO;
         alarmORP = ORP2beA;
-        dispScreen=0;
+        dispScreen=14;
         SaveORPToEEPROM();
         clearScreen();
-        mainScreen(true);
+        parametroScreen();
       } 
       else
       {
@@ -1304,7 +1201,7 @@ void processMyTouch()
             config_orp_Screen();
           }
         }
-        if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+        if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
         {
           waitForIt(menU[0], menU[1], menU[2], menU[3]);
           dispScreen=14;
@@ -1315,14 +1212,14 @@ void processMyTouch()
       }
       break;
     case 17:   //---------------------Tela grafico de ph do reator de calcio-------------------------------------
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
+      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
         clearScreen();
         menuScreen(); 
       }
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // volta a tela de graficos
+      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta a tela de graficos
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen=9;
@@ -1338,10 +1235,10 @@ void processMyTouch()
         setPHA = PHA2beS;
         offPHA = PHA2beO;
         alarmPHA = PHA2beA;
-        dispScreen=0;
+        dispScreen=14;
         SavePHAToEEPROM();
         clearScreen();
-        mainScreen(true);
+        parametroScreen();
       } 
       else
       {
@@ -1351,11 +1248,11 @@ void processMyTouch()
           {
             waitForIt(temM[0], temM[1], temM[2], temM[3]);
             PHA2beS -= 0.1;
-            config_phA_Screen();
             if (PHA2beS <0.1)
             {
               PHA2beS = 0.0;
             }
+            config_phA_Screen();
           }
           if ((y>=offM[1]) && (y<=offM[3]))                       //press offset minus
           {
@@ -1409,7 +1306,7 @@ void processMyTouch()
             config_phA_Screen();
           }
         }
-        if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+        if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
         {
           waitForIt(menU[0], menU[1], menU[2], menU[3]);
           dispScreen=14;
@@ -1421,14 +1318,14 @@ void processMyTouch()
       break;
 
     case 19://----------------------Tela grafico de densidade----------------------------------
-      if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
+      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           /// volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
         dispScreen=1;
         clearScreen();
         menuScreen(); 
       }
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // volta a tela de graficos
+      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta a tela de graficos
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen=9;
@@ -1444,10 +1341,10 @@ void processMyTouch()
         setDEN = DEN2beS;
         offDEN = DEN2beO;
         alarmDEN = DEN2beA;
-        dispScreen=0;
+        dispScreen=14;
         SaveDENToEEPROM();
         clearScreen();
-        mainScreen(true);
+        parametroScreen();
       } 
       else
       {
@@ -1517,7 +1414,7 @@ void processMyTouch()
             config_dens_Screen();
           }
         }
-        if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+        if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
         {
           waitForIt(menU[0], menU[1], menU[2], menU[3]);
           dispScreen=14;
@@ -1528,32 +1425,22 @@ void processMyTouch()
       break;
     case 21: // ------------------------------------------------ Escolher dosadora -----------------------------------
 
-      if ((x>=dosa1[0]) && x<=dosa1[2] && (y>=dosa1[1]) && (y<=dosa1[3]))         
+      if ((x>=dosa1[0]) && (x<=dosa1[2]) && (y>=dosa1[1]) && (y<=dosa1[3]))         
       {
         waitForIt(dosa1[0], dosa1[1], dosa1[2], dosa1[3]);
         if (modo_manual == true)
         {
-          dosadora_1_selecionada = true;
-          dosadora_2_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,1,1);
+
           dispScreen = 27;
           clearScreen();
           config_dosagem_manual(true);
-        }
-        if (modo_automatico == true)
-        {
-          dosadora_1_selecionada = true;
-          dosadora_2_selecionada = false;
-          dosadora_3_selecionada = false;
-          dispScreen = 28;
-          clearScreen();
-          config_dosagem_automatica(true);
-        }          
+        }     
         if (modo_personalizado == true)
         {
-          dosadora_1_selecionada = true;
-          dosadora_2_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,1,1);         
           dispScreen = 29;
           clearScreen();
           config_dosagem_personalizada(true);
@@ -1561,40 +1448,28 @@ void processMyTouch()
 
         if (modo_calibrar == true)
         {
-          dosadora_1_selecionada = true;
-          dosadora_2_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,1,1);
           dispScreen = 26;
           clearScreen();
           calibrar_dosadoras(true);
         }      
       }
-      if ((x>=dosa2[0]) && x<=dosa2[2] && (y>=dosa2[1]) && (y<=dosa2[3]))         
+      if ((x>=dosa2[0]) && (x<=dosa2[2]) && (y>=dosa2[1]) && (y<=dosa2[3]))         
       {
         waitForIt(dosa2[0], dosa2[1], dosa2[2], dosa2[3]);
         if (modo_manual == true)
         {
-          dosadora_2_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,2,1);
           dispScreen = 27;
           clearScreen();
           config_dosagem_manual(true);
-        }
-        if (modo_automatico == true)
-        {
-          dosadora_2_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_3_selecionada = false;
-          dispScreen = 28;
-          clearScreen();
-          config_dosagem_automatica(true);
-        }          
+        }   
         if (modo_personalizado == true)
         {
-          dosadora_2_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,2,1);
           dispScreen = 29;
           clearScreen();
           config_dosagem_personalizada(true);
@@ -1602,40 +1477,28 @@ void processMyTouch()
 
         if (modo_calibrar == true)
         {
-          dosadora_2_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,2,1);
           dispScreen = 26;
           clearScreen();
           calibrar_dosadoras(true);
         } 
       }
-      if ((x>=dosa3[0]) && x<=dosa3[2] && (y>=dosa3[1]) && (y<=dosa3[3]))         
+      if ((x>=dosa3[0]) && (x<=dosa3[2]) && (y>=dosa3[1]) && (y<=dosa3[3]))         
       {
         waitForIt(dosa3[0], dosa3[1], dosa3[2], dosa3[3]);
         if (modo_manual == true)
         {
-          dosadora_3_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_2_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,3,1);
           dispScreen = 27;
           clearScreen();
           config_dosagem_manual(true);
-        }
-        if (modo_automatico == true)
-        {
-          dosadora_3_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_2_selecionada = false;
-          dispScreen = 28;
-          clearScreen();
-          config_dosagem_automatica(true);
-        }          
+        }     
         if (modo_personalizado == true)
         {
-          dosadora_3_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_2_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,3,1);
           dispScreen = 29;
           clearScreen();
           config_dosagem_personalizada(true);
@@ -1643,14 +1506,100 @@ void processMyTouch()
 
         if (modo_calibrar == true)
         {
-          dosadora_3_selecionada = true;
-          dosadora_1_selecionada = false;
-          dosadora_2_selecionada = false;
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,3,1);
           dispScreen = 26;
           clearScreen();
           calibrar_dosadoras(true);
         }  
       }        
+      if ((x>=dosa4[0]) && x<=dosa4[2] && (y>=dosa4[1]) && (y<=dosa4[3]))         
+      {
+        waitForIt(dosa4[0], dosa4[1], dosa4[2], dosa4[3]);
+        if (modo_manual == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,4,1);       
+          dispScreen = 27;
+          clearScreen();
+          config_dosagem_manual(true);
+        }
+        if (modo_personalizado == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,4,1);
+          dispScreen = 29;
+          clearScreen();
+          config_dosagem_personalizada(true);
+        }
+
+        if (modo_calibrar == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,4,1);
+          dispScreen = 26;
+          clearScreen();
+          calibrar_dosadoras(true);
+        }      
+      }
+      if ((x>=dosa5[0]) && x<=dosa5[2] && (y>=dosa5[1]) && (y<=dosa5[3]))         
+      {
+        waitForIt(dosa5[0], dosa5[1], dosa5[2], dosa5[3]);
+        if (modo_manual == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,5,1);
+          dispScreen = 27;
+          clearScreen();
+          config_dosagem_manual(true);
+        }     
+        if (modo_personalizado == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,5,1);
+          dispScreen = 29;
+          clearScreen();
+          config_dosagem_personalizada(true);
+        }
+
+        if (modo_calibrar == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,5,1);
+          dispScreen = 26;
+          clearScreen();
+          calibrar_dosadoras(true);
+        } 
+      }
+      if ((x>=dosa6[0]) && x<=dosa6[2] && (y>=dosa6[1]) && (y<=dosa6[3]))         
+      {
+        waitForIt(dosa6[0], dosa6[1], dosa6[2], dosa6[3]);
+        if (modo_manual == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,6,1);
+          dispScreen = 27;
+          clearScreen();
+          config_dosagem_manual(true);
+        }
+        if (modo_personalizado == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,6,1);
+          dispScreen = 29;
+          clearScreen();
+          config_dosagem_personalizada(true);
+        }
+
+        if (modo_calibrar == true)
+        {
+          dosadora_selecionada = 0x0;
+          bitWrite(dosadora_selecionada,6,1);
+          dispScreen = 26;
+          clearScreen();
+          calibrar_dosadoras(true);
+        }  
+      }
       if ((x>=menU[0]) && x<=menU[2] && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
       {
         waitForIt(menU[0], menU[1], menU[2], menU[3]);
@@ -1666,9 +1615,531 @@ void processMyTouch()
         menu_dosadoras();
       }
       break;
+    case 22:// ----------------------------------------- Teste individual dos leds -----------------------
+      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+      {
+        waitForIt(menU[0], menU[1], menU[2], menU[3]);
+        dispScreen = 1;
+        clearScreen();
+        menuScreen();    
+      }
+      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta a tela escolher teste
+      {
+        waitForIt(volT[0], volT[1], volT[2], volT[3]);
+        dispScreen=25;
+        clearScreen();
+        escolher_teste(); 
+      }
+      if((y >= 44) && (y <= 172))//**************** Controle deslizante - início.
+      {
+        teste_em_andamento = true;
+        if((x >= 49) && (x<=93))
+        {
+          y_tocado = y;
+          desenhar_barras(cor_canal1[0], cor_canal1[1],cor_canal1[2], 49, 44, 93, 172);
+          wled_out_temp = map(y_tocado, 172, 44, 0, 255);
 
+          if(wled_out_temp >=100)
+          {
+            myGLCD.printNumI(wled_out_temp, 61, 186); 
+          }
+          if((wled_out_temp >= 10) && (wled_out_temp < 100))
+          {
+            myGLCD.print("0", 61, 186);  
+            myGLCD.printNumI(wled_out_temp, 69, 186); 
+          } 
+          if(wled_out_temp < 10)
+          {
+            myGLCD.print("00", 61, 186);  
+            myGLCD.printNumI(wled_out_temp, 77, 186); 
+          }         
+        }
+        if((x >= 101) && (x <= 145)) //**************** Controle deslizante
+        {
+          y_tocado = y;
+          desenhar_barras(cor_canal2[0], cor_canal2[1],cor_canal2[2], 101, 44, 145, 172);
+          bled_out_temp = map(y_tocado, 172, 44, 0, 255);
+
+          if(bled_out_temp >= 100)
+          {
+            myGLCD.printNumI(bled_out_temp, 113, 186);
+          }
+          if((bled_out_temp >= 10) && (bled_out_temp < 100))
+          {
+            myGLCD.print("0", 113, 186);
+            myGLCD.printNumI(bled_out_temp, 121, 186);
+          }
+          if(bled_out_temp < 10)
+          {
+            myGLCD.print("00", 113, 186);
+            myGLCD.printNumI(bled_out_temp, 129, 186);
+          }
+        }
+        if((x >= 153) && (x <= 197)) //**************** Controle deslizante
+        {
+          y_tocado = y;
+          desenhar_barras(cor_canal3[0], cor_canal3[1],cor_canal3[2], 153, 44, 197, 172);
+          rbled_out_temp = map(y_tocado, 172, 44, 0, 255);
+
+          if(rbled_out_temp >= 100)
+          {
+            myGLCD.printNumI(rbled_out_temp, 165, 186);
+          }
+          if((rbled_out_temp >= 10) && (rbled_out_temp < 100))
+          {
+            myGLCD.print("0", 165, 186);
+            myGLCD.printNumI(rbled_out_temp, 173, 186);
+          }
+          if(rbled_out_temp < 10)
+          {
+            myGLCD.print("00", 165, 186);
+            myGLCD.printNumI(rbled_out_temp, 181, 186);
+          }
+        }
+        if((x >= 205) && (x <= 249)) //**************** Controle deslizante
+        {
+          y_tocado = y;
+          desenhar_barras(cor_canal4[0], cor_canal4[1],cor_canal4[2], 205, 44, 249, 172);
+          rled_out_temp = map(y_tocado, 172, 44, 0, 255);
+
+          if(rled_out_temp >= 100)
+          {
+            myGLCD.printNumI(rled_out_temp, 217, 186);
+          }
+          if((rled_out_temp >= 10) && (rled_out_temp < 100))
+          {
+            myGLCD.print("0", 217, 186);
+            myGLCD.printNumI(rled_out_temp, 225, 186);
+          }          
+          if(rled_out_temp < 10)
+          {
+            myGLCD.print("00", 217, 186);
+            myGLCD.printNumI(rled_out_temp, 233, 186);
+          }          
+        }       
+        if((x >= 257) && (x <= 301)) //**************** Controle deslizante
+        {
+          y_tocado = y;
+          desenhar_barras(cor_canal5[0], cor_canal5[1],cor_canal5[2], 257, 44, 301, 172); 
+          uvled_out_temp = map(y_tocado, 172, 44, 0, 255);
+          if(uvled_out_temp >= 100)
+          {
+            myGLCD.printNumI(uvled_out_temp, 269, 186);
+          }
+          if((uvled_out_temp >= 10) && (uvled_out_temp < 100))
+          {
+            myGLCD.print("0", 269, 186);
+            myGLCD.printNumI(uvled_out_temp, 277, 186);
+          }
+          if(uvled_out_temp < 10)
+          {
+            myGLCD.print("00", 269, 186);
+            myGLCD.printNumI(uvled_out_temp, 285, 186);
+          } 
+        }
+      }//**************** Controle deslizante - fim.
+
+      if((y >= 18) && (y <= 41))// Botão mais
+      {
+        teste_em_andamento = true;
+        if((x >= 49) && (x<=93))
+        {
+          waitForIt(49, 18, 93, 41);
+          wled_out_temp += 1;
+          delay(50);
+          if(wled_out_temp > 255)
+          {
+            wled_out_temp = 255;
+          }
+          y_tocado = map(wled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal1[0], cor_canal1[1],cor_canal1[2], 49, 44, 93, 172);
+          if(wled_out_temp >=100)
+          {
+            myGLCD.printNumI(wled_out_temp, 61, 186); 
+          }
+          if((wled_out_temp >= 10) && (wled_out_temp < 100))
+          {
+            myGLCD.print("0", 61, 186);  
+            myGLCD.printNumI(wled_out_temp, 69, 186); 
+          } 
+          if(wled_out_temp < 10)
+          {
+            myGLCD.print("00", 61, 186);  
+            myGLCD.printNumI(wled_out_temp, 77, 186); 
+          }  
+        }
+        if((x >= 101) && (x <= 145)) // Botão mais
+        {
+          waitForIt(101, 18, 145, 41);
+          bled_out_temp += 1;
+          delay(50);
+          if(bled_out_temp > 255)
+          {
+            bled_out_temp = 255;
+          }
+          y_tocado = map(bled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal2[0], cor_canal2[1],cor_canal2[2], 101, 44, 145, 172);
+
+          if(bled_out_temp >= 100)
+          {
+            myGLCD.printNumI(bled_out_temp, 113, 186);
+          }
+          if((bled_out_temp >= 10) && (bled_out_temp < 100))
+          {
+            myGLCD.print("0", 113, 186);
+            myGLCD.printNumI(bled_out_temp, 121, 186);
+          }
+          if(bled_out_temp < 10)
+          {
+            myGLCD.print("00", 113, 186);
+            myGLCD.printNumI(bled_out_temp, 129, 186);
+          }
+        }
+        if((x >= 153) && (x <= 197)) // Botão mais
+        {
+          waitForIt(153, 18, 197, 41);
+          rbled_out_temp += 1;
+          delay(50);
+          if(rbled_out_temp > 255)
+          {
+            rbled_out_temp = 255;
+          }
+          y_tocado = map(rbled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal3[0], cor_canal3[1],cor_canal3[2], 153, 44, 197, 172);
+          if(rbled_out_temp >= 100)
+          {
+            myGLCD.printNumI(rbled_out_temp, 165, 186);
+          }
+          if((rbled_out_temp >= 10) && (rbled_out_temp < 100))
+          {
+            myGLCD.print("0", 165, 186);
+            myGLCD.printNumI(rbled_out_temp, 173, 186);
+          }
+          if(rbled_out_temp < 10)
+          {
+            myGLCD.print("00", 165, 186);
+            myGLCD.printNumI(rbled_out_temp, 181, 186);
+          }
+        }
+        if((x >= 205) && (x <= 249)) // Botão mais
+        {
+          waitForIt(205, 18, 249, 41);
+          rled_out_temp += 1;
+          delay(50);
+          if(rled_out_temp > 255)
+          {
+            rled_out_temp = 255;
+          }
+          y_tocado = map(rled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal4[0], cor_canal4[1],cor_canal4[2], 205, 44, 249, 172);
+
+          if(rled_out_temp >= 100)
+          {
+            myGLCD.printNumI(rled_out_temp, 217, 186);
+          }
+          if((rled_out_temp >= 10) && (rled_out_temp < 100))
+          {
+            myGLCD.print("0", 217, 186);
+            myGLCD.printNumI(rled_out_temp, 225, 186);
+          }          
+          if(rled_out_temp < 10)
+          {
+            myGLCD.print("00", 217, 186);
+            myGLCD.printNumI(rled_out_temp, 233, 186);
+          }
+        }       
+        if((x >= 257) && (x <= 301)) // Botão mais
+        {
+          waitForIt(257, 18, 301, 41);
+          uvled_out_temp += 1;
+          delay(50);
+          if(uvled_out_temp > 255)
+          {
+            uvled_out_temp = 255;
+          } 
+          y_tocado = map(uvled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal5[0], cor_canal5[1],cor_canal5[2], 257, 44, 301, 172);
+          if(uvled_out_temp >= 100)
+          {
+            myGLCD.printNumI(uvled_out_temp, 269, 186);
+          }
+          if((uvled_out_temp >= 10) && (uvled_out_temp < 100))
+          {
+            myGLCD.print("0", 269, 186);
+            myGLCD.printNumI(uvled_out_temp, 277, 186);
+          }
+          if(uvled_out_temp < 10)
+          {
+            myGLCD.print("00", 269, 186);
+            myGLCD.printNumI(uvled_out_temp, 285, 186);
+          }
+        }
+      }
+      if((y >= 201) && (y <= 224))
+      {
+        teste_em_andamento = true;
+
+        if((x >= 49) && (x <= 93)) // Botão menos
+        {
+          waitForIt(49, 201, 93, 224); 
+          wled_out_temp -= 1;
+          delay(50);
+          if(wled_out_temp < 0)
+          {
+            wled_out_temp = 0;
+          }
+          y_tocado = map(wled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal1[0], cor_canal1[1],cor_canal1[2], 49, 44, 93, 172);
+          if(wled_out_temp >=100)
+          {
+            myGLCD.printNumI(wled_out_temp, 61, 186); 
+          }
+          if((wled_out_temp >= 10) && (wled_out_temp < 100))
+          {
+            myGLCD.print("0", 61, 186);  
+            myGLCD.printNumI(wled_out_temp, 69, 186); 
+          } 
+          if(wled_out_temp < 10)
+          {
+            myGLCD.print("00", 61, 186);  
+            myGLCD.printNumI(wled_out_temp, 77, 186); 
+          }
+        }
+        if((x >= 101) && (x <= 145)) // Botão menos
+        {
+          waitForIt(101, 201, 145, 224);
+          bled_out_temp -= 1;
+          delay(50);
+          if(bled_out_temp < 0)
+          {
+            bled_out_temp = 0;
+          }
+          y_tocado = map(bled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal2[0], cor_canal2[1],cor_canal2[2], 101, 44, 145, 172);
+
+          if(bled_out_temp >= 100)
+          {
+            myGLCD.printNumI(bled_out_temp, 113, 186);
+          }
+          if((bled_out_temp >= 10) && (bled_out_temp < 100))
+          {
+            myGLCD.print("0", 113, 186);
+            myGLCD.printNumI(bled_out_temp, 121, 186);
+          }
+          if(bled_out_temp < 10)
+          {
+            myGLCD.print("00", 113, 186);
+            myGLCD.printNumI(bled_out_temp, 129, 186);
+          }
+        }
+        if((x >= 153) && (x <= 197)) // Botão menos
+        {
+          waitForIt(153, 201, 197, 224);
+          rbled_out_temp -= 1;
+          delay(50);
+          if(rbled_out_temp < 0)
+          {
+            rbled_out_temp = 0;
+          }
+          y_tocado = map(rbled_out_temp, 255, 0, 44, 172);
+
+          desenhar_barras(cor_canal3[0], cor_canal3[1],cor_canal3[2], 153, 44, 197, 172);
+          if(rbled_out_temp >= 100)
+          {
+            myGLCD.printNumI(rbled_out_temp, 165, 186);
+          }
+          if((rbled_out_temp >= 10) && (rbled_out_temp < 100))
+          {
+            myGLCD.print("0", 165, 186);
+            myGLCD.printNumI(rbled_out_temp, 173, 186);
+          }
+          if(rbled_out_temp < 10)
+          {
+            myGLCD.print("00", 165, 186);
+            myGLCD.printNumI(rbled_out_temp, 181, 186);
+          }
+        }
+        if((x >= 205) && (x <= 249)) // Botão menos
+        {
+          waitForIt(205, 201, 249, 224);
+          rled_out_temp -= 1;
+          delay(50);
+          if(rled_out_temp < 0)
+          {
+            rled_out_temp = 0;
+          }
+          y_tocado = map(rled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal4[0], cor_canal4[1],cor_canal4[2], 205, 44, 249, 172);
+
+          if(rled_out_temp >= 100)
+          {
+            myGLCD.printNumI(rled_out_temp, 217, 186);
+          }
+          if((rled_out_temp >= 10) && (rled_out_temp < 100))
+          {
+            myGLCD.print("0", 217, 186);
+            myGLCD.printNumI(rled_out_temp, 225, 186);
+          }
+          if(rled_out_temp < 10)
+          {
+            myGLCD.print("00", 217, 186);
+            myGLCD.printNumI(rled_out_temp, 233, 186);
+          }
+        }       
+        if((x >= 257) && (x <= 301)) // Botão menos
+        {
+          waitForIt(257, 201, 301, 224);  
+          uvled_out_temp -= 1;
+          delay(50);
+          if(uvled_out_temp < 0)
+          {
+            uvled_out_temp = 0;
+          }
+          y_tocado = map(uvled_out_temp, 255, 0, 44, 172);
+          desenhar_barras(cor_canal5[0], cor_canal5[1],cor_canal5[2], 257, 44, 301, 172);
+          if(uvled_out_temp >= 100)
+          {
+            myGLCD.printNumI(uvled_out_temp, 269, 186);
+          }
+          if((uvled_out_temp >= 10) && (uvled_out_temp < 100))
+          {
+            myGLCD.print("0", 269, 186);
+            myGLCD.printNumI(uvled_out_temp, 277, 186);
+          }
+          if(uvled_out_temp < 10)
+          {
+            myGLCD.print("00", 269, 186);
+            myGLCD.printNumI(uvled_out_temp, 285, 186);
+          }
+        }
+      }
+      break;
+    case 23:// -------------------------------- Rever configuração das dosadoras modo personalizado ------------------------------------------
+      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+      {
+        waitForIt(menU[0], menU[1], menU[2], menU[3]);
+        dispScreen = 1;
+        clearScreen();
+        menuScreen(); 
+      }
+      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta ao menu de revisão das dosadoras
+      {
+        waitForIt(volT[0], volT[1], volT[2], volT[3]);
+        dispScreen=34;
+        clearScreen();
+        rever_dosagem_personalizada();
+      }
+      break;
+    case 24:// -------------------------------------- Desativar dosadoras ------------------------------------------
+      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
+      {
+        waitForIt(menU[0], menU[1], menU[2], menU[3]);
+        dispScreen = 1;
+        clearScreen();
+        menuScreen();    
+      }
+      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta ao menu desativar dosadoras
+      {
+        waitForIt(volT[0], volT[1], volT[2], volT[3]);
+        dispScreen = 35;
+        clearScreen();
+        desativar_dosadoras(true);
+      }
+      if ((x >= 100) && (x <= 220) && (y >= 45) && (y <= 85))           //Ativar/desativar dosadora 4
+      {
+        waitForIt(100, 45, 220, 85);
+
+        if(ativar_desativar_4 == 1)
+        {
+          ativar_desativar_4 = 0;
+          desativar_dosadoras_2();
+        }
+        else
+        {
+          desativar_dosadoras_2(true);
+        }          
+      }
+      if ((x >= 100) && (x <= 220) && (y >= 115) && (y <= 155))           //Ativar/desatiavr dosadora 5
+      {
+        waitForIt(100, 115, 220, 155);
+
+        if(ativar_desativar_5 == 1)
+        {
+          ativar_desativar_5 = 0;
+          desativar_dosadoras_2();
+        }
+        else
+        {
+          desativar_dosadoras_2(true);
+        }          
+      }
+      if ((x >= 100) && (x <= 220) && (y >= 185) && (y <= 225))           //Ativar/desatiavr dosadora 6
+      {
+        waitForIt(100, 185, 220, 225);
+
+        if(ativar_desativar_6 == 1)
+        {
+          ativar_desativar_6 = 0;
+          desativar_dosadoras_2();
+        }
+        else
+        {
+          desativar_dosadoras_2(true);
+        }          
+      }
+      if ((x>=salV[0]) && (x<=salV[2]) && (y>=salV[1]) && (y<=salV[3]))           //Salvar alterações
+      {
+        waitForIt(salV[0], salV[1], salV[2], salV[3]);
+        if(ativar_desativar_4 == 0)
+        {
+          modo_personalizado_on_4 = 0;
+        }
+        if(ativar_desativar_5 == 0)
+        {
+          modo_personalizado_on_5 = 0;
+        }
+        if(ativar_desativar_6 == 0)
+        {
+          modo_personalizado_on_6 = 0;
+        }
+        Salvar_dosadora_EEPROM(); 
+        dispScreen = 0;
+        clearScreen();
+        mainScreen(true);       
+      }
+      break;
+    case 25:// ------------------------------------ Escolher teste dos leds --------------------------------------------
+      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu 1
+      {
+        waitForIt(menU[0], menU[1], menU[2], menU[3]);
+        dispScreen = 1;
+        clearScreen();
+        menuScreen();    
+      } 
+      else if ((x>=testI[0]) && (x<=testI[2]) && (y>=testI[1]) && (y<=testI[3]))           // Teste individual
+      {
+        waitForIt(testI[0], testI[1], testI[2], testI[3]);
+        dispScreen = 22;
+        clearScreen();
+        teste_individual_leds(); 
+      }   
+      else if ((x>=testT[0]) && (x<=testT[2]) && (y>=testT[1]) && (y<=testT[3]))           // Testar todos
+      {
+        waitForIt(testT[0], testT[1], testT[2], testT[3]);
+        dispScreen = 3;
+        clearScreen();
+        testScreen(true); 
+      }            
+      else if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta ao menu desativar dosadoras
+      {
+        waitForIt(volT[0], volT[1], volT[2], volT[3]);
+        dispScreen=40;
+        clearScreen();
+        config_leds();
+      }
+      break;
     case 26: //------------------------------------ calibrar dosadoras -------------------------------------------
-      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (dosadora_1_selecionada == true))            //fator calibracao mais.
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,1) == true))            //fator calibracao mais.
       {
         waitForIt(almP[0], almP[1], almP[2], almP[3]);
         fator_calib_dosadora_1_temp2 += 0.1;
@@ -1678,7 +2149,7 @@ void processMyTouch()
         }
         calibrar_dosadoras();
       }
-      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (dosadora_1_selecionada == true))            //fator calibracao menos.
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,1) == true))            //fator calibracao menos.
       {
         waitForIt(almM[0], almM[1], almM[2], almM[3]);
         fator_calib_dosadora_1_temp2 -= 0.1;
@@ -1688,7 +2159,7 @@ void processMyTouch()
         }
         calibrar_dosadoras();
       }
-      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (dosadora_2_selecionada == true))            //fator calibracao mais.
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,2) == true))            //fator calibracao mais.
       {
         waitForIt(almP[0], almP[1], almP[2], almP[3]);
         fator_calib_dosadora_2_temp2 += 0.1;
@@ -1698,7 +2169,7 @@ void processMyTouch()
         }
         calibrar_dosadoras();
       }
-      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (dosadora_2_selecionada == true))            //fator calibracao menos.
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,2) == true))            //fator calibracao menos.
       {
         waitForIt(almM[0], almM[1], almM[2], almM[3]);
         fator_calib_dosadora_2_temp2 -= 0.1;
@@ -1708,7 +2179,7 @@ void processMyTouch()
         }
         calibrar_dosadoras();
       }          
-      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (dosadora_3_selecionada == true))            //fator calibracao mais.
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,3) == true))            //fator calibracao mais.
       {
         waitForIt(almP[0], almP[1], almP[2], almP[3]);
         fator_calib_dosadora_3_temp2 += 0.1;
@@ -1718,7 +2189,7 @@ void processMyTouch()
         }
         calibrar_dosadoras();
       }
-      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (dosadora_3_selecionada == true))            //fator calibracao menos.
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,3) == true))            //fator calibracao menos.
       {
         waitForIt(almM[0], almM[1], almM[2], almM[3]);
         fator_calib_dosadora_3_temp2 -= 0.1;
@@ -1728,10 +2199,70 @@ void processMyTouch()
         }
         calibrar_dosadoras();
       }    
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,4) == true))            //fator calibracao mais.
+      {
+        waitForIt(almP[0], almP[1], almP[2], almP[3]);
+        fator_calib_dosadora_4_temp2 += 0.1;
+        if (fator_calib_dosadora_4_temp2 > 99.9)
+        {
+          fator_calib_dosadora_4_temp2 = 0.0;
+        }
+        calibrar_dosadoras();
+      }
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,4) == true))            //fator calibracao menos.
+      {
+        waitForIt(almM[0], almM[1], almM[2], almM[3]);
+        fator_calib_dosadora_4_temp2 -= 0.1;
+        if (fator_calib_dosadora_4_temp2 < 0.1)
+        {
+          fator_calib_dosadora_4_temp2 = 99.9;
+        }
+        calibrar_dosadoras();
+      }
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,5) == true))            //fator calibracao mais.
+      {
+        waitForIt(almP[0], almP[1], almP[2], almP[3]);
+        fator_calib_dosadora_5_temp2 += 0.1;
+        if (fator_calib_dosadora_5_temp2 > 99.9)
+        {
+          fator_calib_dosadora_5_temp2 = 0.0;
+        }
+        calibrar_dosadoras();
+      }
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,5) == true))            //fator calibracao menos.
+      {
+        waitForIt(almM[0], almM[1], almM[2], almM[3]);
+        fator_calib_dosadora_5_temp2 -= 0.1;
+        if (fator_calib_dosadora_5_temp2 < 0.1)
+        {
+          fator_calib_dosadora_5_temp2 = 99.9;
+        }
+        calibrar_dosadoras();
+      }          
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,6) == true))            //fator calibracao mais.
+      {
+        waitForIt(almP[0], almP[1], almP[2], almP[3]);
+        fator_calib_dosadora_6_temp2 += 0.1;
+        if (fator_calib_dosadora_6_temp2 > 99.9)
+        {
+          fator_calib_dosadora_6_temp2 = 0.0;
+        }
+        calibrar_dosadoras();
+      }
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,6) == true))            //fator calibracao menos.
+      {
+        waitForIt(almM[0], almM[1], almM[2], almM[3]);
+        fator_calib_dosadora_6_temp2 -= 0.1;
+        if (fator_calib_dosadora_6_temp2 < 0.1)
+        {
+          fator_calib_dosadora_6_temp2 = 99.9;
+        }
+        calibrar_dosadoras();
+      }
       if ((x>=salV[0]) && x<=salV[2] && (y>=salV[1]) && (y<=salV[3]))
       {
         waitForIt(salV[0], salV[1], salV[2], salV[3]); // Função salvar
-        if(dosadora_1_selecionada == true)
+        if(bitRead(dosadora_selecionada,1) == true)
         {
           fator_calib_dosadora_1 = fator_calib_dosadora_1_temp2;
           Salvar_dosadora_EEPROM();
@@ -1739,19 +2270,16 @@ void processMyTouch()
           clearScreen();
           selecionar_dosadora();
           setFont(SMALL, 255, 255, 255, 0, 0, 0);
-          
+
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
           myGLCD.print(buffer, 15, 220);
-          
+
           modo_manual = false;
-          modo_automatico = false;
           modo_personalizado = false;
           modo_calibrar = true;
-          dosadora_1_selecionada = false;
-          dosadora_2_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
         }        
-        if(dosadora_2_selecionada == true)
+        if(bitRead(dosadora_selecionada,2) == true)
         {
           fator_calib_dosadora_2 = fator_calib_dosadora_2_temp2;
           Salvar_dosadora_EEPROM();
@@ -1759,19 +2287,16 @@ void processMyTouch()
           clearScreen();
           selecionar_dosadora();
           setFont(SMALL, 255, 255, 255, 0, 0, 0);
-          
+
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
           myGLCD.print(buffer, 15, 220);
-          
+
           modo_manual = false;
-          modo_automatico = false;
           modo_personalizado = false;
           modo_calibrar = true;
-          dosadora_1_selecionada = false;
-          dosadora_2_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
         }
-        if(dosadora_3_selecionada == true)
+        if(bitRead(dosadora_selecionada,3) == true)
         {
           fator_calib_dosadora_3 = fator_calib_dosadora_3_temp2;
           Salvar_dosadora_EEPROM();
@@ -1779,17 +2304,65 @@ void processMyTouch()
           clearScreen();
           selecionar_dosadora();
           setFont(SMALL, 255, 255, 255, 0, 0, 0);
-          
+
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
           myGLCD.print(buffer, 15, 220);
-          
+
           modo_manual = false;
-          modo_automatico = false;
           modo_personalizado = false;
           modo_calibrar = true;
-          dosadora_1_selecionada = false;
-          dosadora_2_selecionada = false;
-          dosadora_3_selecionada = false;
+          dosadora_selecionada = 0x0;
+        }
+        if(bitRead(dosadora_selecionada,4) == true)
+        {
+          fator_calib_dosadora_4 = fator_calib_dosadora_4_temp2;
+          Salvar_dosadora_EEPROM();
+          dispScreen = 21;
+          clearScreen();
+          selecionar_dosadora();
+          setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
+          myGLCD.print(buffer, 15, 220);
+
+          modo_manual = false;
+          modo_personalizado = false;
+          modo_calibrar = true;
+          dosadora_selecionada = 0x0;
+        }        
+        if(bitRead(dosadora_selecionada,5) == true)
+        {
+          fator_calib_dosadora_5 = fator_calib_dosadora_5_temp2;
+          Salvar_dosadora_EEPROM();
+          dispScreen = 21;
+          clearScreen();
+          selecionar_dosadora();
+          setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
+          myGLCD.print(buffer, 15, 220);
+
+          modo_manual = false;
+          modo_personalizado = false;
+          modo_calibrar = true;
+          dosadora_selecionada = 0x0;
+        }
+        if(bitRead(dosadora_selecionada,6) == true)
+        {
+          fator_calib_dosadora_6 = fator_calib_dosadora_6_temp2;
+          Salvar_dosadora_EEPROM();
+          dispScreen = 21;
+          clearScreen();
+          selecionar_dosadora();
+          setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
+          myGLCD.print(buffer, 15, 220);
+
+          modo_manual = false;
+          modo_personalizado = false;
+          modo_calibrar = true;
+          dosadora_selecionada = 0x0;
         }
       }      
       if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // Volta a tela altera configuracao das dosadoras
@@ -1799,22 +2372,19 @@ void processMyTouch()
         clearScreen();
         selecionar_dosadora();
         setFont(SMALL, 255, 255, 255, 0, 0, 0);
-        
+
         strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[172])));
         myGLCD.print(buffer, 15, 220);
 
         modo_manual = false;
-        modo_automatico = false;
         modo_personalizado = false;
         modo_calibrar = true;
-        dosadora_1_selecionada = false;
-        dosadora_2_selecionada = false;
-        dosadora_3_selecionada = false; 
+        dosadora_selecionada = 0x0;
       }
-      if ((x>=iniciaR[0]) && x<=iniciaR[2] && (y>=iniciaR[1]) && (y<=iniciaR[3]))
+      if ((x>=iniciaR[0]) && (x<=iniciaR[2]) && (y>=iniciaR[1]) && (y<=iniciaR[3]))
       {
         waitForIt(iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
-        if((modo_calibrar == true) && (dosadora_1_selecionada == true))
+        if((modo_calibrar == true) && (bitRead(dosadora_selecionada,1) == true))
         {
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
           printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
@@ -1823,11 +2393,11 @@ void processMyTouch()
           digitalWrite(dosadora1, HIGH);
           delay(60000);
           digitalWrite(dosadora1, LOW);
-          
+
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
           printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
         }
-        if((modo_calibrar == true) && (dosadora_2_selecionada == true))
+        if((modo_calibrar == true) && (bitRead(dosadora_selecionada,2) == true))
         {
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
           printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
@@ -1835,11 +2405,11 @@ void processMyTouch()
           digitalWrite(dosadora2, HIGH);
           delay(60000);
           digitalWrite(dosadora2, LOW);
-          
+
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
           printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
         }
-        if((modo_calibrar == true) && (dosadora_3_selecionada == true))
+        if((modo_calibrar == true) && (bitRead(dosadora_selecionada,3) == true))
         {
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
           printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
@@ -1847,14 +2417,51 @@ void processMyTouch()
           digitalWrite(dosadora3, HIGH);
           delay(60000);
           digitalWrite(dosadora3, LOW);
-          
+
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+          printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+        }
+        if((modo_calibrar == true) && (bitRead(dosadora_selecionada,4) == true))
+        {
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+          printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+
+          delay(10000);
+          digitalWrite(dosadora4, HIGH);
+          delay(60000);
+          digitalWrite(dosadora4, LOW);
+
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+          printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+        }
+        if((modo_calibrar == true) && (bitRead(dosadora_selecionada,5) == true))
+        {
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+          printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+          delay(10000);
+          digitalWrite(dosadora5, HIGH);
+          delay(60000);
+          digitalWrite(dosadora5, LOW);
+
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+          printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+        }
+        if((modo_calibrar == true) && (bitRead(dosadora_selecionada,6) == true))
+        {
+          strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+          printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+          delay(10000);
+          digitalWrite(dosadora6, HIGH);
+          delay(60000);
+          digitalWrite(dosadora6, LOW);
+
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
           printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
         }
       }      
       break;
     case 27:   // ----------------------------------------- Config dosagem manual --------------------------------------
-      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (dosadora_1_selecionada == true))            //dose manual mais.
+      if ((x>=almP[0]) && (x<=almP[2]) && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,1) == true))            //dose manual mais.
       {
         waitForIt(almP[0], almP[1], almP[2], almP[3]);
         dose_dosadora_1_manual += 0.5;
@@ -1864,7 +2471,7 @@ void processMyTouch()
         }
         config_dosagem_manual();
       }
-      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (dosadora_1_selecionada == true))            //dose manual menos.
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,1) == true))            //dose manual menos.
       {
         waitForIt(almM[0], almM[1], almM[2], almM[3]);
         dose_dosadora_1_manual -= 0.5;
@@ -1874,7 +2481,7 @@ void processMyTouch()
         }
         config_dosagem_manual();
       }
-      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (dosadora_2_selecionada == true))            //dose manual mais.
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,2) == true))            //dose manual mais.
       {
         waitForIt(almP[0], almP[1], almP[2], almP[3]);
         dose_dosadora_2_manual += 0.5;
@@ -1884,7 +2491,7 @@ void processMyTouch()
         }
         config_dosagem_manual();
       }
-      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (dosadora_2_selecionada == true))            //dose manual menos.
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,2) == true))            //dose manual menos.
       {
         waitForIt(almM[0], almM[1], almM[2], almM[3]);
         dose_dosadora_2_manual -= 0.5;
@@ -1894,7 +2501,7 @@ void processMyTouch()
         }
         config_dosagem_manual();
       }          
-      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (dosadora_3_selecionada == true))            //dose manual mais.
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,3) == true))            //dose manual mais.
       {
         waitForIt(almP[0], almP[1], almP[2], almP[3]);
         dose_dosadora_3_manual += 0.5;
@@ -1904,7 +2511,7 @@ void processMyTouch()
         }
         config_dosagem_manual();
       }
-      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (dosadora_3_selecionada == true))            //dose manual menos.
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,3) == true))            //dose manual menos.
       {
         waitForIt(almM[0], almM[1], almM[2], almM[3]);
         dose_dosadora_3_manual -= 0.5;
@@ -1914,7 +2521,66 @@ void processMyTouch()
         }
         config_dosagem_manual();
       }    
-
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,4) == true))            //dose manual mais.
+      {
+        waitForIt(almP[0], almP[1], almP[2], almP[3]);
+        dose_dosadora_4_manual += 0.5;
+        if (dose_dosadora_4_manual > 99.5)
+        {
+          dose_dosadora_4_manual = 0.0;
+        }
+        config_dosagem_manual();
+      }
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,4) == true))            //dose manual menos.
+      {
+        waitForIt(almM[0], almM[1], almM[2], almM[3]);
+        dose_dosadora_4_manual -= 0.5;
+        if (dose_dosadora_4_manual < 0.5)
+        {
+          dose_dosadora_4_manual = 99.5;
+        }
+        config_dosagem_manual();
+      }
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,5) == true))            //dose manual mais.
+      {
+        waitForIt(almP[0], almP[1], almP[2], almP[3]);
+        dose_dosadora_5_manual += 0.5;
+        if (dose_dosadora_5_manual > 99.5)
+        {
+          dose_dosadora_5_manual = 0.0;
+        }
+        config_dosagem_manual();
+      }
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,5) == true))            //dose manual menos.
+      {
+        waitForIt(almM[0], almM[1], almM[2], almM[3]);
+        dose_dosadora_5_manual -= 0.5;
+        if (dose_dosadora_5_manual < 0.5)
+        {
+          dose_dosadora_5_manual = 99.5;
+        }
+        config_dosagem_manual();
+      }          
+      if ((x>=almP[0]) && x<=almP[2] && (y>=almP[1]) && (y<=almP[3]) && (bitRead(dosadora_selecionada,6) == true))            //dose manual mais.
+      {
+        waitForIt(almP[0], almP[1], almP[2], almP[3]);
+        dose_dosadora_6_manual += 0.5;
+        if (dose_dosadora_6_manual > 99.5)
+        {
+          dose_dosadora_6_manual = 0.5;
+        }
+        config_dosagem_manual();
+      }
+      if ((x>=almM[0]) && x<=almM[2] && (y>=almM[1]) && (y<=almM[3]) && (bitRead(dosadora_selecionada,6) == true))            //dose manual menos.
+      {
+        waitForIt(almM[0], almM[1], almM[2], almM[3]);
+        dose_dosadora_6_manual -= 0.5;
+        if (dose_dosadora_6_manual < 0.5)
+        {
+          dose_dosadora_6_manual = 99.5;
+        }
+        config_dosagem_manual();
+      }
       if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // Volta a tela altera configuracao das dosadoras
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
@@ -1922,980 +2588,191 @@ void processMyTouch()
         clearScreen();
         selecionar_dosadora();
         setFont(SMALL, 255, 255, 255, 0, 0, 0);
-        
+
         strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[164])));
         myGLCD.print(buffer, 15, 220);
 
         modo_manual = true;
-        modo_automatico = false;
         modo_personalizado = false;
         modo_calibrar = false;
-        dosadora_1_selecionada = false;
-        dosadora_2_selecionada = false;
-        dosadora_3_selecionada = false; 
+        dosadora_selecionada = 0x0; 
       }
       if ((x>=iniciaR[0]) && x<=iniciaR[2] && (y>=iniciaR[1]) && (y<=iniciaR[3]))
       {
         waitForIt(iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
-        if((modo_manual == true) && (dosadora_1_selecionada == true))
+        if((modo_manual == true) && (bitRead(dosadora_selecionada,1) == true))
         {
           if(fator_calib_dosadora_1 > 10)
           {
             strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
             printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
-            
-            tempo_dosagem_1 = map ((dose_dosadora_1_manual*2), 0, fator_calib_dosadora_1, 0, 60000);
-            tempo_dosagem_1 /= 2;                 
+
+            tempo_dosagem = map ((dose_dosadora_1_manual*2), 0, fator_calib_dosadora_1, 0, 60000);
+            tempo_dosagem /= 2;                 
             delay(10000);
             digitalWrite(dosadora1, HIGH);
-            delay(tempo_dosagem_1);
+            delay(tempo_dosagem);
             digitalWrite(dosadora1, LOW);
-            
+
             strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
             printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
           }
         }
-        if((modo_manual == true) && (dosadora_2_selecionada == true))
+        if((modo_manual == true) && (bitRead(dosadora_selecionada,2) == true))
         {
           if(fator_calib_dosadora_2 > 10)
           {
             strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
             printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
 
-            tempo_dosagem_1 = map ((dose_dosadora_2_manual*2), 0, fator_calib_dosadora_2, 0, 60000);
-            tempo_dosagem_1 /= 2;
+            tempo_dosagem = map ((dose_dosadora_2_manual*2), 0, fator_calib_dosadora_2, 0, 60000);
+            tempo_dosagem /= 2;
             delay(10000);
             digitalWrite(dosadora2, HIGH);
-            delay(tempo_dosagem_1);
+            delay(tempo_dosagem);
             digitalWrite(dosadora2, LOW);
 
             strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
             printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
           }
         }
-        if((modo_manual == true) && (dosadora_3_selecionada == true))
+        if((modo_manual == true) && (bitRead(dosadora_selecionada,3) == true))
         {
           if(fator_calib_dosadora_3 > 10)
           {
             strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
             printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
-            
-            tempo_dosagem_1 = map ((dose_dosadora_3_manual*2), 0, fator_calib_dosadora_3, 0, 60000);
-            tempo_dosagem_1 /= 2;
+
+            tempo_dosagem = map ((dose_dosadora_3_manual*2), 0, fator_calib_dosadora_3, 0, 60000);
+            tempo_dosagem /= 2;
             delay(10000);
             digitalWrite(dosadora3, HIGH);
-            delay(tempo_dosagem_1);
+            delay(tempo_dosagem);
             digitalWrite(dosadora3, LOW);
-          
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));            
+            printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+          }
+        }
+        if((modo_manual == true) && (bitRead(dosadora_selecionada,4) == true))
+        {
+          if(fator_calib_dosadora_4 > 10)
+          {
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+            printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+
+            tempo_dosagem = map ((dose_dosadora_4_manual*2), 0, fator_calib_dosadora_4, 0, 60000);
+            tempo_dosagem /= 2;                 
+            delay(10000);
+            digitalWrite(dosadora4, HIGH);
+            delay(tempo_dosagem);
+            digitalWrite(dosadora4, LOW);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+            printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+          }
+        }
+        if((modo_manual == true) && (bitRead(dosadora_selecionada,5) == true))
+        {
+          if(fator_calib_dosadora_5 > 10)
+          {
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+            printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+
+            tempo_dosagem = map ((dose_dosadora_5_manual*2), 0, fator_calib_dosadora_5, 0, 60000);
+            tempo_dosagem /= 2;
+            delay(10000);
+            digitalWrite(dosadora5, HIGH);
+            delay(tempo_dosagem);
+            digitalWrite(dosadora5, LOW);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+            printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+          }
+        }
+        if((modo_manual == true) && (bitRead(dosadora_selecionada,6) == true))
+        {
+          if(fator_calib_dosadora_6 > 10)
+          {
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));
+            printButton_verde(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
+
+            tempo_dosagem = map ((dose_dosadora_6_manual*2), 0, fator_calib_dosadora_6, 0, 60000);
+            tempo_dosagem /= 2;
+            delay(10000);
+            digitalWrite(dosadora6, HIGH);
+            delay(tempo_dosagem);
+            digitalWrite(dosadora6, LOW);
+
             strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[17])));            
             printButton(buffer, iniciaR[0], iniciaR[1], iniciaR[2], iniciaR[3]);
           }
         }
       }      
       break;
-    case 28:   // ----------------------------------------- Config dosagem automatica --------------------------------------
 
-      if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // // Volta a tela altera configuracao das dosadoras
+    case 28:  //--------------------------------Escolher canal LEDS-----------------------------------
+      if ((x >= tempG[0]) && (x <= tempG[2]) && (y >= tempG[1]) && (y <= tempG[3]))           
+      {
+        waitForIt(tempG[0], tempG[1], tempG[2], tempG[3]);
+        cor_selecionada = 0x0;
+        bitWrite(cor_selecionada,1,1);
+        dispScreen=5;
+        clearScreen(); 
+        ledSetScreen();
+      }
+      else if ((x >= phA[0]) && (x <= phA[2]) && (y>=phA[1]) && (y<=phA[3]))           
+      {
+        waitForIt(phA[0], phA[1], phA[2], phA[3]);
+        cor_selecionada = 0x0;
+        bitWrite(cor_selecionada,2,1);
+        dispScreen=5;
+        clearScreen(); 
+        ledSetScreen();
+      } 
+      else if ((x >= phR[0]) && (x <= phR[2]) && (y >= phR[1]) && (y <= phR[3]))           
+      {
+        waitForIt(phR[0], phR[1], phR[2], phR[3]);
+        cor_selecionada = 0x0;
+        bitWrite(cor_selecionada,3,1);
+        dispScreen=5;
+        clearScreen(); 
+        ledSetScreen(); 
+      }
+
+      else if ((x >= orP[0]) && (x <= orP[2]) && (y >= orP[1]) && (y <= orP[3]))           
+      {
+        waitForIt(orP[0], orP[1], orP[2], orP[3]);
+        cor_selecionada = 0x0;
+        bitWrite(cor_selecionada,4,1);
+        dispScreen=5;
+        clearScreen(); 
+        ledSetScreen(); 
+      } 
+      else if ((x >= denS[0]) && (x <= denS[2]) && (y >= denS[1]) && (y <= denS[3]))           
+      {
+        waitForIt(denS[0], denS[1], denS[2], denS[3]);
+        cor_selecionada = 0x0;
+        bitWrite(cor_selecionada,5,1);
+        dispScreen=5;
+        clearScreen(); 
+        ledSetScreen(); 
+      }  
+      else if ((x >= menU[0]) && (x <= menU[2]) && (y >= menU[1]) && (y <= menU[3]))           /// volta ao menu
+      {
+        waitForIt(menU[0], menU[1], menU[2], menU[3]);
+        dispScreen=1;
+        clearScreen();
+        menuScreen(); 
+        ReadFromEEPROM();
+      }          
+      else if ((x>=volT[0]) && x<=volT[2] && (y>=volT[1]) && (y<=volT[3]))           // Volta a tela altera configuracao das dosadoras
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
-        dispScreen = 21;
+        dispScreen = 40;
         clearScreen();
-        selecionar_dosadora();
-        setFont(SMALL, 255, 255, 255, 0, 0, 0);
-
-        strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-        myGLCD.print(buffer, 15, 220); // tabela_textos[165] = "MODO AUTOMATICO SELECIONADO"
-
-        modo_manual = false;
-        modo_automatico = true;
-        modo_personalizado = false;
-        modo_calibrar = false;
-        dosadora_1_selecionada = false;
-        dosadora_2_selecionada = false;
-        dosadora_3_selecionada = false; 
-      }
-      if(dosadora_1_selecionada == true)
-      {
-        if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
-        {
-          if ((x >= houU[0]) && (x <= houU[2])) {
-            waitForIt(houU[0], houU[1], houU[2], houU[3]);
-            hora_inicial_dosagem_automatica_1_temp2 = (hora_inicial_dosagem_automatica_1_temp2 + 1) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minUT[0]) && (x <= minUT[2])) {
-            waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
-            minuto_inicial_dosagem_automatica_1_temp2 = (minuto_inicial_dosagem_automatica_1_temp2 + 1) % 60;
-            config_dosagem_automatica();
-          } 
-
-
-          if ((x >= houU[0] + deslocamento_botao_x) && (x <= houU[2] + deslocamento_botao_x)) {
-            waitForIt(houU[0] + deslocamento_botao_x, houU[1], houU[2] + deslocamento_botao_x, houU[3]);
-            hora_final_dosagem_automatica_1_temp2 = (hora_final_dosagem_automatica_1_temp2 + 1) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minUT[0] + deslocamento_botao_x) && (x <= minUT[2] + deslocamento_botao_x)) {
-            waitForIt(minUT[0] + deslocamento_botao_x, minUT[1], minUT[2] + deslocamento_botao_x, minUT[3]);
-            minuto_final_dosagem_automatica_1_temp2 = (minuto_final_dosagem_automatica_1_temp2 + 1) % 60;
-            config_dosagem_automatica();
-          }
-
-        } 
-        if ((y >= houD[1]) && (y <= houD[3])) // Buttons: Time DOWN
-        {
-          if ((x >= houD[0]) && (x <= houD[2])) {
-            waitForIt(houD[0], houD[1], houD[2], houD[3]);
-            hora_inicial_dosagem_automatica_1_temp2 = (hora_inicial_dosagem_automatica_1_temp2 + 23) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minDT[0]) && (x <= minDT[2])) {
-            waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
-            minuto_inicial_dosagem_automatica_1_temp2 = (minuto_inicial_dosagem_automatica_1_temp2 + 59) % 60;
-            config_dosagem_automatica();
-          } 
-
-          if ((x >= houD[0] + deslocamento_botao_x) && (x <= houD[2] + deslocamento_botao_x)) {
-            waitForIt(houD[0] + deslocamento_botao_x, houD[1], houD[2] + deslocamento_botao_x, houD[3]);
-            hora_final_dosagem_automatica_1_temp2 = (hora_final_dosagem_automatica_1_temp2 + 23) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minDT[0] + deslocamento_botao_x) && (x <= minDT[2] + deslocamento_botao_x)) {
-            waitForIt(minDT[0] + deslocamento_botao_x, minDT[1], minDT[2] + deslocamento_botao_x, minDT[3]);
-            minuto_final_dosagem_automatica_1_temp2 = (minuto_final_dosagem_automatica_1_temp2 + 59) % 60;
-            config_dosagem_automatica();
-          }
-        }
-        if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]+ deslocamento_botao_y) && (y <= minUT[3] + deslocamento_botao_y)) // Dose diaria mais
-        {
-          waitForIt(minUT[0], minUT[1] + deslocamento_botao_y, minUT[2], minUT[3] + deslocamento_botao_y);
-          dose_dosadora_1_automatica_temp2 += 0.5;
-          if(dose_dosadora_1_automatica_temp2 > 999.5)
-          {
-            dose_dosadora_1_automatica_temp2 = 0.5;
-          }
-          if(dose_dosadora_1_automatica_temp2 <= 9.5)
-          {
-            myGLCD.setColor(0, 0, 0);                      
-            myGLCD.fillRect(100, 45 + deslocamento_botao_y, 185, 67 + deslocamento_botao_y);
-          }           
-
-          config_dosagem_automatica();
-        }
-        if ((x >= minDT[0]) && (x <= minDT[2]) && (y >= minDT[1] + deslocamento_botao_y) && (y <= minDT[3] + deslocamento_botao_y)) // Dose diaria menos
-        {
-          waitForIt(minDT[0], minDT[1] + deslocamento_botao_y, minDT[2], minDT[3] + deslocamento_botao_y);
-          dose_dosadora_1_automatica_temp2 -= 0.5;
-          if(dose_dosadora_1_automatica_temp2 <0.5)
-          {
-            dose_dosadora_1_automatica_temp2 = 999.5;
-          }
-          if(dose_dosadora_1_automatica_temp2 <= 9.5)
-          {
-            myGLCD.setColor(0, 0, 0);                      
-            myGLCD.fillRect(100, 45 + deslocamento_botao_y, 185, 67 + deslocamento_botao_y);
-          }
-          config_dosagem_automatica();
-        }
-        if ((x >= durC[0]) && (x <= durC[2]) && (y >= durC[1] + deslocamento_botao_y) && (y <= durC[3] + deslocamento_botao_y)) 
-        {
-          waitForIt(durC[0], durC[1] + deslocamento_botao_y, durC[2], durC[3] + deslocamento_botao_y); 
-          quantidade_dose_dosadora_1_automatica_temp2 += 1;
-          if(quantidade_dose_dosadora_1_automatica_temp2 > 24)
-          {
-            quantidade_dose_dosadora_1_automatica_temp2 = 1;
-          }
-          config_dosagem_automatica();
-        }
-
-        if ((x >= durB[0]) && (x <= durB[2]) && (y >= durB[1] + deslocamento_botao_y) && (y <= durB[3] + deslocamento_botao_y)) 
-        {
-          waitForIt(durB[0], durB[1] + deslocamento_botao_y, durB[2], durB[3] + deslocamento_botao_y);
-          quantidade_dose_dosadora_1_automatica_temp2 -= 1;
-          if(quantidade_dose_dosadora_1_automatica_temp2 < 1)
-          {
-            quantidade_dose_dosadora_1_automatica_temp2 = 24;
-          }
-          config_dosagem_automatica();        
-        }
-        if ((x >= domI[0]) && (x<= domI[2]) && (y >= domI [1]) && (y <= domI[3])) // Ativar ou desativar modo automatico
-        {
-          waitForIt(domI[0], domI[1], domI[2], domI[3]);
-          if(modo_automatico_on_1_temp2 == 0)
-          {
-            modo_automatico_on_1_temp2 = 1;
-            modo_personalizado_on_1_temp2 = 0;
-            config_dosagem_automatica();
-          }
-          else
-          {
-            modo_automatico_on_1_temp2 = 0;
-            modo_personalizado_on_1_temp2 = 1;
-            config_dosagem_automatica();
-          }
-        }
-        if ((y >= salV[1]) && (y <= salV[3]) && (x >= salV[0]) && (x <= salV[2])) 
-        {
-          waitForIt(salV[0], salV[1], salV[2], salV[3]); //funcao salvar
-          dose_dosadora_1_automatica = dose_dosadora_1_automatica_temp2;
-          quantidade_dose_dosadora_1_automatica = quantidade_dose_dosadora_1_automatica_temp2;
-          modo_automatico_on_1 = modo_automatico_on_1_temp2;
-          modo_personalizado_on_1 = modo_personalizado_on_1_temp2;
-          hora_inicial_dosagem_automatica_1 = hora_inicial_dosagem_automatica_1_temp2;
-          minuto_inicial_dosagem_automatica_1 = minuto_inicial_dosagem_automatica_1_temp2;
-          hora_final_dosagem_automatica_1 = hora_final_dosagem_automatica_1_temp2;
-          minuto_final_dosagem_automatica_1 = minuto_final_dosagem_automatica_1_temp2;
-
-          if((hora_final_dosagem_automatica_1_temp2 == hora_inicial_dosagem_automatica_1) && (minuto_final_dosagem_automatica_1_temp2 < (minuto_inicial_dosagem_automatica_1+10)))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[166])));
-            myGLCD.print(buffer, 225, 198); // tabela_textos[166]
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[167])));
-            myGLCD.print(buffer, 225, 218);
-
-          }
-          if(hora_final_dosagem_automatica_1_temp2 < hora_inicial_dosagem_automatica_1)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[168])));
-            myGLCD.print(buffer, 225, 198);
-  
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169])));
-            myGLCD.print(buffer, 225, 218);
-          }
-          if((hora_final_dosagem_automatica_1_temp2 == hora_inicial_dosagem_automatica_1) && (minuto_final_dosagem_automatica_1_temp2 >= (minuto_inicial_dosagem_automatica_1+10)))
-          {
-            dispScreen = 21;
-            clearScreen();
-            selecionar_dosadora();
-            setFont(SMALL, 255, 255, 255, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-            myGLCD.print(buffer, 15, 220); // tabela_textos[165] = "MODO AUTOMATICO SELECIONADO"
-
-            modo_manual = false;
-            modo_automatico = true;
-            modo_personalizado = false;
-            modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
-            file.open(&root, "HDA1.TXT", O_WRITE);
-            file.remove();       
-            file.open(&root, "HDA1.TXT", O_CREAT | O_APPEND | O_WRITE);
-
-            minuto01 = (((hora_final_dosagem_automatica_1 * 60) + (minuto_final_dosagem_automatica_1)) - ((hora_inicial_dosagem_automatica_1 * 60) + (minuto_inicial_dosagem_automatica_1))); 
-            minuto01 /= 1 + quantidade_dose_dosadora_1_automatica;
-
-            for(int i = 1; i <= quantidade_dose_dosadora_1_automatica; i++)
-            { 
-              contador += 1;  
-              if(contador == 1)
-              {
-                minuto11 = (hora_inicial_dosagem_automatica_1 * 60) + minuto_inicial_dosagem_automatica_1 + minuto01;
-              }
-              if(contador > 1)
-              {
-                minuto11 += minuto01; 
-              }
-              if(minuto11 < 10)
-              {
-                file.print("000");  
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 > 10) && (minuto11 < 100))
-              {
-                file.print("00");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 >= 100) && (minuto11 < 1000))
-              {
-                file.print("0");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(minuto11 >= 1000)
-              {
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }              
-            }
-            file.close();  
-            contador = 0;
-            //digitalWrite (4, HIGH);
-            Salvar_dosadora_EEPROM(); 
-          }    
-
-          if(hora_final_dosagem_automatica_1_temp2 > hora_inicial_dosagem_automatica_1)
-          {
-            dispScreen = 21;
-            clearScreen();
-            selecionar_dosadora();
-            setFont(SMALL, 255, 255, 255, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-            myGLCD.print(buffer, 15, 220); // tabela_textos[165] = "MODO AUTOMATICO SELECIONADO"
-
-            modo_manual = false;
-            modo_automatico = true;
-            modo_personalizado = false;
-            modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
-            file.open(&root, "HDA1.TXT", O_WRITE);
-            file.remove();       
-            file.open(&root, "HDA1.TXT", O_CREAT | O_APPEND | O_WRITE);
-
-            minuto01 = (((hora_final_dosagem_automatica_1 * 60) + (minuto_final_dosagem_automatica_1)) - ((hora_inicial_dosagem_automatica_1 * 60) + (minuto_inicial_dosagem_automatica_1))); 
-            minuto01 /= 1 + quantidade_dose_dosadora_1_automatica;
-
-            for(int i = 1; i <= quantidade_dose_dosadora_1_automatica; i++)
-            { 
-              contador += 1;  
-              if(contador == 1)
-              {
-                minuto11 = (hora_inicial_dosagem_automatica_1 * 60) + minuto_inicial_dosagem_automatica_1 + minuto01;
-              }
-              if(contador > 1)
-              {
-                minuto11 += minuto01; 
-              }
-              if(minuto11 < 10)
-              {
-                file.print("000");  
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 > 10) && (minuto11 < 100))
-              {
-                file.print("00");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 >= 100) && (minuto11 < 1000))
-              {
-                file.print("0");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(minuto11 >= 1000)
-              {
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-            }
-            file.close();  
-            contador = 0;
-            //digitalWrite (4, HIGH);
-            Salvar_dosadora_EEPROM();
-          }         
-        }
-      }
-      if(dosadora_2_selecionada == true)
-      {
-        if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
-        {
-          if ((x >= houU[0]) && (x <= houU[2])) {
-            waitForIt(houU[0], houU[1], houU[2], houU[3]);
-            hora_inicial_dosagem_automatica_2_temp2 = (hora_inicial_dosagem_automatica_2_temp2 + 1) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minUT[0]) && (x <= minUT[2])) {
-            waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
-            minuto_inicial_dosagem_automatica_2_temp2 = (minuto_inicial_dosagem_automatica_2_temp2 + 1) % 60;
-            config_dosagem_automatica();
-          } 
-
-
-          if ((x >= houU[0] + deslocamento_botao_x) && (x <= houU[2] + deslocamento_botao_x)) {
-            waitForIt(houU[0] + deslocamento_botao_x, houU[1], houU[2] + deslocamento_botao_x, houU[3]);
-            hora_final_dosagem_automatica_2_temp2 = (hora_final_dosagem_automatica_2_temp2 + 1) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minUT[0] + deslocamento_botao_x) && (x <= minUT[2] + deslocamento_botao_x)) {
-            waitForIt(minUT[0] + deslocamento_botao_x, minUT[1], minUT[2] + deslocamento_botao_x, minUT[3]);
-            minuto_final_dosagem_automatica_2_temp2 = (minuto_final_dosagem_automatica_2_temp2 + 1) % 60;
-            config_dosagem_automatica();
-          }
-
-        } 
-        if ((y >= houD[1]) && (y <= houD[3])) // Buttons: Time DOWN
-        {
-          if ((x >= houD[0]) && (x <= houD[2])) {
-            waitForIt(houD[0], houD[1], houD[2], houD[3]);
-            hora_inicial_dosagem_automatica_2_temp2 = (hora_inicial_dosagem_automatica_2_temp2 + 23) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minDT[0]) && (x <= minDT[2])) {
-            waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
-            minuto_inicial_dosagem_automatica_2_temp2 = (minuto_inicial_dosagem_automatica_2_temp2 + 59) % 60;
-            config_dosagem_automatica();
-          } 
-
-          if ((x >= houD[0] + deslocamento_botao_x) && (x <= houD[2] + deslocamento_botao_x)) {
-            waitForIt(houD[0] + deslocamento_botao_x, houD[1], houD[2] + deslocamento_botao_x, houD[3]);
-            hora_final_dosagem_automatica_2_temp2 = (hora_final_dosagem_automatica_2_temp2 + 23) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minDT[0] + deslocamento_botao_x) && (x <= minDT[2] + deslocamento_botao_x)) {
-            waitForIt(minDT[0] + deslocamento_botao_x, minDT[1], minDT[2] + deslocamento_botao_x, minDT[3]);
-            minuto_final_dosagem_automatica_2_temp2 = (minuto_final_dosagem_automatica_2_temp2 + 59) % 60;
-            config_dosagem_automatica();
-          }
-        }
-        if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]+ deslocamento_botao_y) && (y <= minUT[3] + deslocamento_botao_y)) // Dose diaria mais
-        {
-          waitForIt(minUT[0], minUT[1] + deslocamento_botao_y, minUT[2], minUT[3] + deslocamento_botao_y);
-          dose_dosadora_2_automatica_temp2 += 0.5;
-          if(dose_dosadora_2_automatica_temp2 > 999.5)
-          {
-            dose_dosadora_2_automatica_temp2 = 0.5;
-          }
-          if(dose_dosadora_2_automatica_temp2 <= 9.5)
-          {
-            myGLCD.setColor(0, 0, 0);                      
-            myGLCD.fillRect(100, 45 + deslocamento_botao_y, 185, 67 + deslocamento_botao_y);
-          }           
-
-          config_dosagem_automatica();
-        }
-        if ((x >= minDT[0]) && (x <= minDT[2]) && (y >= minDT[1] + deslocamento_botao_y) && (y <= minDT[3] + deslocamento_botao_y)) // Dose diaria menos
-        {
-          waitForIt(minDT[0], minDT[1] + deslocamento_botao_y, minDT[2], minDT[3] + deslocamento_botao_y);
-          dose_dosadora_2_automatica_temp2 -= 0.5;
-          if(dose_dosadora_2_automatica_temp2 <0.5)
-          {
-            dose_dosadora_2_automatica_temp2 = 999.5;
-          }
-          if(dose_dosadora_2_automatica_temp2 <= 9.5)
-          {
-            myGLCD.setColor(0, 0, 0);                      
-            myGLCD.fillRect(100, 45 + deslocamento_botao_y, 185, 67 + deslocamento_botao_y);
-          }
-          config_dosagem_automatica();
-        }
-        if ((x >= durC[0]) && (x <= durC[2]) && (y >= durC[1] + deslocamento_botao_y) && (y <= durC[3] + deslocamento_botao_y)) 
-        {
-          waitForIt(durC[0], durC[1] + deslocamento_botao_y, durC[2], durC[3] + deslocamento_botao_y); 
-          quantidade_dose_dosadora_2_automatica_temp2 += 1;
-          if(quantidade_dose_dosadora_2_automatica_temp2 > 24)
-          {
-            quantidade_dose_dosadora_2_automatica_temp2 = 1;
-          }
-          config_dosagem_automatica();
-        }
-
-        if ((x >= durB[0]) && (x <= durB[2]) && (y >= durB[1] + deslocamento_botao_y) && (y <= durB[3] + deslocamento_botao_y)) 
-        {
-          waitForIt(durB[0], durB[1] + deslocamento_botao_y, durB[2], durB[3] + deslocamento_botao_y);
-          quantidade_dose_dosadora_2_automatica_temp2 -= 1;
-          if(quantidade_dose_dosadora_2_automatica_temp2 < 1)
-          {
-            quantidade_dose_dosadora_2_automatica_temp2 = 24;
-          }
-          config_dosagem_automatica();        
-        }
-        if ((x >= domI[0]) && (x<= domI[2]) && (y >= domI [1]) && (y <= domI[3])) // Ativar ou desativar modo automatico
-        {
-          waitForIt(domI[0], domI[1], domI[2], domI[3]);
-          if(modo_automatico_on_2_temp2 == 0)
-          {
-            modo_automatico_on_2_temp2 = 1;
-            modo_personalizado_on_2_temp2 = 0;
-            config_dosagem_automatica();
-          }
-          else
-          {
-            modo_automatico_on_2_temp2 = 0;
-            modo_personalizado_on_2_temp2 = 1;
-            config_dosagem_automatica();
-          }
-        }
-        if ((y >= salV[1]) && (y <= salV[3]) && (x >= salV[0]) && (x <= salV[2])) 
-        {
-          waitForIt(salV[0], salV[1], salV[2], salV[3]); //funcao salvar
-          dose_dosadora_2_automatica = dose_dosadora_2_automatica_temp2;
-          quantidade_dose_dosadora_2_automatica = quantidade_dose_dosadora_2_automatica_temp2;
-          modo_automatico_on_2 = modo_automatico_on_2_temp2;
-          modo_personalizado_on_2 = modo_personalizado_on_2_temp2;
-          hora_inicial_dosagem_automatica_2 = hora_inicial_dosagem_automatica_2_temp2;
-          minuto_inicial_dosagem_automatica_2 = minuto_inicial_dosagem_automatica_2_temp2;
-          hora_final_dosagem_automatica_2 = hora_final_dosagem_automatica_2_temp2;
-          minuto_final_dosagem_automatica_2 = minuto_final_dosagem_automatica_2_temp2;
-
-          if((hora_final_dosagem_automatica_2_temp2 == hora_inicial_dosagem_automatica_2) && (minuto_final_dosagem_automatica_2_temp2 < (minuto_inicial_dosagem_automatica_2+10)))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[166])));
-            myGLCD.print(buffer, 225, 198);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[167])));
-            myGLCD.print(buffer, 225, 218);
-
-          }
-          if(hora_final_dosagem_automatica_2_temp2 < hora_inicial_dosagem_automatica_2)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[168])));
-            myGLCD.print(buffer, 225, 198);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169])));
-            myGLCD.print(buffer, 225, 218);
-          }
-          if((hora_final_dosagem_automatica_2_temp2 == hora_inicial_dosagem_automatica_2) && (minuto_final_dosagem_automatica_2_temp2 >= (minuto_inicial_dosagem_automatica_2+10)))
-          {
-            dispScreen = 21;
-            clearScreen();
-            selecionar_dosadora();
-            setFont(SMALL, 255, 255, 255, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-            myGLCD.print(buffer, 15, 220); // tabela_textos[165] = "MODO AUTOMATICO SELECIONADO"
-
-            modo_manual = false;
-            modo_automatico = true;
-            modo_personalizado = false;
-            modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
-            file.open(&root, "HDA2.TXT", O_WRITE);
-            file.remove();       
-            file.open(&root, "HDA2.TXT", O_CREAT | O_APPEND | O_WRITE);
-
-            minuto01 = (((hora_final_dosagem_automatica_2 * 60) + (minuto_final_dosagem_automatica_2)) - ((hora_inicial_dosagem_automatica_2 * 60) + (minuto_inicial_dosagem_automatica_2))); 
-            minuto01 /= 1 + quantidade_dose_dosadora_2_automatica;
-
-            for(int i = 1; i <= quantidade_dose_dosadora_2_automatica; i++)
-            { 
-              contador += 1;  
-              if(contador == 1)
-              {
-                minuto11 = (hora_inicial_dosagem_automatica_2 * 60) + minuto_inicial_dosagem_automatica_2 + minuto01;
-              }
-              if(contador > 1)
-              {
-                minuto11 += minuto01; 
-              }
-              if(minuto11 < 10)
-              {
-                file.print("000");  
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 > 10) && (minuto11 < 100))
-              {
-                file.print("00");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 >= 100) && (minuto11 < 1000))
-              {
-                file.print("0");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(minuto11 >= 1000)
-              {
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-            }
-            file.close();  
-            contador = 0;
-            //digitalWrite (4, HIGH);
-            Salvar_dosadora_EEPROM(); 
-          }    
-
-          if(hora_final_dosagem_automatica_2_temp2 > hora_inicial_dosagem_automatica_2)
-          {
-            dispScreen = 21;
-            clearScreen();
-            selecionar_dosadora();
-            setFont(SMALL, 255, 255, 255, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-            myGLCD.print(buffer, 15, 220); // tabela_textos[165] = "MODO AUTOMATICO SELECIONADO"
-
-            modo_manual = false;
-            modo_automatico = true;
-            modo_personalizado = false;
-            modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
-            file.open(&root, "HDA2.TXT", O_WRITE);
-            file.remove();       
-            file.open(&root, "HDA2.TXT", O_CREAT | O_APPEND | O_WRITE);
-
-            minuto01 = (((hora_final_dosagem_automatica_2 * 60) + (minuto_final_dosagem_automatica_2)) - ((hora_inicial_dosagem_automatica_2 * 60) + (minuto_inicial_dosagem_automatica_2))); 
-            minuto01 /= 1 + quantidade_dose_dosadora_2_automatica;
-
-            for(int i = 1; i <= quantidade_dose_dosadora_2_automatica; i++)
-            { 
-              contador += 1;  
-              if(contador == 1)
-              {
-                minuto11 = (hora_inicial_dosagem_automatica_2 * 60) + minuto_inicial_dosagem_automatica_2 + minuto01;
-              }
-              if(contador > 1)
-              {
-                minuto11 += minuto01; 
-              }
-              if(minuto11 < 10)
-              {
-                file.print("000");  
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 > 10) && (minuto11 < 100))
-              {
-                file.print("00");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 >= 100) && (minuto11 < 1000))
-              {
-                file.print("0");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(minuto11 >= 1000)
-              {
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-            }
-            file.close();  
-            contador = 0;
-            //digitalWrite (4, HIGH);
-            Salvar_dosadora_EEPROM();
-          }         
-        }
-      }
-      if(dosadora_3_selecionada == true)
-      {
-        if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
-        {
-          if ((x >= houU[0]) && (x <= houU[2])) {
-            waitForIt(houU[0], houU[1], houU[2], houU[3]);
-            hora_inicial_dosagem_automatica_3_temp2 = (hora_inicial_dosagem_automatica_3_temp2 + 1) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minUT[0]) && (x <= minUT[2])) {
-            waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
-            minuto_inicial_dosagem_automatica_3_temp2 = (minuto_inicial_dosagem_automatica_3_temp2 + 1) % 60;
-            config_dosagem_automatica();
-          } 
-
-
-          if ((x >= houU[0] + deslocamento_botao_x) && (x <= houU[2] + deslocamento_botao_x)) {
-            waitForIt(houU[0] + deslocamento_botao_x, houU[1], houU[2] + deslocamento_botao_x, houU[3]);
-            hora_final_dosagem_automatica_3_temp2 = (hora_final_dosagem_automatica_3_temp2 + 1) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minUT[0] + deslocamento_botao_x) && (x <= minUT[2] + deslocamento_botao_x)) {
-            waitForIt(minUT[0] + deslocamento_botao_x, minUT[1], minUT[2] + deslocamento_botao_x, minUT[3]);
-            minuto_final_dosagem_automatica_3_temp2 = (minuto_final_dosagem_automatica_3_temp2 + 1) % 60;
-            config_dosagem_automatica();
-          }
-
-        } 
-        if ((y >= houD[1]) && (y <= houD[3])) // Buttons: Time DOWN
-        {
-          if ((x >= houD[0]) && (x <= houD[2])) {
-            waitForIt(houD[0], houD[1], houD[2], houD[3]);
-            hora_inicial_dosagem_automatica_3_temp2 = (hora_inicial_dosagem_automatica_3_temp2 + 23) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minDT[0]) && (x <= minDT[2])) {
-            waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
-            minuto_inicial_dosagem_automatica_3_temp2 = (minuto_inicial_dosagem_automatica_3_temp2 + 59) % 60;
-            config_dosagem_automatica();
-          } 
-
-          if ((x >= houD[0] + deslocamento_botao_x) && (x <= houD[2] + deslocamento_botao_x)) {
-            waitForIt(houD[0] + deslocamento_botao_x, houD[1], houD[2] + deslocamento_botao_x, houD[3]);
-            hora_final_dosagem_automatica_3_temp2 = (hora_final_dosagem_automatica_3_temp2 + 23) % 24;
-            config_dosagem_automatica();
-          } 
-          if ((x >= minDT[0] + deslocamento_botao_x) && (x <= minDT[2] + deslocamento_botao_x)) {
-            waitForIt(minDT[0] + deslocamento_botao_x, minDT[1], minDT[2] + deslocamento_botao_x, minDT[3]);
-            minuto_final_dosagem_automatica_3_temp2 = (minuto_final_dosagem_automatica_3_temp2 + 59) % 60;
-            config_dosagem_automatica();
-          }
-        }
-        if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]+ deslocamento_botao_y) && (y <= minUT[3] + deslocamento_botao_y)) // Dose diaria mais
-        {
-          waitForIt(minUT[0], minUT[1] + deslocamento_botao_y, minUT[2], minUT[3] + deslocamento_botao_y);
-          dose_dosadora_3_automatica_temp2 += 0.5;
-          if(dose_dosadora_3_automatica_temp2 > 999.5)
-          {
-            dose_dosadora_3_automatica_temp2 = 0.5;
-          }
-          if(dose_dosadora_3_automatica_temp2 <= 9.5)
-          {
-            myGLCD.setColor(0, 0, 0);                      
-            myGLCD.fillRect(100, 45 + deslocamento_botao_y, 185, 67 + deslocamento_botao_y);
-          }           
-
-          config_dosagem_automatica();
-        }
-        if ((x >= minDT[0]) && (x <= minDT[2]) && (y >= minDT[1] + deslocamento_botao_y) && (y <= minDT[3] + deslocamento_botao_y)) // Dose diaria menos
-        {
-          waitForIt(minDT[0], minDT[1] + deslocamento_botao_y, minDT[2], minDT[3] + deslocamento_botao_y);
-          dose_dosadora_3_automatica_temp2 -= 0.5;
-          if(dose_dosadora_3_automatica_temp2 <0.5)
-          {
-            dose_dosadora_3_automatica_temp2 = 999.5;
-          }
-          if(dose_dosadora_3_automatica_temp2 <= 9.5)
-          {
-            myGLCD.setColor(0, 0, 0);                      
-            myGLCD.fillRect(100, 45 + deslocamento_botao_y, 185, 67 + deslocamento_botao_y);
-          }
-          config_dosagem_automatica();
-        }
-        if ((x >= durC[0]) && (x <= durC[2]) && (y >= durC[1] + deslocamento_botao_y) && (y <= durC[3] + deslocamento_botao_y)) 
-        {
-          waitForIt(durC[0], durC[1] + deslocamento_botao_y, durC[2], durC[3] + deslocamento_botao_y); 
-          quantidade_dose_dosadora_3_automatica_temp2 += 1;
-          if(quantidade_dose_dosadora_3_automatica_temp2 > 24)
-          {
-            quantidade_dose_dosadora_3_automatica_temp2 = 1;
-          }
-          config_dosagem_automatica();
-        }
-
-        if ((x >= durB[0]) && (x <= durB[2]) && (y >= durB[1] + deslocamento_botao_y) && (y <= durB[3] + deslocamento_botao_y)) 
-        {
-          waitForIt(durB[0], durB[1] + deslocamento_botao_y, durB[2], durB[3] + deslocamento_botao_y);
-          quantidade_dose_dosadora_3_automatica_temp2 -= 1;
-          if(quantidade_dose_dosadora_3_automatica_temp2 < 1)
-          {
-            quantidade_dose_dosadora_3_automatica_temp2 = 24;
-          }
-          config_dosagem_automatica();        
-        }
-        if ((x >= domI[0]) && (x<= domI[2]) && (y >= domI [1]) && (y <= domI[3])) // Ativar ou desativar modo automatico
-        {
-          waitForIt(domI[0], domI[1], domI[2], domI[3]);
-          if(modo_automatico_on_3_temp2 == 0)
-          {
-            modo_automatico_on_3_temp2 = 1;
-            modo_personalizado_on_3_temp2 = 0;
-            config_dosagem_automatica();
-          }
-          else
-          {
-            modo_automatico_on_3_temp2 = 0;
-            modo_personalizado_on_3_temp2 = 1;
-            config_dosagem_automatica();
-          }
-        }
-        if ((y >= salV[1]) && (y <= salV[3]) && (x >= salV[0]) && (x <= salV[2])) 
-        {
-          waitForIt(salV[0], salV[1], salV[2], salV[3]); //funcao salvar
-          dose_dosadora_3_automatica = dose_dosadora_3_automatica_temp2;
-          quantidade_dose_dosadora_3_automatica = quantidade_dose_dosadora_3_automatica_temp2;
-          modo_automatico_on_3 = modo_automatico_on_3_temp2;
-          modo_personalizado_on_3 = modo_personalizado_on_3_temp2;
-          hora_inicial_dosagem_automatica_3 = hora_inicial_dosagem_automatica_3_temp2;
-          minuto_inicial_dosagem_automatica_3 = minuto_inicial_dosagem_automatica_3_temp2;
-          hora_final_dosagem_automatica_3 = hora_final_dosagem_automatica_3_temp2;
-          minuto_final_dosagem_automatica_3 = minuto_final_dosagem_automatica_3_temp2;
-
-          if((hora_final_dosagem_automatica_3_temp2 == hora_inicial_dosagem_automatica_3) && (minuto_final_dosagem_automatica_3_temp2 < (minuto_inicial_dosagem_automatica_3+10)))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[166])));
-            myGLCD.print(buffer, 225, 198);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[167])));
-            myGLCD.print(buffer, 225, 218);
-
-          }
-          if(hora_final_dosagem_automatica_3_temp2 < hora_inicial_dosagem_automatica_3)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[168])));
-            myGLCD.print(buffer, 225, 198);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169])));
-            myGLCD.print(buffer, 225, 218);
-          }
-          if((hora_final_dosagem_automatica_3_temp2 == hora_inicial_dosagem_automatica_3) && (minuto_final_dosagem_automatica_3_temp2 >= (minuto_inicial_dosagem_automatica_3+10)))
-          {
-            dispScreen = 21;
-            clearScreen();
-            selecionar_dosadora();
-            setFont(SMALL, 255, 255, 255, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-            myGLCD.print(buffer, 15, 220); // tabela_textos[165] = "MODO AUTOMATICO SELECIONADO"
-
-            modo_manual = false;
-            modo_automatico = true;
-            modo_personalizado = false;
-            modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
-            file.open(&root, "HDA3.TXT", O_WRITE);
-            file.remove();       
-            file.open(&root, "HDA3.TXT", O_CREAT | O_APPEND | O_WRITE);
-
-            minuto01 = (((hora_final_dosagem_automatica_3 * 60) + (minuto_final_dosagem_automatica_3)) - ((hora_inicial_dosagem_automatica_3 * 60) + (minuto_inicial_dosagem_automatica_3))); 
-            minuto01 /= 1 + quantidade_dose_dosadora_3_automatica;
-
-            for(int i = 1; i <= quantidade_dose_dosadora_3_automatica; i++)
-            { 
-              contador += 1;  
-              if(contador == 1)
-              {
-                minuto11 = (hora_inicial_dosagem_automatica_3 * 60) + minuto_inicial_dosagem_automatica_3 + minuto01;
-              }
-              if(contador > 1)
-              {
-                minuto11 += minuto01; 
-              }
-              if(minuto11 < 10)
-              {
-                file.print("000");  
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 > 10) && (minuto11 < 100))
-              {
-                file.print("00");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 >= 100) && (minuto11 < 1000))
-              {
-                file.print("0");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(minuto11 >= 1000)
-              {
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-            }
-            file.close();  
-            contador = 0;
-            //digitalWrite (4, HIGH);
-            Salvar_dosadora_EEPROM(); 
-          }    
-
-          if(hora_final_dosagem_automatica_3_temp2 > hora_inicial_dosagem_automatica_3)
-          {
-            dispScreen = 21;
-            clearScreen();
-            selecionar_dosadora();
-            setFont(SMALL, 255, 255, 255, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[165])));
-            myGLCD.print(buffer, 15, 220); // tabela_textos[165] = "MODO AUTOMATICO SELECIONADO"
-
-            modo_manual = false;
-            modo_automatico = true;
-            modo_personalizado = false;
-            modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
-            file.open(&root, "HDA3.TXT", O_WRITE);
-            file.remove();       
-            file.open(&root, "HDA3.TXT", O_CREAT | O_APPEND | O_WRITE);
-
-            minuto01 = (((hora_final_dosagem_automatica_3 * 60) + (minuto_final_dosagem_automatica_3)) - ((hora_inicial_dosagem_automatica_3 * 60) + (minuto_inicial_dosagem_automatica_3))); 
-            minuto01 /= 1 + quantidade_dose_dosadora_3_automatica;
-
-            for(int i = 1; i <= quantidade_dose_dosadora_3_automatica; i++)
-            { 
-              contador += 1;  
-              if(contador == 1)
-              {
-                minuto11 = (hora_inicial_dosagem_automatica_3 * 60) + minuto_inicial_dosagem_automatica_3 + minuto01;
-              }
-              if(contador > 1)
-              {
-                minuto11 += minuto01; 
-              }
-              if(minuto11 < 10)
-              {
-                file.print("000");  
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 > 10) && (minuto11 < 100))
-              {
-                file.print("00");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(( minuto11 >= 100) && (minuto11 < 1000))
-              {
-                file.print("0");
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-              else if(minuto11 >= 1000)
-              {
-                file.print(minuto11);
-                file.write((uint8_t*)"\0", 1);
-                writeCRLF(file);
-              }
-            }
-            file.close();  
-            contador = 0;
-            //digitalWrite (4, HIGH);
-            Salvar_dosadora_EEPROM();
-          }         
-        }
+        ReadFromEEPROM();
+        config_leds();
       }
       break;
 
@@ -2919,12 +2796,9 @@ void processMyTouch()
         myGLCD.print(buffer, 15, 220);
 
         modo_manual = false;
-        modo_automatico = false;
         modo_personalizado = true;
         modo_calibrar = false;
-        dosadora_1_selecionada = false;
-        dosadora_2_selecionada = false;
-        dosadora_3_selecionada = false; 
+        dosadora_selecionada = 0x0;
       }
       if ((y >= proX[1]) && (y <= proX[3]) && (x >= proX[0]) && (x <= proX[2])) {
         waitForIt(proX[0], proX[1], proX[2], proX[3]); //Próximo menu.
@@ -2932,7 +2806,7 @@ void processMyTouch()
         clearScreen();
         config_dosagem_personalizada_2(true);
       }
-      if(dosadora_1_selecionada == true)
+      if(bitRead(dosadora_selecionada,1) == true)
       {
         if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
         {
@@ -2948,13 +2822,13 @@ void processMyTouch()
           } 
 
 
-          if ((x >= houU[0] + deslocamento_botao_x) && (x <= houU[2] + deslocamento_botao_x)) {
-            waitForIt(houU[0] + deslocamento_botao_x, houU[1], houU[2] + deslocamento_botao_x, houU[3]);
+          if ((x >= houU[0] + 155) && (x <= houU[2] + 155)) {
+            waitForIt(houU[0] + 155, houU[1], houU[2] + 155, houU[3]);
             temp2hora_final_dosagem_personalizada_1 = (temp2hora_final_dosagem_personalizada_1 + 1) % 24;
             config_dosagem_personalizada();
           } 
-          if ((x >= minUT[0] + deslocamento_botao_x) && (x <= minUT[2] + deslocamento_botao_x)) {
-            waitForIt(minUT[0] + deslocamento_botao_x, minUT[1], minUT[2] + deslocamento_botao_x, minUT[3]);
+          if ((x >= minUT[0] + 155) && (x <= minUT[2] + 155)) {
+            waitForIt(minUT[0] + 155, minUT[1], minUT[2] + 155, minUT[3]);
             temp2minuto_final_dosagem_personalizada_1 = (temp2minuto_final_dosagem_personalizada_1 + 1) % 60;
             config_dosagem_personalizada();
           }
@@ -2973,13 +2847,13 @@ void processMyTouch()
             config_dosagem_personalizada();
           } 
 
-          if ((x >= houD[0] + deslocamento_botao_x) && (x <= houD[2] + deslocamento_botao_x)) {
-            waitForIt(houD[0] + deslocamento_botao_x, houD[1], houD[2] + deslocamento_botao_x, houD[3]);
+          if ((x >= houD[0] + 155) && (x <= houD[2] + 155)) {
+            waitForIt(houD[0] + 155, houD[1], houD[2] + 155, houD[3]);
             temp2hora_final_dosagem_personalizada_1 = (temp2hora_final_dosagem_personalizada_1 + 23) % 24;
             config_dosagem_personalizada();
           } 
-          if ((x >= minDT[0] + deslocamento_botao_x) && (x <= minDT[2] + deslocamento_botao_x)) {
-            waitForIt(minDT[0] + deslocamento_botao_x, minDT[1], minDT[2] + deslocamento_botao_x, minDT[3]);
+          if ((x >= minDT[0] + 155) && (x <= minDT[2] + 155)) {
+            waitForIt(minDT[0] + 155, minDT[1], minDT[2] + 155, minDT[3]);
             temp2minuto_final_dosagem_personalizada_1 = (temp2minuto_final_dosagem_personalizada_1 + 59) % 60;
             config_dosagem_personalizada();
           }
@@ -3058,7 +2932,7 @@ void processMyTouch()
           }
         }
       }
-      if(dosadora_2_selecionada == true)
+      if(bitRead(dosadora_selecionada,2) == true)
       {
         if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
         {
@@ -3074,13 +2948,13 @@ void processMyTouch()
           } 
 
 
-          if ((x >= houU[0] + deslocamento_botao_x) && (x <= houU[2] + deslocamento_botao_x)) {
-            waitForIt(houU[0] + deslocamento_botao_x, houU[1], houU[2] + deslocamento_botao_x, houU[3]);
+          if ((x >= houU[0] + 155) && (x <= houU[2] + 155)) {
+            waitForIt(houU[0] + 155, houU[1], houU[2] + 155, houU[3]);
             temp2hora_final_dosagem_personalizada_2 = (temp2hora_final_dosagem_personalizada_2 + 1) % 24;
             config_dosagem_personalizada();
           } 
-          if ((x >= minUT[0] + deslocamento_botao_x) && (x <= minUT[2] + deslocamento_botao_x)) {
-            waitForIt(minUT[0] + deslocamento_botao_x, minUT[1], minUT[2] + deslocamento_botao_x, minUT[3]);
+          if ((x >= minUT[0] + 155) && (x <= minUT[2] + 155)) {
+            waitForIt(minUT[0] + 155, minUT[1], minUT[2] + 155, minUT[3]);
             temp2minuto_final_dosagem_personalizada_2 = (temp2minuto_final_dosagem_personalizada_2 + 1) % 60;
             config_dosagem_personalizada();
           }
@@ -3099,13 +2973,13 @@ void processMyTouch()
             config_dosagem_personalizada();
           } 
 
-          if ((x >= houD[0] + deslocamento_botao_x) && (x <= houD[2] + deslocamento_botao_x)) {
-            waitForIt(houD[0] + deslocamento_botao_x, houD[1], houD[2] + deslocamento_botao_x, houD[3]);
+          if ((x >= houD[0] + 155) && (x <= houD[2] + 155)) {
+            waitForIt(houD[0] + 155, houD[1], houD[2] + 155, houD[3]);
             temp2hora_final_dosagem_personalizada_2 = (temp2hora_final_dosagem_personalizada_2 + 23) % 24;
             config_dosagem_personalizada();
           } 
-          if ((x >= minDT[0] + deslocamento_botao_x) && (x <= minDT[2] + deslocamento_botao_x)) {
-            waitForIt(minDT[0] + deslocamento_botao_x, minDT[1], minDT[2] + deslocamento_botao_x, minDT[3]);
+          if ((x >= minDT[0] + 155) && (x <= minDT[2] + 155)) {
+            waitForIt(minDT[0] + 155, minDT[1], minDT[2] + 155, minDT[3]);
             temp2minuto_final_dosagem_personalizada_2 = (temp2minuto_final_dosagem_personalizada_2 + 59) % 60;
             config_dosagem_personalizada();
           }
@@ -3184,7 +3058,7 @@ void processMyTouch()
           }
         }
       }
-      if(dosadora_3_selecionada == true)
+      if(bitRead(dosadora_selecionada,3) == true)
       {
         if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
         {
@@ -3200,13 +3074,13 @@ void processMyTouch()
           } 
 
 
-          if ((x >= houU[0] + deslocamento_botao_x) && (x <= houU[2] + deslocamento_botao_x)) {
-            waitForIt(houU[0] + deslocamento_botao_x, houU[1], houU[2] + deslocamento_botao_x, houU[3]);
+          if ((x >= houU[0] + 155) && (x <= houU[2] + 155)) {
+            waitForIt(houU[0] + 155, houU[1], houU[2] + 155, houU[3]);
             temp2hora_final_dosagem_personalizada_3 = (temp2hora_final_dosagem_personalizada_3 + 1) % 24;
             config_dosagem_personalizada();
           } 
-          if ((x >= minUT[0] + deslocamento_botao_x) && (x <= minUT[2] + deslocamento_botao_x)) {
-            waitForIt(minUT[0] + deslocamento_botao_x, minUT[1], minUT[2] + deslocamento_botao_x, minUT[3]);
+          if ((x >= minUT[0] + 155) && (x <= minUT[2] + 155)) {
+            waitForIt(minUT[0] + 155, minUT[1], minUT[2] + 155, minUT[3]);
             temp2minuto_final_dosagem_personalizada_3 = (temp2minuto_final_dosagem_personalizada_3 + 1) % 60;
             config_dosagem_personalizada();
           }
@@ -3225,13 +3099,13 @@ void processMyTouch()
             config_dosagem_personalizada();
           } 
 
-          if ((x >= houD[0] + deslocamento_botao_x) && (x <= houD[2] + deslocamento_botao_x)) {
-            waitForIt(houD[0] + deslocamento_botao_x, houD[1], houD[2] + deslocamento_botao_x, houD[3]);
+          if ((x >= houD[0] + 155) && (x <= houD[2] + 155)) {
+            waitForIt(houD[0] + 155, houD[1], houD[2] + 155, houD[3]);
             temp2hora_final_dosagem_personalizada_3 = (temp2hora_final_dosagem_personalizada_3 + 23) % 24;
             config_dosagem_personalizada();
           } 
-          if ((x >= minDT[0] + deslocamento_botao_x) && (x <= minDT[2] + deslocamento_botao_x)) {
-            waitForIt(minDT[0] + deslocamento_botao_x, minDT[1], minDT[2] + deslocamento_botao_x, minDT[3]);
+          if ((x >= minDT[0] + 155) && (x <= minDT[2] + 155)) {
+            waitForIt(minDT[0] + 155, minDT[1], minDT[2] + 155, minDT[3]);
             temp2minuto_final_dosagem_personalizada_3 = (temp2minuto_final_dosagem_personalizada_3 + 59) % 60;
             config_dosagem_personalizada();
           }
@@ -3306,6 +3180,384 @@ void processMyTouch()
           } 
           else {
             temp2domingo_dosagem_personalizada_3 = 7;
+            config_dosagem_personalizada();
+          }
+        }
+      }
+      if(bitRead(dosadora_selecionada,4) == true)
+      {
+        if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
+        {
+          if ((x >= houU[0]) && (x <= houU[2])) {
+            waitForIt(houU[0], houU[1], houU[2], houU[3]);
+            temp2hora_inicial_dosagem_personalizada_4 = (temp2hora_inicial_dosagem_personalizada_4 + 1) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minUT[0]) && (x <= minUT[2])) {
+            waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
+            temp2minuto_inicial_dosagem_personalizada_4 = (temp2minuto_inicial_dosagem_personalizada_4 + 1) % 60;
+            config_dosagem_personalizada();
+          } 
+
+
+          if ((x >= houU[0] + 155) && (x <= houU[2] + 155)) {
+            waitForIt(houU[0] + 155, houU[1], houU[2] + 155, houU[3]);
+            temp2hora_final_dosagem_personalizada_4 = (temp2hora_final_dosagem_personalizada_4 + 1) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minUT[0] + 155) && (x <= minUT[2] + 155)) {
+            waitForIt(minUT[0] + 155, minUT[1], minUT[2] + 155, minUT[3]);
+            temp2minuto_final_dosagem_personalizada_4 = (temp2minuto_final_dosagem_personalizada_4 + 1) % 60;
+            config_dosagem_personalizada();
+          }
+
+        } 
+        if ((y >= houD[1]) && (y <= houD[3])) // Buttons: Time DOWN
+        {
+          if ((x >= houD[0]) && (x <= houD[2])) {
+            waitForIt(houD[0], houD[1], houD[2], houD[3]);
+            temp2hora_inicial_dosagem_personalizada_4 = (temp2hora_inicial_dosagem_personalizada_4 + 23) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minDT[0]) && (x <= minDT[2])) {
+            waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
+            temp2minuto_inicial_dosagem_personalizada_4 = (temp2minuto_inicial_dosagem_personalizada_4 + 59) % 60;
+            config_dosagem_personalizada();
+          } 
+
+          if ((x >= houD[0] + 155) && (x <= houD[2] + 155)) {
+            waitForIt(houD[0] + 155, houD[1], houD[2] + 155, houD[3]);
+            temp2hora_final_dosagem_personalizada_4 = (temp2hora_final_dosagem_personalizada_4 + 23) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minDT[0] + 155) && (x <= minDT[2] + 155)) {
+            waitForIt(minDT[0] + 155, minDT[1], minDT[2] + 155, minDT[3]);
+            temp2minuto_final_dosagem_personalizada_4 = (temp2minuto_final_dosagem_personalizada_4 + 59) % 60;
+            config_dosagem_personalizada();
+          }
+        }
+
+        if ((x >= segU[0]) && (x <= segU[2]) && (y >= segU[1]) && (y <= segU[3])) {
+          if (temp2segunda_dosagem_personalizada_4 == 1) {
+            temp2segunda_dosagem_personalizada_4 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2segunda_dosagem_personalizada_4 = 1;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= terC[0]) && (x <= terC[2]) && (y >= terC[1]) && (y <= terC[3])) {
+          if (temp2terca_dosagem_personalizada_4 == 2) {
+            temp2terca_dosagem_personalizada_4 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2terca_dosagem_personalizada_4 = 2;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= quaR[0]) && (x <= quaR[2]) && (y >= quaR[1]) && (y <= quaR[3])) {
+
+          if (temp2quarta_dosagem_personalizada_4 == 3) {
+            temp2quarta_dosagem_personalizada_4 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2quarta_dosagem_personalizada_4 = 3;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= quiN[0]) && (x <= quiN[2]) && (y >= quiN[1]) && (y <= quiN[3])) {
+
+          if (temp2quinta_dosagem_personalizada_4 == 4) {
+            temp2quinta_dosagem_personalizada_4 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2quinta_dosagem_personalizada_4 = 4;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= sexT[0]) && (x <= sexT[2]) && (y >= sexT[1]) && (y <= sexT[3])) {
+          if (temp2sexta_dosagem_personalizada_4 == 5) {
+            temp2sexta_dosagem_personalizada_4 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2sexta_dosagem_personalizada_4 = 5;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= sabA[0]) && (x <= sabA[2]) && (y >= sabA[1]) && (y <= sabA[3])) {
+          if (temp2sabado_dosagem_personalizada_4 == 6) {
+            temp2sabado_dosagem_personalizada_4 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2sabado_dosagem_personalizada_4 = 6;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= domI[0]) && (x <= domI[2]) && (y >= domI[1]) && (y <= domI[3])) {
+          if (temp2domingo_dosagem_personalizada_4 == 7) {
+            temp2domingo_dosagem_personalizada_4 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2domingo_dosagem_personalizada_4 = 7;
+            config_dosagem_personalizada();
+          }
+        }
+      }
+      if(bitRead(dosadora_selecionada,5) == true)
+      {
+        if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
+        {
+          if ((x >= houU[0]) && (x <= houU[2])) {
+            waitForIt(houU[0], houU[1], houU[2], houU[3]);
+            temp2hora_inicial_dosagem_personalizada_5 = (temp2hora_inicial_dosagem_personalizada_5 + 1) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minUT[0]) && (x <= minUT[2])) {
+            waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
+            temp2minuto_inicial_dosagem_personalizada_5 = (temp2minuto_inicial_dosagem_personalizada_5 + 1) % 60;
+            config_dosagem_personalizada();
+          } 
+
+
+          if ((x >= houU[0] + 155) && (x <= houU[2] + 155)) {
+            waitForIt(houU[0] + 155, houU[1], houU[2] + 155, houU[3]);
+            temp2hora_final_dosagem_personalizada_5 = (temp2hora_final_dosagem_personalizada_5 + 1) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minUT[0] + 155) && (x <= minUT[2] + 155)) {
+            waitForIt(minUT[0] + 155, minUT[1], minUT[2] + 155, minUT[3]);
+            temp2minuto_final_dosagem_personalizada_5 = (temp2minuto_final_dosagem_personalizada_5 + 1) % 60;
+            config_dosagem_personalizada();
+          }
+
+        } 
+        if ((y >= houD[1]) && (y <= houD[3])) // Buttons: Time DOWN
+        {
+          if ((x >= houD[0]) && (x <= houD[2])) {
+            waitForIt(houD[0], houD[1], houD[2], houD[3]);
+            temp2hora_inicial_dosagem_personalizada_5 = (temp2hora_inicial_dosagem_personalizada_5 + 23) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minDT[0]) && (x <= minDT[2])) {
+            waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
+            temp2minuto_inicial_dosagem_personalizada_5 = (temp2minuto_inicial_dosagem_personalizada_5 + 59) % 60;
+            config_dosagem_personalizada();
+          } 
+
+          if ((x >= houD[0] + 155) && (x <= houD[2] + 155)) {
+            waitForIt(houD[0] + 155, houD[1], houD[2] + 155, houD[3]);
+            temp2hora_final_dosagem_personalizada_5 = (temp2hora_final_dosagem_personalizada_5 + 23) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minDT[0] + 155) && (x <= minDT[2] + 155)) {
+            waitForIt(minDT[0] + 155, minDT[1], minDT[2] + 155, minDT[3]);
+            temp2minuto_final_dosagem_personalizada_5 = (temp2minuto_final_dosagem_personalizada_5 + 59) % 60;
+            config_dosagem_personalizada();
+          }
+        }
+
+        if ((x >= segU[0]) && (x <= segU[2]) && (y >= segU[1]) && (y <= segU[3])) {
+          if (temp2segunda_dosagem_personalizada_5 == 1) {
+            temp2segunda_dosagem_personalizada_5 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2segunda_dosagem_personalizada_5 = 1;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= terC[0]) && (x <= terC[2]) && (y >= terC[1]) && (y <= terC[3])) {
+          if (temp2terca_dosagem_personalizada_5 == 2) {
+            temp2terca_dosagem_personalizada_5 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2terca_dosagem_personalizada_5 = 2;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= quaR[0]) && (x <= quaR[2]) && (y >= quaR[1]) && (y <= quaR[3])) {
+
+          if (temp2quarta_dosagem_personalizada_5 == 3) {
+            temp2quarta_dosagem_personalizada_5 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2quarta_dosagem_personalizada_5 = 3;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= quiN[0]) && (x <= quiN[2]) && (y >= quiN[1]) && (y <= quiN[3])) {
+
+          if (temp2quinta_dosagem_personalizada_5 == 4) {
+            temp2quinta_dosagem_personalizada_5 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2quinta_dosagem_personalizada_5 = 4;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= sexT[0]) && (x <= sexT[2]) && (y >= sexT[1]) && (y <= sexT[3])) {
+          if (temp2sexta_dosagem_personalizada_5 == 5) {
+            temp2sexta_dosagem_personalizada_5 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2sexta_dosagem_personalizada_5 = 5;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= sabA[0]) && (x <= sabA[2]) && (y >= sabA[1]) && (y <= sabA[3])) {
+          if (temp2sabado_dosagem_personalizada_5 == 6) {
+            temp2sabado_dosagem_personalizada_5 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2sabado_dosagem_personalizada_5 = 6;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= domI[0]) && (x <= domI[2]) && (y >= domI[1]) && (y <= domI[3])) {
+          if (temp2domingo_dosagem_personalizada_5 == 7) {
+            temp2domingo_dosagem_personalizada_5 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2domingo_dosagem_personalizada_5 = 7;
+            config_dosagem_personalizada();
+          }
+        }
+      }
+      if(bitRead(dosadora_selecionada,6) == true)
+      {
+        if ((y >= houU[1]) && (y <= houU[3])) // Buttons: Time UP
+        {
+          if ((x >= houU[0]) && (x <= houU[2])) {
+            waitForIt(houU[0], houU[1], houU[2], houU[3]);
+            temp2hora_inicial_dosagem_personalizada_6 = (temp2hora_inicial_dosagem_personalizada_6 + 1) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minUT[0]) && (x <= minUT[2])) {
+            waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
+            temp2minuto_inicial_dosagem_personalizada_6 = (temp2minuto_inicial_dosagem_personalizada_6 + 1) % 60;
+            config_dosagem_personalizada();
+          } 
+
+
+          if ((x >= houU[0] + 155) && (x <= houU[2] + 155)) {
+            waitForIt(houU[0] + 155, houU[1], houU[2] + 155, houU[3]);
+            temp2hora_final_dosagem_personalizada_6 = (temp2hora_final_dosagem_personalizada_6 + 1) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minUT[0] + 155) && (x <= minUT[2] + 155)) {
+            waitForIt(minUT[0] + 155, minUT[1], minUT[2] + 155, minUT[3]);
+            temp2minuto_final_dosagem_personalizada_6 = (temp2minuto_final_dosagem_personalizada_6 + 1) % 60;
+            config_dosagem_personalizada();
+          }
+
+        } 
+        if ((y >= houD[1]) && (y <= houD[3])) // Buttons: Time DOWN
+        {
+          if ((x >= houD[0]) && (x <= houD[2])) {
+            waitForIt(houD[0], houD[1], houD[2], houD[3]);
+            temp2hora_inicial_dosagem_personalizada_6 = (temp2hora_inicial_dosagem_personalizada_6 + 23) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minDT[0]) && (x <= minDT[2])) {
+            waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
+            temp2minuto_inicial_dosagem_personalizada_6 = (temp2minuto_inicial_dosagem_personalizada_6 + 59) % 60;
+            config_dosagem_personalizada();
+          } 
+
+          if ((x >= houD[0] + 155) && (x <= houD[2] + 155)) {
+            waitForIt(houD[0] + 155, houD[1], houD[2] + 155, houD[3]);
+            temp2hora_final_dosagem_personalizada_6 = (temp2hora_final_dosagem_personalizada_6 + 23) % 24;
+            config_dosagem_personalizada();
+          } 
+          if ((x >= minDT[0] + 155) && (x <= minDT[2] + 155)) {
+            waitForIt(minDT[0] + 155, minDT[1], minDT[2] + 155, minDT[3]);
+            temp2minuto_final_dosagem_personalizada_6 = (temp2minuto_final_dosagem_personalizada_6 + 59) % 60;
+            config_dosagem_personalizada();
+          }
+        }
+
+        if ((x >= segU[0]) && (x <= segU[2]) && (y >= segU[1]) && (y <= segU[3])) {
+          if (temp2segunda_dosagem_personalizada_6 == 1) {
+            temp2segunda_dosagem_personalizada_6 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2segunda_dosagem_personalizada_6 = 1;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= terC[0]) && (x <= terC[2]) && (y >= terC[1]) && (y <= terC[3])) {
+          if (temp2terca_dosagem_personalizada_6 == 2) {
+            temp2terca_dosagem_personalizada_6 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2terca_dosagem_personalizada_6 = 2;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= quaR[0]) && (x <= quaR[2]) && (y >= quaR[1]) && (y <= quaR[3])) {
+
+          if (temp2quarta_dosagem_personalizada_6 == 3) {
+            temp2quarta_dosagem_personalizada_6 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2quarta_dosagem_personalizada_6 = 3;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= quiN[0]) && (x <= quiN[2]) && (y >= quiN[1]) && (y <= quiN[3])) {
+
+          if (temp2quinta_dosagem_personalizada_6 == 4) {
+            temp2quinta_dosagem_personalizada_6 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2quinta_dosagem_personalizada_6 = 4;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= sexT[0]) && (x <= sexT[2]) && (y >= sexT[1]) && (y <= sexT[3])) {
+          if (temp2sexta_dosagem_personalizada_6 == 5) {
+            temp2sexta_dosagem_personalizada_6 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2sexta_dosagem_personalizada_6 = 5;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= sabA[0]) && (x <= sabA[2]) && (y >= sabA[1]) && (y <= sabA[3])) {
+          if (temp2sabado_dosagem_personalizada_6 == 6) {
+            temp2sabado_dosagem_personalizada_6 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2sabado_dosagem_personalizada_6 = 6;
+            config_dosagem_personalizada();
+          }
+        }
+        if ((x >= domI[0]) && (x <= domI[2]) && (y >= domI[1]) && (y <= domI[3])) {
+          if (temp2domingo_dosagem_personalizada_6 == 7) {
+            temp2domingo_dosagem_personalizada_6 = 0;
+            config_dosagem_personalizada();
+          } 
+          else {
+            temp2domingo_dosagem_personalizada_6 = 7;
             config_dosagem_personalizada();
           }
         }
@@ -3421,7 +3673,7 @@ void processMyTouch()
 
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[174])));
           myGLCD.print(buffer, 35, 192); // tabela_textos[173] = "SENHA INCORRETA!"
-          
+
           delay(500);
           myGLCD.setColor(0, 0, 0);
           myGLCD.fillRect (35, 192, 300, 207);
@@ -3455,7 +3707,7 @@ void processMyTouch()
 
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[175])));
           myGLCD.print(buffer, 35, 192); // "MAXIMO 6 DIGITOS!"
-          
+
           delay(500);
           myGLCD.setColor(0, 0, 0);
           myGLCD.fillRect (35, 192, 300, 207);
@@ -3464,7 +3716,7 @@ void processMyTouch()
 
           strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[175])));
           myGLCD.print(buffer, 35, 192); // "MAXIMO 6 DIGITOS!"
-          
+
           delay(1000);
           myGLCD.setColor(0, 0, 0);
           myGLCD.fillRect (35, 192, 300, 207);
@@ -3489,7 +3741,7 @@ void processMyTouch()
         clearScreen();
         config_dosagem_personalizada(true);
       }
-      if(dosadora_1_selecionada == true)
+      if(bitRead(dosadora_selecionada,1) == true)
       {
         if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]) && (y <= minUT[3])) // Dose diaria mais
         {
@@ -3565,7 +3817,6 @@ void processMyTouch()
           dose_dosadora_1_personalizada = dose_dosadora_1_personalizada_temp2;
           quantidade_dose_dosadora_1_personalizada = quantidade_dose_dosadora_1_personalizada_temp2;
           modo_personalizado_on_1 = modo_personalizado_on_1_temp2;
-          modo_automatico_on_1 = modo_automatico_on_1_temp2;
           hora_inicial_dosagem_personalizada_1 = temp2hora_inicial_dosagem_personalizada_1;
           minuto_inicial_dosagem_personalizada_1 = temp2minuto_inicial_dosagem_personalizada_1;
           hora_final_dosagem_personalizada_1 = temp2hora_final_dosagem_personalizada_1;
@@ -3611,22 +3862,15 @@ void processMyTouch()
             myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
 
             modo_manual = false;
-            modo_automatico = false;
             modo_personalizado = true;
             modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
             file.open(&root, "HDP1.TXT", O_WRITE);
             file.remove();       
             file.open(&root, "HDP1.TXT", O_CREAT | O_APPEND | O_WRITE);
 
-            if((minuto_inicial_dosagem_personalizada_1 == minuto_inicial_dosagem_personalizada_2) || (minuto_inicial_dosagem_personalizada_1 == minuto_inicial_dosagem_personalizada_3))
-            {
-              minuto_inicial_dosagem_personalizada_1 += 10;
-            }
-            minuto01 = (((hora_final_dosagem_personalizada_1 * 60) + (minuto_final_dosagem_personalizada_1)) - ((hora_inicial_dosagem_personalizada_1 * 60) + (minuto_inicial_dosagem_personalizada_1))); 
+            minuto01 = NumMins(hora_final_dosagem_personalizada_1, minuto_final_dosagem_personalizada_1) - NumMins(hora_inicial_dosagem_personalizada_1, minuto_inicial_dosagem_personalizada_1); 
             minuto01 /= 1 + quantidade_dose_dosadora_1_personalizada;
 
             for(int i = 1; i <= quantidade_dose_dosadora_1_personalizada; i++)
@@ -3634,7 +3878,7 @@ void processMyTouch()
               contador += 1;  
               if(contador == 1)
               {
-                minuto11 = (hora_inicial_dosagem_personalizada_1 * 60) + minuto_inicial_dosagem_personalizada_1 + minuto01;
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_1, minuto_inicial_dosagem_personalizada_1) + minuto01;
               }
               if(contador > 1)
               {
@@ -3669,7 +3913,7 @@ void processMyTouch()
             }
             file.close();  
             contador = 0;
-            //digitalWrite (4, HIGH);
+            digitalWrite (4, HIGH);
             Salvar_dosadora_EEPROM(); 
           }    
 
@@ -3685,13 +3929,10 @@ void processMyTouch()
 
 
             modo_manual = false;
-            modo_automatico = false;
             modo_personalizado = true;
             modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
             file.open(&root, "HDP1.TXT", O_WRITE);
             file.remove();       
             file.open(&root, "HDP1.TXT", O_CREAT | O_APPEND | O_WRITE);
@@ -3705,7 +3946,7 @@ void processMyTouch()
               minuto_inicial_dosagem_personalizada_1 -= 60;
               hora_inicial_dosagem_personalizada_1 += 1;
             }
-            minuto01 = (((hora_final_dosagem_personalizada_1 * 60) + (minuto_final_dosagem_personalizada_1)) - ((hora_inicial_dosagem_personalizada_1 * 60) + (minuto_inicial_dosagem_personalizada_1))); 
+            minuto01 = NumMins(hora_final_dosagem_personalizada_1, minuto_final_dosagem_personalizada_1) - NumMins(hora_inicial_dosagem_personalizada_1, minuto_inicial_dosagem_personalizada_1); 
             minuto01 /= 1 + quantidade_dose_dosadora_1_personalizada;
 
             for(int i = 1; i <= quantidade_dose_dosadora_1_personalizada; i++)
@@ -3713,7 +3954,7 @@ void processMyTouch()
               contador += 1;  
               if(contador == 1)
               {
-                minuto11 = (hora_inicial_dosagem_personalizada_1 * 60) + minuto_inicial_dosagem_personalizada_1 + minuto01;
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_1, minuto_inicial_dosagem_personalizada_1) + minuto01;
               }
               if(contador > 1)
               {
@@ -3749,12 +3990,12 @@ void processMyTouch()
             }
             file.close();  
             contador = 0;
-            //digitalWrite (4, HIGH);
+            digitalWrite (4, HIGH);
             Salvar_dosadora_EEPROM();
           }         
         } 
       }      
-      if(dosadora_2_selecionada == true)
+      if(bitRead(dosadora_selecionada,2) == true)
       {
         if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]) && (y <= minUT[3])) // Dose diaria mais
         {
@@ -3813,13 +4054,11 @@ void processMyTouch()
           if(modo_personalizado_on_2_temp2 == 0)
           {
             modo_personalizado_on_2_temp2 = 1;
-            modo_automatico_on_2_temp2 = 0;
             config_dosagem_personalizada_2();
           }
           else
           {
             modo_personalizado_on_2_temp2 = 0;
-            modo_automatico_on_2_temp2 = 1;
             config_dosagem_personalizada_2();
           }
         }
@@ -3829,7 +4068,6 @@ void processMyTouch()
           dose_dosadora_2_personalizada = dose_dosadora_2_personalizada_temp2;
           quantidade_dose_dosadora_2_personalizada = quantidade_dose_dosadora_2_personalizada_temp2;
           modo_personalizado_on_2 = modo_personalizado_on_2_temp2;
-          modo_automatico_on_2 = modo_automatico_on_2_temp2;
           hora_inicial_dosagem_personalizada_2 = temp2hora_inicial_dosagem_personalizada_2;
           minuto_inicial_dosagem_personalizada_2 = temp2minuto_inicial_dosagem_personalizada_2;
           hora_final_dosagem_personalizada_2 = temp2hora_final_dosagem_personalizada_2;
@@ -3874,18 +4112,15 @@ void processMyTouch()
             myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
 
             modo_manual = false;
-            modo_automatico = false;
             modo_personalizado = true;
             modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
             file.open(&root, "HDP2.TXT", O_WRITE);
             file.remove();       
             file.open(&root, "HDP2.TXT", O_CREAT | O_APPEND | O_WRITE);
 
-            minuto01 = (((hora_final_dosagem_personalizada_2 * 60) + (minuto_final_dosagem_personalizada_2)) - ((hora_inicial_dosagem_personalizada_2 * 60) + (minuto_inicial_dosagem_personalizada_2))); 
+            minuto01 = NumMins(hora_final_dosagem_personalizada_2, minuto_final_dosagem_personalizada_2) - NumMins(hora_inicial_dosagem_personalizada_2, minuto_inicial_dosagem_personalizada_2); 
             minuto01 /= 1 + quantidade_dose_dosadora_2_personalizada;
 
             for(int i = 1; i <= quantidade_dose_dosadora_2_personalizada; i++)
@@ -3893,7 +4128,7 @@ void processMyTouch()
               contador += 1;  
               if(contador == 1)
               {
-                minuto11 = (hora_inicial_dosagem_personalizada_2 * 60) + minuto_inicial_dosagem_personalizada_2 + minuto01;
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_2, minuto_inicial_dosagem_personalizada_2) + minuto01;
               }
               if(contador > 1)
               {
@@ -3929,7 +4164,7 @@ void processMyTouch()
             }
             file.close();  
             contador = 0;
-            //digitalWrite (4, HIGH);
+            digitalWrite (4, HIGH);
             Salvar_dosadora_EEPROM(); 
           }    
 
@@ -3944,18 +4179,15 @@ void processMyTouch()
             myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
 
             modo_manual = false;
-            modo_automatico = false;
             modo_personalizado = true;
             modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
             file.open(&root, "HDP2.TXT", O_WRITE);
             file.remove();       
             file.open(&root, "HDP2.TXT", O_CREAT | O_APPEND | O_WRITE);
 
-            minuto01 = (((hora_final_dosagem_personalizada_2 * 60) + (minuto_final_dosagem_personalizada_2)) - ((hora_inicial_dosagem_personalizada_2 * 60) + (minuto_inicial_dosagem_personalizada_2))); 
+            minuto01 = NumMins(hora_final_dosagem_personalizada_2, minuto_final_dosagem_personalizada_2) - NumMins(hora_inicial_dosagem_personalizada_2, minuto_inicial_dosagem_personalizada_2); 
             minuto01 /= 1 + quantidade_dose_dosadora_2_personalizada;
 
             for(int i = 1; i <= quantidade_dose_dosadora_2_personalizada; i++)
@@ -3963,7 +4195,7 @@ void processMyTouch()
               contador += 1;  
               if(contador == 1)
               {
-                minuto11 = (hora_inicial_dosagem_personalizada_2 * 60) + minuto_inicial_dosagem_personalizada_2 + minuto01;
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_2, minuto_inicial_dosagem_personalizada_2) + minuto01;
               }
               if(contador > 1)
               {
@@ -3999,12 +4231,12 @@ void processMyTouch()
             }
             file.close();  
             contador = 0;
-            //digitalWrite (4, HIGH);
+            digitalWrite (4, HIGH);
             Salvar_dosadora_EEPROM();
           }         
         }      
       }
-      if(dosadora_3_selecionada == true)
+      if(bitRead(dosadora_selecionada,3) == true)
       {
         if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]) && (y <= minUT[3])) // Dose diaria mais
         {
@@ -4063,13 +4295,11 @@ void processMyTouch()
           if(modo_personalizado_on_3_temp2 == 0)
           {
             modo_personalizado_on_3_temp2 = 1;
-            modo_automatico_on_3_temp2 = 0;
             config_dosagem_personalizada_2();
           }
           else
           {
             modo_personalizado_on_3_temp2 = 0;
-            modo_automatico_on_3_temp2 = 1;
             config_dosagem_personalizada_2();
           }
         }
@@ -4079,7 +4309,6 @@ void processMyTouch()
           dose_dosadora_3_personalizada = dose_dosadora_3_personalizada_temp2;
           quantidade_dose_dosadora_3_personalizada = quantidade_dose_dosadora_3_personalizada_temp2;
           modo_personalizado_on_3 = modo_personalizado_on_3_temp2;
-          modo_automatico_on_3 = modo_automatico_on_3_temp2;
           hora_inicial_dosagem_personalizada_3 = temp2hora_inicial_dosagem_personalizada_3;
           minuto_inicial_dosagem_personalizada_3 = temp2minuto_inicial_dosagem_personalizada_3;
           hora_final_dosagem_personalizada_3 = temp2hora_final_dosagem_personalizada_3;
@@ -4123,18 +4352,15 @@ void processMyTouch()
             myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
 
             modo_manual = false;
-            modo_automatico = false;
             modo_personalizado = true;
             modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
             file.open(&root, "HDP3.TXT", O_WRITE);
             file.remove();       
             file.open(&root, "HDP3.TXT", O_CREAT | O_APPEND | O_WRITE);
 
-            minuto01 = (((hora_final_dosagem_personalizada_3 * 60) + (minuto_final_dosagem_personalizada_3)) - ((hora_inicial_dosagem_personalizada_3 * 60) + (minuto_inicial_dosagem_personalizada_3))); 
+            minuto01 = NumMins(hora_final_dosagem_personalizada_3, minuto_final_dosagem_personalizada_3) - NumMins(hora_inicial_dosagem_personalizada_3, minuto_inicial_dosagem_personalizada_3); 
             minuto01 /= 1 + quantidade_dose_dosadora_3_personalizada;
 
             for(int i = 1; i <= quantidade_dose_dosadora_3_personalizada; i++)
@@ -4142,7 +4368,7 @@ void processMyTouch()
               contador += 1;  
               if(contador == 1)
               {
-                minuto11 = (hora_inicial_dosagem_personalizada_3 * 60) + minuto_inicial_dosagem_personalizada_3 + minuto01;
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_3, minuto_inicial_dosagem_personalizada_3) + minuto01;
               }
               if(contador > 1)
               {
@@ -4177,7 +4403,7 @@ void processMyTouch()
             }
             file.close();  
             contador = 0;
-            //digitalWrite (4, HIGH);
+            digitalWrite (4, HIGH);
             Salvar_dosadora_EEPROM(); 
           }    
 
@@ -4192,18 +4418,15 @@ void processMyTouch()
             myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
 
             modo_manual = false;
-            modo_automatico = false;
             modo_personalizado = true;
             modo_calibrar = false;
-            dosadora_1_selecionada = false;
-            dosadora_2_selecionada = false;
-            dosadora_3_selecionada = false; 
-            //digitalWrite (4, LOW); 
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
             file.open(&root, "HDP3.TXT", O_WRITE);
             file.remove();       
             file.open(&root, "HDP3.TXT", O_CREAT | O_APPEND | O_WRITE);
 
-            minuto01 = (((hora_final_dosagem_personalizada_3 * 60) + (minuto_final_dosagem_personalizada_3)) - ((hora_inicial_dosagem_personalizada_3 * 60) + (minuto_inicial_dosagem_personalizada_3))); 
+            minuto01 = NumMins(hora_final_dosagem_personalizada_3, minuto_final_dosagem_personalizada_3) - NumMins(hora_inicial_dosagem_personalizada_3, minuto_inicial_dosagem_personalizada_3); 
             minuto01 /= 1 + quantidade_dose_dosadora_3_personalizada;
 
             for(int i = 1; i <= quantidade_dose_dosadora_3_personalizada; i++)
@@ -4211,7 +4434,7 @@ void processMyTouch()
               contador += 1;  
               if(contador == 1)
               {
-                minuto11 = (hora_inicial_dosagem_personalizada_3 * 60) + minuto_inicial_dosagem_personalizada_3 + minuto01;
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_3, minuto_inicial_dosagem_personalizada_3) + minuto01;
               }
               if(contador > 1)
               {
@@ -4247,7 +4470,738 @@ void processMyTouch()
             }
             file.close();  
             contador = 0;
-            //digitalWrite (4, HIGH);
+            digitalWrite (4, HIGH);
+            Salvar_dosadora_EEPROM();
+          }         
+        }
+      }      
+      if(bitRead(dosadora_selecionada,4) == true)
+      {
+        if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]) && (y <= minUT[3])) // Dose diaria mais
+        {
+          waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
+          dose_dosadora_4_personalizada_temp2 += 0.5;
+          if(dose_dosadora_4_personalizada_temp2 > 999.5)
+          {
+            dose_dosadora_4_personalizada_temp2 = 0.5;
+          }
+          if(dose_dosadora_4_personalizada_temp2 <= 9.5)
+          {
+            myGLCD.setColor(0, 0, 0);                      
+            myGLCD.fillRect(100, 45, 185, 67);
+          }           
+
+          config_dosagem_personalizada_2();
+        }
+        if ((x >= minDT[0]) && (x <= minDT[2]) && (y >= minDT[1]) && (y <= minDT[3])) // Dose diaria menos
+        {
+          waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
+          dose_dosadora_4_personalizada_temp2 -= 0.5;
+          if(dose_dosadora_4_personalizada_temp2 <0.5)
+          {
+            dose_dosadora_4_personalizada_temp2 = 999.5;
+          }
+          if(dose_dosadora_4_personalizada_temp2 <= 9.5)
+          {
+            myGLCD.setColor(0, 0, 0);                      
+            myGLCD.fillRect(100, 45, 185, 67);
+          }
+          config_dosagem_personalizada_2();
+        }
+        if ((x >= durC[0]) && (x <= durC[2]) && (y >= durC[1]) && (y <= durC[3])) 
+        {
+          waitForIt(durC[0], durC[1], durC[2], durC[3]); 
+          quantidade_dose_dosadora_4_personalizada_temp2 += 1;
+          if(quantidade_dose_dosadora_4_personalizada_temp2 > 24)
+          {
+            quantidade_dose_dosadora_4_personalizada_temp2 = 1;
+          }
+          config_dosagem_personalizada_2();
+        }
+
+        if ((x >= durB[0]) && (x <= durB[2]) && (y >= durB[1]) && (y <= durB[3])) 
+        {
+          waitForIt(durB[0], durB[1], durB[2], durB[3]);
+          quantidade_dose_dosadora_4_personalizada_temp2 -= 1;
+          if(quantidade_dose_dosadora_4_personalizada_temp2 < 1)
+          {
+            quantidade_dose_dosadora_4_personalizada_temp2 = 24;
+          }
+          config_dosagem_personalizada_2();        
+        }
+        if ((x >= sexT[0]) && (x<= sexT[2]) && (y >= sexT [1]) && (y <= sexT[3])) // Ativar ou desativar modo personalizado
+        {
+          waitForIt(sexT[0], sexT[1], sexT[2], sexT[3]);
+          if(modo_personalizado_on_4_temp2 == 0)
+          {
+            modo_personalizado_on_4_temp2 = 1;
+            config_dosagem_personalizada_2();
+          }
+          else
+          {
+            modo_personalizado_on_4_temp2 = 0;
+            config_dosagem_personalizada_2();
+          }
+        }
+        if ((y >= prOK[1]) && (y <= prOK[3]) && (x >= prOK[0]) && (x <= prOK[2])) 
+        {
+          waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
+          dose_dosadora_4_personalizada = dose_dosadora_4_personalizada_temp2;
+          quantidade_dose_dosadora_4_personalizada = quantidade_dose_dosadora_4_personalizada_temp2;
+          modo_personalizado_on_4 = modo_personalizado_on_4_temp2;
+          hora_inicial_dosagem_personalizada_4 = temp2hora_inicial_dosagem_personalizada_4;
+          minuto_inicial_dosagem_personalizada_4 = temp2minuto_inicial_dosagem_personalizada_4;
+          hora_final_dosagem_personalizada_4 = temp2hora_final_dosagem_personalizada_4;
+          minuto_final_dosagem_personalizada_4 = temp2minuto_final_dosagem_personalizada_4;
+          segunda_dosagem_personalizada_4 = temp2segunda_dosagem_personalizada_4;
+          terca_dosagem_personalizada_4 = temp2terca_dosagem_personalizada_4;
+          quarta_dosagem_personalizada_4 = temp2quarta_dosagem_personalizada_4;
+          quinta_dosagem_personalizada_4 = temp2quinta_dosagem_personalizada_4;
+          sexta_dosagem_personalizada_4 = temp2sexta_dosagem_personalizada_4;
+          sabado_dosagem_personalizada_4 = temp2sabado_dosagem_personalizada_4;
+          domingo_dosagem_personalizada_4 = temp2domingo_dosagem_personalizada_4;
+
+          if((hora_final_dosagem_personalizada_4 == hora_inicial_dosagem_personalizada_4) && (minuto_final_dosagem_personalizada_4 < (minuto_inicial_dosagem_personalizada_4+10)))
+          {
+            setFont(SMALL, 255, 0, 0, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[176])));            
+            myGLCD.print(buffer, 20, 110); // "O INTERVALO ENTRE A INICIAL E A FINAL"
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[177]))); 
+            myGLCD.print(buffer, 35, 130);
+
+          }
+          if(hora_final_dosagem_personalizada_4 < hora_inicial_dosagem_personalizada_4)
+          {
+            setFont(SMALL, 255, 0, 0, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[178]))); 
+            myGLCD.print(buffer, 50, 110);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[179]))); 
+            myGLCD.print(buffer, 100, 130);
+          }
+
+          if((temp2hora_final_dosagem_personalizada_4 == hora_inicial_dosagem_personalizada_4) && (temp2minuto_final_dosagem_personalizada_4 >= (minuto_inicial_dosagem_personalizada_4+10)))
+          {
+            dispScreen =21;
+            clearScreen();
+            selecionar_dosadora();
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[171]))); 
+            myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
+
+            modo_manual = false;
+            modo_personalizado = true;
+            modo_calibrar = false;
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
+            file.open(&root, "HDP4.TXT", O_WRITE);
+            file.remove();       
+            file.open(&root, "HDP4.TXT", O_CREAT | O_APPEND | O_WRITE);
+
+            minuto01 = NumMins(hora_final_dosagem_personalizada_4, minuto_final_dosagem_personalizada_4) - NumMins(hora_inicial_dosagem_personalizada_4, minuto_inicial_dosagem_personalizada_4); 
+            minuto01 /= 1 + quantidade_dose_dosadora_4_personalizada;
+
+            for(int i = 1; i <= quantidade_dose_dosadora_4_personalizada; i++)
+            { 
+              contador += 1;  
+              if(contador == 1)
+              {
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_4, minuto_inicial_dosagem_personalizada_4) + minuto01;
+              }
+              if(contador > 1)
+              {
+                minuto11 += minuto01; 
+              }
+              if(minuto11 < 10)
+              {
+                file.print("000");  
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 > 10) && (minuto11 < 100))
+              {
+                file.print("00");
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 >= 100) && (minuto11 < 1000))
+              {
+                file.print("0");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(minuto11 >= 1000)
+              {
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+            }
+            file.close();  
+            contador = 0;
+            digitalWrite (4, HIGH);
+            Salvar_dosadora_EEPROM(); 
+          }    
+
+          if(temp2hora_final_dosagem_personalizada_4 > hora_inicial_dosagem_personalizada_4)
+          {
+            dispScreen =21;
+            clearScreen();
+            selecionar_dosadora();
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[171]))); 
+            myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
+
+
+            modo_manual = false;
+            modo_personalizado = true;
+            modo_calibrar = false;
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
+            file.open(&root, "HDP4.TXT", O_WRITE);
+            file.remove();       
+            file.open(&root, "HDP4.TXT", O_CREAT | O_APPEND | O_WRITE);
+
+            if((minuto_inicial_dosagem_personalizada_4 == minuto_inicial_dosagem_personalizada_5) || (minuto_inicial_dosagem_personalizada_4 == minuto_inicial_dosagem_personalizada_6))
+            {
+              minuto_inicial_dosagem_personalizada_4 += 10;
+            }
+            if(minuto_inicial_dosagem_personalizada_4 >= 60)
+            {
+              minuto_inicial_dosagem_personalizada_4 -= 60;
+              hora_inicial_dosagem_personalizada_4 += 1;
+            }
+            minuto01 = NumMins(hora_final_dosagem_personalizada_4, minuto_final_dosagem_personalizada_4) - NumMins(hora_inicial_dosagem_personalizada_4, minuto_inicial_dosagem_personalizada_4); 
+            minuto01 /= 1 + quantidade_dose_dosadora_4_personalizada;
+
+            for(int i = 1; i <= quantidade_dose_dosadora_4_personalizada; i++)
+            { 
+              contador += 1;  
+              if(contador == 1)
+              {
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_4, minuto_inicial_dosagem_personalizada_4) + minuto01;
+              }
+              if(contador > 1)
+              {
+                minuto11 += minuto01; 
+              }
+              if(minuto11 < 10)
+              {
+                file.print("000");  
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 > 10) && (minuto11 < 100))
+              {
+                file.print("00");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 >= 100) && (minuto11 < 1000))
+              {
+                file.print("0");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(minuto11 >= 1000)
+              {
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+            }
+            file.close();  
+            contador = 0;
+            digitalWrite (4, HIGH);
+            Salvar_dosadora_EEPROM();
+          }         
+        } 
+      }      
+      if(bitRead(dosadora_selecionada,5) == true)
+      {
+        if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]) && (y <= minUT[3])) // Dose diaria mais
+        {
+          waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
+          dose_dosadora_5_personalizada_temp2 += 0.5;
+          if(dose_dosadora_5_personalizada_temp2 > 999.5)
+          {
+            dose_dosadora_5_personalizada_temp2 = 0.5;
+          }
+          if(dose_dosadora_5_personalizada_temp2 <= 9.5)
+          {
+            myGLCD.setColor(0, 0, 0);                      
+            myGLCD.fillRect(100, 45, 185, 67);
+          }
+          config_dosagem_personalizada_2();
+        }
+        if ((x >= minDT[0]) && (x <= minDT[2]) && (y >= minDT[1]) && (y <= minDT[3])) // Dose diaria menos
+        {
+          waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
+          dose_dosadora_5_personalizada_temp2 -= 0.5;
+          if(dose_dosadora_5_personalizada_temp2 <0.5)
+          {
+            dose_dosadora_5_personalizada_temp2 = 999.5;
+          }
+          if(dose_dosadora_5_personalizada_temp2 <= 9.5)
+          {
+            myGLCD.setColor(0, 0, 0);                      
+            myGLCD.fillRect(100, 45, 185, 67);
+          }
+          config_dosagem_personalizada_2();
+        }
+        if ((x >= durC[0]) && (x <= durC[2]) && (y >= durC[1]) && (y <= durC[3])) 
+        {
+          waitForIt(durC[0], durC[1], durC[2], durC[3]); 
+          quantidade_dose_dosadora_5_personalizada_temp2 += 1;
+          if(quantidade_dose_dosadora_5_personalizada_temp2 > 24)
+          {
+            quantidade_dose_dosadora_5_personalizada_temp2 = 1;
+          }
+          config_dosagem_personalizada_2();
+        }
+
+        if ((x >= durB[0]) && (x <= durB[2]) && (y >= durB[1]) && (y <= durB[3])) 
+        {
+          waitForIt(durB[0], durB[1], durB[2], durB[3]);
+          quantidade_dose_dosadora_5_personalizada_temp2 -= 1;
+          if(quantidade_dose_dosadora_5_personalizada_temp2 < 1)
+          {
+            quantidade_dose_dosadora_5_personalizada_temp2 = 24;
+          }
+          config_dosagem_personalizada_2();        
+        }
+        if ((x >= sexT[0]) && (x<= sexT[2]) && (y >= sexT [1]) && (y <= sexT[3]))
+        {
+          waitForIt(sexT[0], sexT[1], sexT[2], sexT[3]);
+          if(modo_personalizado_on_5_temp2 == 0)
+          {
+            modo_personalizado_on_5_temp2 = 1;
+            config_dosagem_personalizada_2();
+          }
+          else
+          {
+            modo_personalizado_on_5_temp2 = 0;
+            config_dosagem_personalizada_2();
+          }
+        }
+        if ((y >= prOK[1]) && (y <= prOK[3]) && (x >= prOK[0]) && (x <= prOK[2])) 
+        {
+          waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
+          dose_dosadora_5_personalizada = dose_dosadora_5_personalizada_temp2;
+          quantidade_dose_dosadora_5_personalizada = quantidade_dose_dosadora_5_personalizada_temp2;
+          modo_personalizado_on_5 = modo_personalizado_on_5_temp2;
+          hora_inicial_dosagem_personalizada_5 = temp2hora_inicial_dosagem_personalizada_5;
+          minuto_inicial_dosagem_personalizada_5 = temp2minuto_inicial_dosagem_personalizada_5;
+          hora_final_dosagem_personalizada_5 = temp2hora_final_dosagem_personalizada_5;
+          minuto_final_dosagem_personalizada_5 = temp2minuto_final_dosagem_personalizada_5;
+          segunda_dosagem_personalizada_5 = temp2segunda_dosagem_personalizada_5;
+          terca_dosagem_personalizada_5 = temp2terca_dosagem_personalizada_5;
+          quarta_dosagem_personalizada_5 = temp2quarta_dosagem_personalizada_5;
+          quinta_dosagem_personalizada_5 = temp2quinta_dosagem_personalizada_5;
+          sexta_dosagem_personalizada_5 = temp2sexta_dosagem_personalizada_5;
+          sabado_dosagem_personalizada_5 = temp2sabado_dosagem_personalizada_5;
+          domingo_dosagem_personalizada_5 = temp2domingo_dosagem_personalizada_5;
+
+          if((hora_final_dosagem_personalizada_5 == hora_inicial_dosagem_personalizada_5) && (minuto_final_dosagem_personalizada_5 < (minuto_inicial_dosagem_personalizada_5+10)))
+          {
+            setFont(SMALL, 255, 0, 0, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[176]))); 
+            myGLCD.print(buffer, 20, 110);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[177]))); 
+            myGLCD.print(buffer, 35, 130);
+          }
+          if(hora_final_dosagem_personalizada_5 < hora_inicial_dosagem_personalizada_5)
+          {
+            setFont(SMALL, 255, 0, 0, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[178]))); 
+            myGLCD.print(buffer, 50, 110); // "A HORA FINAL NAO PODE SER MENOR"
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[179]))); 
+            myGLCD.print(buffer, 100, 130); // tabela_textos[179] = "QUE A INICIAL!"
+          }
+
+          if((temp2hora_final_dosagem_personalizada_5 == hora_inicial_dosagem_personalizada_5) && (temp2minuto_final_dosagem_personalizada_5 >= (minuto_inicial_dosagem_personalizada_5+10)))
+          {
+            dispScreen =21;
+            clearScreen();
+            selecionar_dosadora();
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[171]))); 
+            myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
+
+            modo_manual = false;
+            modo_personalizado = true;
+            modo_calibrar = false;
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
+            file.open(&root, "HDP5.TXT", O_WRITE);
+            file.remove();       
+            file.open(&root, "HDP5.TXT", O_CREAT | O_APPEND | O_WRITE);
+
+            minuto01 = NumMins(hora_final_dosagem_personalizada_5, minuto_final_dosagem_personalizada_5) - NumMins(hora_inicial_dosagem_personalizada_5, minuto_inicial_dosagem_personalizada_5); 
+            minuto01 /= 1 + quantidade_dose_dosadora_5_personalizada;
+
+            for(int i = 1; i <= quantidade_dose_dosadora_5_personalizada; i++)
+            { 
+              contador += 1;  
+              if(contador == 1)
+              {
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_5, minuto_inicial_dosagem_personalizada_5) + minuto01;
+              }
+              if(contador > 1)
+              {
+                minuto11 += minuto01; 
+              }
+              if(minuto11 < 10)
+              {
+                file.print("000");  
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 > 10) && (minuto11 < 100))
+              {
+                file.print("00");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 >= 100) && (minuto11 < 1000))
+              {
+                file.print("0");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(minuto11 >= 1000)
+              {
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+            }
+            file.close();  
+            contador = 0;
+            digitalWrite (4, HIGH);
+            Salvar_dosadora_EEPROM(); 
+          }    
+
+          if(temp2hora_final_dosagem_personalizada_5 > hora_inicial_dosagem_personalizada_5)
+          {
+            dispScreen =21;
+            clearScreen();
+            selecionar_dosadora();
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[171]))); 
+            myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
+
+            modo_manual = false;
+            modo_personalizado = true;
+            modo_calibrar = false;
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
+            file.open(&root, "HDP5.TXT", O_WRITE);
+            file.remove();       
+            file.open(&root, "HDP5.TXT", O_CREAT | O_APPEND | O_WRITE);
+
+            minuto01 = NumMins(hora_final_dosagem_personalizada_5, minuto_final_dosagem_personalizada_5) - NumMins(hora_inicial_dosagem_personalizada_5, minuto_inicial_dosagem_personalizada_5); 
+            minuto01 /= 1 + quantidade_dose_dosadora_5_personalizada;
+
+            for(int i = 1; i <= quantidade_dose_dosadora_5_personalizada; i++)
+            { 
+              contador += 1;  
+              if(contador == 1)
+              {
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_5, minuto_inicial_dosagem_personalizada_5) + minuto01;
+              }
+              if(contador > 1)
+              {
+                minuto11 += minuto01; 
+              }
+              if(minuto11 < 10)
+              {
+                file.print("000");  
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 > 10) && (minuto11 < 100))
+              {
+                file.print("00");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 >= 100) && (minuto11 < 1000))
+              {
+                file.print("0");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(minuto11 >= 1000)
+              {
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+            }
+            file.close();  
+            contador = 0;
+            digitalWrite (4, HIGH);
+            Salvar_dosadora_EEPROM();
+          }         
+        }      
+      }
+      if(bitRead(dosadora_selecionada,6) == true)
+      {
+        if ((x >= minUT[0]) && (x <= minUT[2]) && (y >= minUT[1]) && (y <= minUT[3])) // Dose diaria mais
+        {
+          waitForIt(minUT[0], minUT[1], minUT[2], minUT[3]);
+          dose_dosadora_6_personalizada_temp2 += 0.5;
+          if(dose_dosadora_6_personalizada_temp2 > 999.5)
+          {
+            dose_dosadora_6_personalizada_temp2 = 0.5;
+          }
+          if(dose_dosadora_6_personalizada_temp2 <= 9.5)
+          {
+            myGLCD.setColor(0, 0, 0);                      
+            myGLCD.fillRect(100, 45, 185, 67);
+          }
+          config_dosagem_personalizada_2();
+        }
+        if ((x >= minDT[0]) && (x <= minDT[2]) && (y >= minDT[1]) && (y <= minDT[3])) // Dose diaria menos
+        {
+          waitForIt(minDT[0], minDT[1], minDT[2], minDT[3]);
+          dose_dosadora_6_personalizada_temp2 -= 0.5;
+          if(dose_dosadora_6_personalizada_temp2 <0.5)
+          {
+            dose_dosadora_6_personalizada_temp2 = 999.5;
+          }
+          if(dose_dosadora_6_personalizada_temp2 <= 9.5)
+          {
+            myGLCD.setColor(0, 0, 0);                      
+            myGLCD.fillRect(100, 45, 185, 67);
+          }
+          config_dosagem_personalizada_2();
+        }
+        if ((x >= durC[0]) && (x <= durC[2]) && (y >= durC[1]) && (y <= durC[3])) 
+        {
+          waitForIt(durC[0], durC[1], durC[2], durC[3]); 
+          quantidade_dose_dosadora_6_personalizada_temp2 += 1;
+          if(quantidade_dose_dosadora_6_personalizada_temp2 > 24)
+          {
+            quantidade_dose_dosadora_6_personalizada_temp2 = 1;
+          }
+          config_dosagem_personalizada_2();
+        }
+
+        if ((x >= durB[0]) && (x <= durB[2]) && (y >= durB[1]) && (y <= durB[3])) 
+        {
+          waitForIt(durB[0], durB[1], durB[2], durB[3]);
+          quantidade_dose_dosadora_6_personalizada_temp2 -= 1;
+          if(quantidade_dose_dosadora_6_personalizada_temp2 < 1)
+          {
+            quantidade_dose_dosadora_6_personalizada_temp2 = 24;
+          }
+          config_dosagem_personalizada_2();        
+        }
+        if ((x >= sexT[0]) && (x<= sexT[2]) && (y >= sexT [1]) && (y <= sexT[3]))
+        {
+          waitForIt(sexT[0], sexT[1], sexT[2], sexT[3]);
+          if(modo_personalizado_on_6_temp2 == 0)
+          {
+            modo_personalizado_on_6_temp2 = 1;
+            config_dosagem_personalizada_2();
+          }
+          else
+          {
+            modo_personalizado_on_6_temp2 = 0;
+            config_dosagem_personalizada_2();
+          }
+        }
+        if ((y >= prOK[1]) && (y <= prOK[3]) && (x >= prOK[0]) && (x <= prOK[2])) 
+        {
+          waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
+          dose_dosadora_6_personalizada = dose_dosadora_6_personalizada_temp2;
+          quantidade_dose_dosadora_6_personalizada = quantidade_dose_dosadora_6_personalizada_temp2;
+          modo_personalizado_on_6 = modo_personalizado_on_6_temp2;
+          hora_inicial_dosagem_personalizada_6 = temp2hora_inicial_dosagem_personalizada_6;
+          minuto_inicial_dosagem_personalizada_6 = temp2minuto_inicial_dosagem_personalizada_6;
+          hora_final_dosagem_personalizada_6 = temp2hora_final_dosagem_personalizada_6;
+          minuto_final_dosagem_personalizada_6 = temp2minuto_final_dosagem_personalizada_6;
+          segunda_dosagem_personalizada_6 = temp2segunda_dosagem_personalizada_6;
+          terca_dosagem_personalizada_6 = temp2terca_dosagem_personalizada_6;
+          quarta_dosagem_personalizada_6 = temp2quarta_dosagem_personalizada_6;
+          quinta_dosagem_personalizada_6 = temp2quinta_dosagem_personalizada_6;
+          sexta_dosagem_personalizada_6 = temp2sexta_dosagem_personalizada_6;
+          sabado_dosagem_personalizada_6 = temp2sabado_dosagem_personalizada_6;
+          domingo_dosagem_personalizada_6 = temp2domingo_dosagem_personalizada_6;
+          if((hora_final_dosagem_personalizada_6 == hora_inicial_dosagem_personalizada_6) && (minuto_final_dosagem_personalizada_6 < (minuto_inicial_dosagem_personalizada_6+10)))
+          {
+            setFont(SMALL, 255, 0, 0, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[176]))); 
+            myGLCD.print(buffer, 20, 110);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[177]))); 
+            myGLCD.print(buffer, 35, 130); // tabela_textos[177] = "DEVE SER DE NO MINIMO 10 MINUTOS!"
+          }
+          if(hora_final_dosagem_personalizada_6 < hora_inicial_dosagem_personalizada_6)
+          {
+            setFont(SMALL, 255, 0, 0, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[178]))); 
+            myGLCD.print(buffer, 50, 110); // tabela_textos[178] = "A HORA FINAL NAO PODE SER MENOR"
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[179]))); 
+            myGLCD.print(buffer, 100, 130); // tabela_textos[179] = "QUE A INICIAL!" 
+          }
+
+          if((temp2hora_final_dosagem_personalizada_6 == hora_inicial_dosagem_personalizada_6) && (temp2minuto_final_dosagem_personalizada_6 >= (minuto_inicial_dosagem_personalizada_6+10)))
+          {
+            dispScreen =21;
+            clearScreen();
+            selecionar_dosadora();
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[171]))); 
+            myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
+
+            modo_manual = false;
+            modo_personalizado = true;
+            modo_calibrar = false; 
+            digitalWrite (4, LOW); 
+            file.open(&root, "HDP6.TXT", O_WRITE);
+            file.remove();       
+            file.open(&root, "HDP6.TXT", O_CREAT | O_APPEND | O_WRITE);
+
+            minuto01 = NumMins(hora_final_dosagem_personalizada_6, minuto_final_dosagem_personalizada_6) - NumMins(hora_inicial_dosagem_personalizada_6, minuto_inicial_dosagem_personalizada_6); 
+            minuto01 /= 1 + quantidade_dose_dosadora_6_personalizada;
+
+            for(int i = 1; i <= quantidade_dose_dosadora_6_personalizada; i++)
+            { 
+              contador += 1;  
+              if(contador == 1)
+              {
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_6, minuto_inicial_dosagem_personalizada_6) + minuto01;
+              }
+              if(contador > 1)
+              {
+                minuto11 += minuto01; 
+              }
+              if(minuto11 < 10)
+              {
+                file.print("000");  
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 > 10) && (minuto11 < 100))
+              {
+                file.print("00");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 >= 100) && (minuto11 < 1000))
+              {
+                file.print("0");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(minuto11 >= 1000)
+              {
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+            }
+            file.close();  
+            contador = 0;
+            digitalWrite (4, HIGH);
+            Salvar_dosadora_EEPROM(); 
+          }    
+
+          if(temp2hora_final_dosagem_personalizada_6 > hora_inicial_dosagem_personalizada_6)
+          {
+            dispScreen =21;
+            clearScreen();
+            selecionar_dosadora();
+            setFont(SMALL, 255, 255, 255, 0, 0, 0);
+
+            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[171]))); 
+            myGLCD.print(buffer, 15, 220); // tabela_textos[171] = "MODO PERSONALIZADO SELECIONADO"
+
+            modo_manual = false;
+            modo_personalizado = true;
+            modo_calibrar = false;
+            dosadora_selecionada = 0x0;
+            digitalWrite (4, LOW); 
+            file.open(&root, "HDP6.TXT", O_WRITE);
+            file.remove();       
+            file.open(&root, "HDP6.TXT", O_CREAT | O_APPEND | O_WRITE);
+
+            minuto01 = NumMins(hora_final_dosagem_personalizada_6, minuto_final_dosagem_personalizada_6) - NumMins(hora_inicial_dosagem_personalizada_6, minuto_inicial_dosagem_personalizada_6); 
+            minuto01 /= 1 + quantidade_dose_dosadora_6_personalizada;
+
+            for(int i = 1; i <= quantidade_dose_dosadora_6_personalizada; i++)
+            { 
+              contador += 1;  
+              if(contador == 1)
+              {
+                minuto11 = NumMins(hora_inicial_dosagem_personalizada_6, minuto_inicial_dosagem_personalizada_6) + minuto01;
+              }
+              if(contador > 1)
+              {
+                minuto11 += minuto01; 
+              }
+              if(minuto11 < 10)
+              {
+                file.print("000");  
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 > 10) && (minuto11 < 100))
+              {
+                file.print("00");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(( minuto11 >= 100) && (minuto11 < 1000))
+              {
+                file.print("0");
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+              else if(minuto11 >= 1000)
+              {
+                file.print(minuto11);
+                file.write((uint8_t*)"\0", 1);
+                writeCRLF(file);
+              }
+            }
+            file.close();  
+            contador = 0;
+            digitalWrite (4, HIGH);
             Salvar_dosadora_EEPROM();
           }         
         }
@@ -4268,37 +5222,14 @@ void processMyTouch()
         clearScreen();
         menu_dosadoras();
       }
-      if ((x>=manU[0]) && (x<=manU[2]) && (y>=manU[1]) && (y<=manU[3]))           // Rever configuração dosagem automatica
+      if ((x>=manU[0]) && (x<=manU[2]) && (y>=manU[1]) && (y<=manU[3]))           // Rever configuração dosagem personalizada
       {
         waitForIt(manU[0], manU[1], manU[2], manU[3]);
-        dispScreen = 33;
-        clearScreen();
-        rever_dosagem_automatica();
-      }
-      if ((x>=autO[0]) && (x<=autO[2]) && (y>=autO[1]) && (y<=autO[3]))           // Rever configuração dosagem personalizada
-      {
-        waitForIt(autO[0], autO[1], autO[2], autO[3]);
         dispScreen = 34;
         clearScreen();
         rever_dosagem_personalizada();
       }  
       break;     
-    case 33:// -------------------------------- Rever configuração das dosadoras modo automático ------------------------------------------
-      if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
-      {
-        waitForIt(menU[0], menU[1], menU[2], menU[3]);
-        dispScreen = 1;
-        clearScreen();
-        menuScreen(); 
-      }
-      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta ao menu de revisão das dosadoras
-      {
-        waitForIt(volT[0], volT[1], volT[2], volT[3]);
-        dispScreen=32;
-        clearScreen();
-        rever_configuracao_dosadoras();
-      }
-      break;
     case 34:// -------------------------------- Rever configuração das dosadoras personalizado ------------------------------------------
       if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
       {
@@ -4314,6 +5245,13 @@ void processMyTouch()
         clearScreen();
         rever_configuracao_dosadoras();
       }
+      if ((x>=salV[0]) && (x<=salV[2]) && (y>=salV[1]) && (y<=salV[3]))           // Mais dosadoras
+      {
+        waitForIt(salV[0], salV[1], salV[2], salV[3]);
+        dispScreen=23;
+        clearScreen();
+        rever_dosagem_personalizada_2();
+      }
       break;
     case 35:// -------------------------------------- Desativar dosadoras ------------------------------------------
       if ((x>=menU[0]) && (x<=menU[2]) && (y>=menU[1]) && (y<=menU[3]))           // volta ao menu
@@ -4323,12 +5261,19 @@ void processMyTouch()
         clearScreen();
         menuScreen();    
       }
-      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta ao menu de revisão das dosadoras
+      if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta ao menu desativar dosadoras
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen = 8;
         clearScreen();
         menu_dosadoras();
+      }
+      if ((x>=deS[0]) && (x<=deS[2]) && (y>=deS[1]) && (y<=deS[3]))           // volta ao menu desativar dosadoras
+      {
+        waitForIt(deS[0], deS[1], deS[2], deS[3]);
+        dispScreen = 24;
+        clearScreen();
+        desativar_dosadoras_2(true);
       }
       if ((x >= 100) && (x <= 220) && (y >= 45) && (y <= 85))           //Ativar/desatiavr dosadora 1
       {
@@ -4378,17 +5323,14 @@ void processMyTouch()
         if(ativar_desativar_1 == 0)
         {
           modo_personalizado_on_1 = 0;
-          modo_automatico_on_1 = 0;
         }
         if(ativar_desativar_2 == 0)
         {
           modo_personalizado_on_2 = 0;
-          modo_automatico_on_2 = 0;
         }
         if(ativar_desativar_3 == 0)
         {
           modo_personalizado_on_3 = 0;
-          modo_automatico_on_3 = 0;
         }
         Salvar_dosadora_EEPROM(); 
         dispScreen = 0;
@@ -4498,11 +5440,8 @@ void processMyTouch()
       if ((x >= 7) && (x <= 56) && (y >= 22) && (y <= 238))           // Timer 1 
       {
         waitForIt(7, 22, 56, 238);
-        temporizador_1 = true;
-        temporizador_2 = false;
-        temporizador_3 = false;
-        temporizador_4 = false;
-        temporizador_5 = false;
+        temporizador = 0x0;
+        bitWrite(temporizador,1,1);
         dispScreen=39;
         clearScreen();
         config_timer(true);
@@ -4510,11 +5449,8 @@ void processMyTouch()
       if ((x >= 71) && (x <= 120) && (y >= 22) && (y <= 238))           // Timer 2 
       {
         waitForIt(71, 22, 120, 238);
-        temporizador_1 = false;
-        temporizador_2 = true;
-        temporizador_3 = false;
-        temporizador_4 = false;
-        temporizador_5 = false;
+        temporizador = 0x0;
+        bitWrite(temporizador,2,1);
         dispScreen=39;
         clearScreen();
         config_timer(true);
@@ -4522,11 +5458,8 @@ void processMyTouch()
       if ((x >= 135) && (x <= 184) && (y >= 22) && (y <= 238))           // Timer 3 
       {
         waitForIt(135, 22, 184, 238);
-        temporizador_1 = false;
-        temporizador_2 = false;
-        temporizador_3 = true;
-        temporizador_4 = false;
-        temporizador_5 = false;
+        temporizador = 0x0;
+        bitWrite(temporizador,3,1);
         dispScreen=39;
         clearScreen();
         config_timer(true);
@@ -4534,11 +5467,8 @@ void processMyTouch()
       if ((x >= 199) && (x <= 248) && (y >= 22) && (y <= 238))           // Timer 4 
       {
         waitForIt(199, 22, 248, 238);
-        temporizador_1 = false;
-        temporizador_2 = false;
-        temporizador_3 = false;
-        temporizador_4 = true;
-        temporizador_5 = false;
+        temporizador = 0x0;
+        bitWrite(temporizador,4,1);
         dispScreen=39;
         clearScreen();
         config_timer(true);
@@ -4546,11 +5476,8 @@ void processMyTouch()
       if ((x >= 263) && (x <= 312) && (y >= 22) && (y <= 238))           // Timer 5 
       {
         waitForIt(263, 22, 312, 238);
-        temporizador_1 = false;
-        temporizador_2 = false;
-        temporizador_3 = false;
-        temporizador_4 = false;
-        temporizador_5 = true;
+        temporizador = 0x0;
+        bitWrite(temporizador,5,1);
         dispScreen=39;
         clearScreen();
         config_timer(true);
@@ -4571,57 +5498,20 @@ void processMyTouch()
         clearScreen();
         TimerScreen(); 
       } 
-      if(temporizador_1 == true)
+      if(bitRead(temporizador,1) == true)
       {
         if ((x>=salV[0]) && x<=salV[2] && (y>=salV[1]) && (y<=salV[3]))
         {
           waitForIt(salV[0], salV[1], salV[2], salV[3]); // Função salvar
-          if((on1_hora_temp2 == off1_hora_temp2) && (on1_minuto_temp2 >= off1_minuto_temp2))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if(off1_hora_temp2 < on1_hora_temp2)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if((on1_hora_temp2 == off1_hora_temp2) && (off1_minuto_temp2 > on1_minuto_temp2))
-          {
-            on1_minuto = on1_minuto_temp2;
-            on1_hora = on1_hora_temp2;
-            off1_minuto = off1_minuto_temp2;
-            off1_hora = off1_hora_temp2;
-            temporizador_1_ativado = temporizador_1_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
-          if(on1_hora_temp2 < off1_hora_temp2)
-          {
-            on1_minuto = on1_minuto_temp2;
-            on1_hora = on1_hora_temp2;
-            off1_minuto = off1_minuto_temp2;
-            off1_hora = off1_hora_temp2;
-            temporizador_1_ativado = temporizador_1_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();    
-            salvar_timers_EEPROM();
-          }
+          on1_minuto = on1_minuto_temp2;
+          on1_hora = on1_hora_temp2;
+          off1_minuto = off1_minuto_temp2;
+          off1_hora = off1_hora_temp2;
+          temporizador_1_ativado = temporizador_1_ativado_temp2;
+          dispScreen=38;
+          clearScreen();
+          TimerScreen();
+          salvar_timers_EEPROM();
         }
         if ((x >= 21) && (x <= 65) && (y >= 45) && (y <= 88))           // Hora ligar mais 
         {
@@ -4635,7 +5525,7 @@ void processMyTouch()
         } 
         if ((x >= 21) && (x <= 65) && (y >= 135) && (y <= 178))           // Hora ligar menos
         {
-          waitForIt(21, 45, 65, 88);
+          waitForIt(21, 135, 65, 178);
           on1_hora_temp2 -= 1;
           if(on1_hora_temp2 < 0)
           {
@@ -4719,58 +5609,20 @@ void processMyTouch()
           config_timer();
         }  
       }
-      if(temporizador_2 == true)
+      if(bitRead(temporizador,2) == true)
       {
         if ((x>=salV[0]) && x<=salV[2] && (y>=salV[1]) && (y<=salV[3]))
         {
           waitForIt(salV[0], salV[1], salV[2], salV[3]); // Função salvar
-
-          if((on2_hora_temp2 == off2_hora_temp2) && (on2_minuto_temp2 >= off2_minuto_temp2))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if(off2_hora_temp2 < on2_hora_temp2)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if((on2_hora_temp2 == off2_hora_temp2) && (off2_minuto_temp2 > on2_minuto_temp2))
-          {
-            on2_minuto = on2_minuto_temp2;
-            on2_hora = on2_hora_temp2;
-            off2_minuto = off2_minuto_temp2;
-            off2_hora = off2_hora_temp2;
-            temporizador_2_ativado = temporizador_2_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
-          if(on2_hora_temp2 < off2_hora_temp2)
-          {
-            on2_minuto = on2_minuto_temp2;
-            on2_hora = on2_hora_temp2;
-            off2_minuto = off2_minuto_temp2;
-            off2_hora = off2_hora_temp2;
-            temporizador_2_ativado = temporizador_2_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
+          on2_minuto = on2_minuto_temp2;
+          on2_hora = on2_hora_temp2;
+          off2_minuto = off2_minuto_temp2;
+          off2_hora = off2_hora_temp2;
+          temporizador_2_ativado = temporizador_2_ativado_temp2;
+          dispScreen=38;
+          clearScreen();
+          TimerScreen();
+          salvar_timers_EEPROM();
         }
 
         if ((x >= 21) && (x <= 65) && (y >= 45) && (y <= 88))           // Hora ligar mais 
@@ -4785,7 +5637,7 @@ void processMyTouch()
         } 
         if ((x >= 21) && (x <= 65) && (y >= 135) && (y <= 178))           // Hora ligar menos
         {
-          waitForIt(21, 45, 65, 88);
+          waitForIt(21, 135, 65, 178);
           on2_hora_temp2 -= 1;
           if(on2_hora_temp2 < 0)
           {
@@ -4869,58 +5721,20 @@ void processMyTouch()
           config_timer();
         }  
       }   
-      if(temporizador_3 == true)
+      if(bitRead(temporizador,3) == true)
       {
         if ((x>=salV[0]) && x<=salV[2] && (y>=salV[1]) && (y<=salV[3]))
         {
           waitForIt(salV[0], salV[1], salV[2], salV[3]); // Função salvar          
-
-          if((on3_hora_temp2 == off3_hora_temp2) && (on3_minuto_temp2 >= off3_minuto_temp2))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if(off3_hora_temp2 < on3_hora_temp2)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if((on3_hora_temp2 == off3_hora_temp2) && (off3_minuto_temp2 > on3_minuto_temp2))
-          {
-            on3_minuto = on3_minuto_temp2;
-            on3_hora = on3_hora_temp2;
-            off3_minuto = off3_minuto_temp2;
-            off3_hora = off3_hora_temp2;
-            temporizador_3_ativado = temporizador_3_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
-          if(on3_hora_temp2 < off3_hora_temp2)
-          {
-            on3_minuto = on3_minuto_temp2;
-            on3_hora = on3_hora_temp2;
-            off3_minuto = off3_minuto_temp2;
-            off3_hora = off3_hora_temp2;
-            temporizador_3_ativado = temporizador_3_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
+          on3_minuto = on3_minuto_temp2;
+          on3_hora = on3_hora_temp2;
+          off3_minuto = off3_minuto_temp2;
+          off3_hora = off3_hora_temp2;
+          temporizador_3_ativado = temporizador_3_ativado_temp2;
+          dispScreen=38;
+          clearScreen();
+          TimerScreen();
+          salvar_timers_EEPROM();
         }
 
         if ((x >= 21) && (x <= 65) && (y >= 45) && (y <= 88))           // Hora ligar mais 
@@ -4935,7 +5749,7 @@ void processMyTouch()
         } 
         if ((x >= 21) && (x <= 65) && (y >= 135) && (y <= 178))           // Hora ligar menos
         {
-          waitForIt(21, 45, 65, 88);
+          waitForIt(21, 135, 65, 178);
           on3_hora_temp2 -= 1;
           if(on3_hora_temp2 < 0)
           {
@@ -5019,58 +5833,20 @@ void processMyTouch()
           config_timer(); 
         }  
       }
-      if(temporizador_4 == true)
+      if(bitRead(temporizador,4) == true)
       {
         if ((x>=salV[0]) && x<=salV[2] && (y>=salV[1]) && (y<=salV[3]))
         {
           waitForIt(salV[0], salV[1], salV[2], salV[3]); // Função salvar
-
-          if((on4_hora_temp2 == off4_hora_temp2) && (on4_minuto_temp2 >= off4_minuto_temp2))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if(off4_hora_temp2 < on4_hora_temp2)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if((on4_hora_temp2 == off4_hora_temp2) && (off4_minuto_temp2 > on4_minuto_temp2))
-          {
-            on4_minuto = on4_minuto_temp2;
-            on4_hora = on4_hora_temp2;
-            off4_minuto = off4_minuto_temp2;
-            off4_hora = off4_hora_temp2;
-            temporizador_4_ativado = temporizador_4_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
-          if(on4_hora_temp2 < off4_hora_temp2)
-          {
-            on4_minuto = on4_minuto_temp2;
-            on4_hora = on4_hora_temp2;
-            off4_minuto = off4_minuto_temp2;
-            off4_hora = off4_hora_temp2;
-            temporizador_4_ativado = temporizador_4_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
+          on4_minuto = on4_minuto_temp2;
+          on4_hora = on4_hora_temp2;
+          off4_minuto = off4_minuto_temp2;
+          off4_hora = off4_hora_temp2;
+          temporizador_4_ativado = temporizador_4_ativado_temp2;
+          dispScreen=38;
+          clearScreen();
+          TimerScreen();
+          salvar_timers_EEPROM();
         }
         if ((x >= 21) && (x <= 65) && (y >= 45) && (y <= 88))           // Hora ligar mais 
         {
@@ -5084,7 +5860,7 @@ void processMyTouch()
         } 
         if ((x >= 21) && (x <= 65) && (y >= 135) && (y <= 178))           // Hora ligar menos
         {
-          waitForIt(21, 45, 65, 88);
+          waitForIt(21, 135, 65, 178);
           on4_hora_temp2 -= 1;
           if(on4_hora_temp2 < 0)
           {
@@ -5168,58 +5944,20 @@ void processMyTouch()
           config_timer(); 
         }  
       }
-      if(temporizador_5 == true)
+      if(bitRead(temporizador,5) == true)
       {
         if ((x>=salV[0]) && x<=salV[2] && (y>=salV[1]) && (y<=salV[3]))
         {        
           waitForIt(salV[0], salV[1], salV[2], salV[3]); // Função salvar
-
-          if((on5_hora_temp2 == off5_hora_temp2) && (on5_minuto_temp2 >= off5_minuto_temp2))
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if(off5_hora_temp2 < on5_hora_temp2)
-          {
-            setFont(SMALL, 255, 0, 0, 0, 0, 0);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[170]))); 
-            myGLCD.print(buffer, 20, 205);
-
-            strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[169]))); 
-            myGLCD.print(buffer, 20, 222);
-          }
-
-          if((on5_hora_temp2 == off5_hora_temp2) && (off5_minuto_temp2 > on5_minuto_temp2))
-          {
-            on5_minuto = on5_minuto_temp2;
-            on5_hora = on5_hora_temp2;
-            off5_minuto = off5_minuto_temp2;
-            off5_hora = off5_hora_temp2;
-            temporizador_5_ativado = temporizador_5_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
-          if(on5_hora_temp2 < off5_hora_temp2)
-          {
-            on5_minuto = on5_minuto_temp2;
-            on5_hora = on5_hora_temp2;
-            off5_minuto = off5_minuto_temp2;
-            off5_hora = off5_hora_temp2;
-            temporizador_5_ativado = temporizador_5_ativado_temp2;
-            dispScreen=38;
-            clearScreen();
-            TimerScreen();
-            salvar_timers_EEPROM();
-          }
+          on5_minuto = on5_minuto_temp2;
+          on5_hora = on5_hora_temp2;
+          off5_minuto = off5_minuto_temp2;
+          off5_hora = off5_hora_temp2;
+          temporizador_5_ativado = temporizador_5_ativado_temp2;
+          dispScreen=38;
+          clearScreen();
+          TimerScreen();
+          salvar_timers_EEPROM();
         }
         if ((x >= 21) && (x <= 65) && (y >= 45) && (y <= 88))           // Hora ligar mais 
         {
@@ -5233,7 +5971,7 @@ void processMyTouch()
         } 
         if ((x >= 21) && (x <= 65) && (y >= 135) && (y <= 178))           // Hora ligar menos
         {
-          waitForIt(21, 45, 65, 88);
+          waitForIt(21, 135, 65, 178);
           on5_hora_temp2 -= 1;
           if(on5_hora_temp2 < 0)
           {
@@ -5326,20 +6064,20 @@ void processMyTouch()
         clearScreen();
         menuScreen();
       }
+
       if ((x>=tanD[0]) && x<=tanD[2] && (y>=tanD[1]) && (y<=tanD[3]))           // Testar leds
       {
         waitForIt(tanD[0], tanD[1], tanD[2], tanD[3]);   
-        dispScreen=3;
+        dispScreen=25;
         clearScreen();
-        testScreen(true);
+        escolher_teste();
       }
       if ((x>=tesT[0]) && x<=tesT[2] && (y>=tesT[1]) && (y<=tesT[3]))           // Alterar valores led
       {
         waitForIt(tesT[0], tesT[1], tesT[2], tesT[3]);   
-        dispScreen=5;
-        WorB=WHITE;
+        dispScreen=28;
         clearScreen();
-        ledSetScreen(); 
+        escolher_canal(); 
       }
       if ((x>=temC[0]) && x<=temC[2] && (y>=temC[1]) && (y<=temC[3]))           // Luz Noturna
       {
@@ -5352,6 +6090,16 @@ void processMyTouch()
     }
   }
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

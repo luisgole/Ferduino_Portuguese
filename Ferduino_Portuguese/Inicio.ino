@@ -28,7 +28,7 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.print(bufferLP, 98, 210); //Escreve descrição da fase lunar
 
     float lunarCycle = moonPhase(t.year,t.mon, t.date); //get a value for the lunar cycle
-    if ((lunarCycle*100) < 1) //Print % of Full to LCD
+    if ((lunarCycle*100) < 0) //Print % of Full to LCD
     { 
       myGLCD.print(" 0.00", 240, 210); 
     }
@@ -169,42 +169,43 @@ void mainScreen(boolean refreshAll=false)
   myGLCD.printNumI(DEN, 88, 140);   //densidade
   myGLCD.printNumI( ORP, 45, 160);  //ORP 
 
-  if (tempCflag==true) 
+   
+  if (bitRead(status_parametros,0) == true) 
   {
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("ON", 279, 62);                       //chiller ligado
   }
-  else if (tempCflag==false) 
+  else if (bitRead(status_parametros,0) == false) 
   {
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("OFF", 279, 62);                        //chiller desligado
   }
-  if (tempHflag==true) 
+  if (bitRead(status_parametros,1) == true) 
   {
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("ON", 289, 81);           // aquecedor ligado
   } 
-  else if (tempHflag==false) 
+  else if (bitRead(status_parametros,1) == false) 
   {
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("OFF", 289, 81);           // aquecedor desligado
   } 
-  if (PHRflag==true) 
+  if (bitRead(status_parametros,5)== true) 
   {              
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("ON", 270, 100);           // reator ligado
   } 
-  else if (PHRflag==false) 
+  else if (bitRead(status_parametros,5) == false) 
   {              
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("OFF", 270, 100);           // reator desligado
   }
-  if (ORPflag==true) 
+  if (bitRead(status_parametros,7) == true) 
   {             
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("ON", 270, 119);           // reator ligado
   } 
-  else if (ORPflag==false) 
+  else if (bitRead(status_parametros,7) == false) 
   {                
     setFont(LARGE, 0, 255, 0, 0, 0, 0);
     myGLCD.print("OFF", 270, 119);           // reator desligado
@@ -241,27 +242,27 @@ void mainScreen(boolean refreshAll=false)
     myGLCD.print("OFF", 289, 140);           // reposicao desligada
   }
 
-  if (tempAflag==true) 
+  if (bitRead(status_parametros,2)==true) 
   {                                //print alarm
     setFont(LARGE, 255, 0, 0, 0, 0, 0);
     myGLCD.printNumF( tempC, 1, 102, 64);              //temperatura em vermelho
   }  
-  if (PHAAflag==true) 
+  if (bitRead(status_parametros,3) == true) 
   {                                //print alarm
     setFont(LARGE, 255, 0, 0, 0, 0, 0);
     myGLCD.printNumF(PHA, 2, 122, 102);   //PH do aquario em vermelho
   }    
-  if (PHRAflag==true) 
+  if (bitRead(status_parametros,6) == true) 
   {                                //print alarm
     setFont(LARGE, 255, 0, 0, 0, 0, 0);
     myGLCD.printNumF(PHR, 2, 116, 121);   //PH do reator em vermelho
   }
-  if (ORPAflag==true) 
+  if (bitRead(status_parametros_1,0) == true) 
   {                                //print alarm
     setFont(LARGE, 255, 0, 0, 0, 0, 0);
     myGLCD.printNumI(ORP, 45, 160);   //ORP em vermelho
   }    
-  if (DENAflag==true) 
+  if (bitRead(status_parametros,4) == true) 
   {                                //print alarm
     setFont(LARGE, 255, 0, 0, 0, 0, 0);
     myGLCD.printNumI(DEN, 88, 140);   //PH do reator em vermelho

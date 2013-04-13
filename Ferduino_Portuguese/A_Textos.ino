@@ -28,8 +28,8 @@ prog_char texto26[] PROGMEM = "GRAFICO DE ORP"; // tabela_textos[26]
 prog_char texto27[] PROGMEM = "GRAFICO DE PH DO AQUARIO"; // tabela_textos[27]
 prog_char texto28[] PROGMEM = "GRAFICO DE PH DO REATOR DE CALCIO";// tabela_textos[28]
 prog_char texto29[] PROGMEM = "GRAFICO DE DENSIDADE";// tabela_textos[29]
-prog_char texto30[] PROGMEM = "ALTERAR POTENCIAS DOS LEDS BRANCOS"; // tabela_textos[30]
-prog_char texto31[] PROGMEM = "ALTERAR POTENCIA DOS LEDS AZUIS"; // tabela_textos[31]
+prog_char texto30[] PROGMEM = ""; // tabela_textos[30]
+prog_char texto31[] PROGMEM = ""; // tabela_textos[31]
 prog_char texto32[] PROGMEM = "CONF.DIAS E HORARIO PARA TPA AUTOMATICA";// tabela_textos[32]
 prog_char texto33[] PROGMEM = "ALTERAR CONFIGURACAO DAS DOSADORAS";// tabela_textos[33]
 prog_char texto34[] PROGMEM = "ESCOLHA UM GRAFICO";// tabela_textos[34]
@@ -42,12 +42,12 @@ prog_char texto40[] PROGMEM = "CONTROLE DE DENSIDADE"; // tabela_textos[40]
 prog_char texto41[] PROGMEM = "ESCOLHA UMA DOSADORA"; // tabela_textos[41]
 prog_char texto42[] PROGMEM = "CALIBRAR DOSADORA"; // tabela_textos[42]
 prog_char texto43[] PROGMEM = "DOSAGEM MANUAL"; // tabela_textos[43]
-prog_char texto44[] PROGMEM = "CONFIGURAR DOSAGEM AUTOMATICA" ;// tabela_textos[44]
+prog_char texto44[] PROGMEM = "REVER CONFIG. DOSADORAS";// tabela_textos[44]
 prog_char texto45[] PROGMEM = "CONFIGURAR DOSAGEM PERSONALIZADA"; // tabela_textos[45]
 prog_char texto46[] PROGMEM = "DIGITE A SENHA"; // tabela_textos[46]
 prog_char texto47[] PROGMEM = "CONFIGURAR DOSAGEM PERSONALIZADA"; // tabela_textos[47]
 prog_char texto48[] PROGMEM = "ALTERAR CONFIGURACAO DAS DOSADORAS"; // tabela_textos[48]
-prog_char texto49[] PROGMEM = "REVER CONF. DA DOSAGEM AUTOMATICA"; // tabela_textos[49]
+prog_char texto49[] PROGMEM = "ESCOLHA UM TIPO DE TESTE"; // tabela_textos[49]
 prog_char texto50[] PROGMEM = "REVER CONF. DA DOSAGEM PERSONALIZADA"; // tabela_textos[50]
 prog_char texto51[] PROGMEM = "DESATIVAR DOSADORAS"; // tabela_textos[51]
 prog_char texto52[] PROGMEM = "LUZ NOTURNA   255 = 100 %"; // tabela_textos[52]
@@ -65,9 +65,9 @@ prog_char texto63[] PROGMEM = "SEXTA"; // tabela_textos[63]
 prog_char texto64[] PROGMEM = "SABADO"; // tabela_textos[64]
 prog_char texto65[] PROGMEM = "DOMINGO"; // tabela_textos[65]
 prog_char texto66[] PROGMEM = "VOLTAR"; // tabela_textos[66]
-prog_char texto67[] PROGMEM = ""; // tabela_textos[67]
-prog_char texto68[] PROGMEM = ""; // tabela_textos[68]
-prog_char texto69[] PROGMEM = "";  // tabela_textos[69]
+prog_char texto67[] PROGMEM = "TESTE INDIVIDUAL"; // tabela_textos[67]
+prog_char texto68[] PROGMEM = "TESTAR TODOS"; // tabela_textos[68]
+prog_char texto69[] PROGMEM = "PRE DEFINIDO";  // tabela_textos[69]
 prog_char texto70[] PROGMEM = "S"; // tabela_textos[70] // Segunda; Sexta e Sábado
 prog_char texto71[] PROGMEM = "T";// tabela_textos[71]
 prog_char texto72[] PROGMEM = "Q"; // tabela_textos[72] // Quarta e Quinta
@@ -75,10 +75,10 @@ prog_char texto73[] PROGMEM = "D"; // tabela_textos[73]
 prog_char texto74[] PROGMEM = "TEMPERATURA DESEJADA:"; // tabela_textos[74]
 prog_char texto75[] PROGMEM = "VARIACAO PERMITIDA:"; // tabela_textos[75]
 prog_char texto76[] PROGMEM = "VARIACAO PARA ACIONAR O ALARME:"; // tabela_textos[76]
-prog_char texto77[] PROGMEM = "POTENCIA DOS LEDS BRANCOS: 255 = 100%"; // tabela_textos[77]
-prog_char texto78[] PROGMEM = "AZUL"; // tabela_textos[78]
-prog_char texto79[] PROGMEM = "POTENCIA LEDS AZUIS: 255 = 100%"; // tabela_textos[79]
-prog_char texto80[] PROGMEM = "BRANCO"; // tabela_textos[80]
+prog_char texto77[] PROGMEM = ""; // tabela_textos[77]
+prog_char texto78[] PROGMEM = ""; // tabela_textos[78]
+prog_char texto79[] PROGMEM = ""; // tabela_textos[79]
+prog_char texto80[] PROGMEM = ""; // tabela_textos[80]
 prog_char texto81[] PROGMEM = "ALTERAR"; // tabela_textos[81]
 prog_char texto82[] PROGMEM = "SALVAR EEPROM"; // tabela_textos[82]
 prog_char texto83[] PROGMEM = "HORA:"; // tabela_textos[83]
@@ -87,7 +87,7 @@ prog_char texto85[] PROGMEM = "POR ESTAGIO:"; // tabela_textos[85]
 prog_char texto86[] PROGMEM = "FALHA!"; // tabela_textos[86]
 prog_char texto87[] PROGMEM = "NORMAL"; // tabela_textos[87]
 prog_char texto88[] PROGMEM = "MANUAL"; // tabela_textos[88]
-prog_char texto89[] PROGMEM = "AUTOMATICO"; // tabela_textos[89]
+prog_char texto89[] PROGMEM = ""; //"AUTOMATICO"; // tabela_textos[89]
 prog_char texto90[] PROGMEM = "PERSONALIZADO"; // tabela_textos[90]
 prog_char texto91[] PROGMEM = "REVER CONFIG."; // tabela_textos[91]
 prog_char texto92[] PROGMEM = "DESATIVAR MODOS"; // tabela_textos[92]
@@ -137,7 +137,7 @@ prog_char texto135[] PROGMEM = "PROXIMO"; // tabela_textos[135]
 prog_char texto136[] PROGMEM = "LIMPAR"; // tabela_textos[136]
 prog_char texto137[] PROGMEM = "ENTRAR"; // tabela_textos[137]
 prog_char texto138[] PROGMEM = "ANTERIOR"; // tabela_textos[138]
-prog_char texto139[] PROGMEM = "AUTOMATICO"; // tabela_textos[139]
+prog_char texto139[] PROGMEM = "";//"AUTOMATICO"; // tabela_textos[139]
 prog_char texto140[] PROGMEM = "PERSONALIZADO"; // tabela_textos[140]
 prog_char texto141[] PROGMEM = "USE ESTA"; // tabela_textos[141]
 prog_char texto142[] PROGMEM = "FUNCAO"; // tabela_textos[142]
@@ -202,6 +202,16 @@ prog_char texto200[] PROGMEM = "S"; // tabela_textos[200] // Sábado
 prog_char texto201[] PROGMEM = "CONFIG. LEDS";// tabela_textos[201]
 prog_char texto202[] PROGMEM = "CONFIGURAR LEDS"; // tabela_textos[202]
 prog_char texto203[] PROGMEM = "SELECIONE UM PERIODO."; // tabela_textos[203]
+prog_char texto204[] PROGMEM = "DOSADORA 4"; // tabela_textos[102] // tabela_textos[204]
+prog_char texto205[] PROGMEM = "DOSADORA 5"; // tabela_textos[103]// tabela_textos[205]
+prog_char texto206[] PROGMEM = "DOSADORA 6"; // tabela_textos[104] // tabela_textos[206]
+prog_char texto207[] PROGMEM = "DOSADORA 4 SELECIONADA"; // tabela_textos[111] // tabela_textos[207]
+prog_char texto208[] PROGMEM = "DOSADORA 5 SELECIONADA";// tabela_textos[112] // tabela_textos[208]
+prog_char texto209[] PROGMEM = "DOSADORA 6 SELECIONADA"; // tabela_textos[113] // tabela_textos[209]
+prog_char texto210[] PROGMEM = "MAIS"; // tabela_textos[210]
+prog_char texto211[] PROGMEM = "DOSADORA 4:"; // tabela_textos[129] // tabela_textos[211]
+prog_char texto212[] PROGMEM = "DOSADORA 5:"; // tabela_textos[130] // tabela_textos[212]
+prog_char texto213[] PROGMEM = "DOSADORA 6:"; // tabela_textos[131] // tabela_textos[213]
 
 char* tabela_textos[] PROGMEM = 
 {
@@ -232,7 +242,8 @@ char* tabela_textos[] PROGMEM =
   texto181, texto182, texto183, texto184, texto185, texto186, texto187,
   texto188, texto189, texto190, texto191, texto192, texto193, texto194, 
   texto195, texto196, texto197, texto198, texto199, texto200, texto201, 
-  texto202, texto203   
+  texto202, texto203, texto204, texto205, texto206, texto207, texto208, 
+  texto209, texto210, texto211, texto212, texto213
 };
 
 char* tabela_textos_fase[] PROGMEM =
@@ -244,4 +255,34 @@ char* tabela_textos_fase[] PROGMEM =
 "LUA MINGUANTE" // tabela_textos_fase[4]  
 };
 
+prog_char  nomecanal0 [] PROGMEM = "";                  // nome_canal[0]
+prog_char  nomecanal1 [] PROGMEM = "BRA";               // nome_canal[1] = Branco 
+prog_char  nomecanal2 [] PROGMEM = "AZU";               // nome_canal[2] = Azul
+prog_char  nomecanal3 [] PROGMEM = "AZR";               // nome_canal[3] = Azul Royal 
+prog_char  nomecanal4 [] PROGMEM = "VER";               // nome_canal[4] = Vermelho
+prog_char  nomecanal5 [] PROGMEM = "VIO";               // nome_canal[5] = Violeta
+prog_char  nomecanal6 [] PROGMEM = "BRANCO";               // nome_canal[6] = Branco 
+prog_char  nomecanal7 [] PROGMEM = "AZUL";               // nome_canal[7] = Azul
+prog_char  nomecanal8 [] PROGMEM = "AZUL ROYAL";               // nome_canal[8] = Azul Royal 
+prog_char  nomecanal9 [] PROGMEM = "VERMELHO";               // nome_canal[9] = Vermelho
+prog_char  nomecanal10 [] PROGMEM = "VIOLETA";               // nome_canal[10] = Violeta
+prog_char  nomecanal11 [] PROGMEM = "ESCOLHA UMA COR";
+prog_char  nomecanal12 [] PROGMEM = "ALTERAR POTENCIAS DOS LEDS BRANCOS";
+prog_char  nomecanal13 [] PROGMEM = "ALTERAR POTENCIA DOS LEDS AZUIS";
+prog_char  nomecanal14 [] PROGMEM = "ALTERAR POTENCIA DOS LEDS AZUL ROYAL";
+prog_char  nomecanal15 [] PROGMEM = "ALTERAR POTENCIA DOS LEDS VERMELHOS";
+prog_char  nomecanal16 [] PROGMEM = "ALTERAR POTENCIA DOS LEDS VIOLETA";
+prog_char  nomecanal17 [] PROGMEM = "POTENCIA DOS LEDS BRANCOS: 255 = 100%";
+prog_char  nomecanal18 [] PROGMEM = "POTENCIA DOS LEDS AZUIS: 255 = 100%";
+prog_char  nomecanal19 [] PROGMEM = "POTENCIA DOS LEDS AZUL ROYAL: 255 = 100%";
+prog_char  nomecanal20 [] PROGMEM = "POTENCIA DOS LEDS VERMELHOS:255 = 100%";
+prog_char  nomecanal21 [] PROGMEM = "POTENCIA DOS LEDS VIOLETAS: 255 = 100%";
+
+char* nome_canal[] PROGMEM = 
+{ 
+  nomecanal0, nomecanal1, nomecanal2, nomecanal3, nomecanal4, nomecanal5,
+  nomecanal6, nomecanal7, nomecanal8, nomecanal9, nomecanal10, nomecanal11,
+  nomecanal12, nomecanal13, nomecanal14, nomecanal15, nomecanal16,nomecanal17,
+  nomecanal18, nomecanal19, nomecanal20, nomecanal21
+};
 

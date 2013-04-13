@@ -18,11 +18,14 @@ void setup()
   pinMode(solenoide1Pin, OUTPUT);
   pinMode(multiplexadorS0Pin, OUTPUT);
   pinMode(multiplexadorS1Pin, OUTPUT);
-//  pinMode (4, OUTPUT);  //sd card
-//  digitalWrite (4, HIGH);
+  pinMode (4, OUTPUT);  //sd card
+  digitalWrite (4, HIGH);
   pinMode (dosadora1, OUTPUT);
   pinMode (dosadora2, OUTPUT);
   pinMode (dosadora3, OUTPUT);
+  pinMode (dosadora4, OUTPUT);
+  pinMode (dosadora5, OUTPUT);
+  pinMode (dosadora6, OUTPUT);
   pinMode (temporizador1, OUTPUT);
   pinMode (temporizador2, OUTPUT);
   pinMode (temporizador3, OUTPUT);
@@ -39,6 +42,17 @@ void setup()
   sensors.setResolution(sensor_agua, 10); // Define a resolução em 10 bits.
   sensors.setResolution(sensor_dissipador, 10); // Define a resolução em 10 bits.
 
+/*  if(PCF8575TS_S == true)
+  {
+    PCF8575TS.begin(endereco_PCF8575TS); // Inicia a comunicação com o PCF8575TS
+    for(int i = 0; i < 16; i++)
+    {
+      PCF8575TS.pinMode(i, OUTPUT);
+      delay(100);
+      PCF8575TS.digitalWrite(i, LOW);
+    }
+  }*/
+
   if(Ethernet_Shield == true)
   {
     if (ether.begin(sizeof Ethernet::buffer, mymac) == 0) // Inicia a comunicação com o "ethernet shield".
@@ -49,7 +63,7 @@ void setup()
   }
 
   rtc.halt(false); // Inicia o funcionamento do RTC.
-  
+
   //Lê a variáveis guardadas na EEPROM.
   ReadFromEEPROM();
   lertpaEEPROM();
@@ -60,13 +74,22 @@ void setup()
   ler_dosadora_EEPROM();
   ler_luz_noturna_EEPROM();
   ler_timers_EEPROM();
-  
+
   card.init(SPI_QUARTER_SPEED,chipselect); // Inicia a comunicação com o cartão SD.
   volume.init(&card);
   root.openRoot(&volume);
 
-  iniciar_stamps();
+  if(Stamps == true)
+  {
+    iniciar_stamps();
+  }
+
+/*  if(RFM12B == true)
+  {
+    rf12_initialize(myNodeID,freq,network);   //Initialize RFM12 with settings defined above  
+  }*/
   
   mainScreen(true); // Exibe a tela inicial no LCD.
 }
+
 

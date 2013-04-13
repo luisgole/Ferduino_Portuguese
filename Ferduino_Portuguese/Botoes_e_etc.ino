@@ -11,19 +11,25 @@ const int iniC[]= {325,2,393,42};           // inicio
 const int menU[]= {325, 52, 393, 92};       // Botao menu
 const int prOK[]= {325,200,393,238};        //ok
 const int salV[]= {325,150,393,190};        //salvar dosagem
-// const int xxx[]= {325,151,393,190};
+const int deS[]= {325,102,393,142};
 //const int xxxx[]= {325,200,393,239};
-const int savE[]= {180,188,300,220};        //Save Eeprom
-//------------------menu----------------------------
 const int tanD[]= {10, 20, 150, 60};        //hora e data
 const int tesT[]= {10, 70, 150, 110};       //testar LED
 const int temC[]= {10, 120, 150, 160};      // controle de temperatura
 const int graF[]= {10, 170, 150, 210};      // Graficos
 const int ledW[]= {170, 20, 310, 60};        //alterar valores led
+
+const int savE[]= {180,203,300,235};        //Save Eeprom
+const int leWB[]= {5, 203, 90, 235};        //LED values show whites or blues
+const int leST[]= {100, 203, 170, 235};       //LED values change
+
 const int tpaA[]= {170, 70, 310, 110};         //TPA automÃ¡tica
 const int dosA[]= {170, 120, 310, 160};        //Bomba dosadora
 const int wavM[]= {170, 170, 310, 210};        // Wavemaker
 const int volT[]= {325,200,393,238};         //voltar
+const int testT[] =  {40, 34, 280, 74};      //Testar todos os leds
+const int testI[] =  {40, 84, 280, 124};    //Teste individual dos leds
+const int preD[] = {40, 134, 280, 174};    // Valores Pré definidos
 //-----------botoes graficos e parametros--------------------
 const int tempG[]= {10, 20, 150, 60};        //parametro/grafico de temperatura
 const int phA[]= {10, 70, 150, 110};       //parametro/grafico de ph do aqua
@@ -35,8 +41,8 @@ const int denS[]= {170, 20, 310, 60};        //parametro/grafico de densidade
 
 const int manU[]= {10, 20, 150, 60};        // Dosagem manual
 const int autO[]= {10, 70, 150, 110};       //Dosagem automatica
-const int perS[]= {10, 120, 150, 160};      //Dosagem personalizada
-const int reV[]= {10, 170, 150, 210};     // rever cofig. dosagem personalizada
+const int perS[]= {10, 70, 150, 110};      //Dosagem personalizada
+const int reV[]= {10, 120, 150, 160};     // rever cofig. dosagem personalizada
 const int atiV[]= {170, 20, 310, 60};    //Ativar/desativar dosadoras   
 //const int []= {170, 70, 310, 110};         
 //const int []= {170, 120, 310, 160};          
@@ -44,9 +50,11 @@ const int atiV[]= {170, 20, 310, 60};    //Ativar/desativar dosadoras
 const int dosa1[]= {10, 20, 150, 60};       //Bomba dosadora 1
 const int dosa2[]= {10, 70, 150, 110};         //Bomba dosadora 2
 const int dosa3[]= {10, 120, 150, 160};      // Bomba dosadora 3
+const int dosa4[]= {170, 20, 310, 60};       //Bomba dosadora 4
+const int dosa5[]= {170, 70, 310, 110};         //Bomba dosadora 5
+const int dosa6[]= {170, 120, 310, 160};      // Bomba dosadora 6
 //----------------------------------------------------
-const int leWB[]= {5, 188, 90, 220};        //LED values show whites or blues
-const int leST[]= {100, 188, 170, 220};       //LED values change
+
 const int houU[]= {70, 18, 95, 43};          //hour up
 const int minU[]= {160, 18, 185, 43};        //min up
 const int minUT[]= {120, 18, 145, 43};        //minutotpa mais
@@ -59,9 +67,9 @@ const int yeaU[]= {250, 102, 275, 127};     //year up
 const int dayD[]= {70, 152, 95, 177};       //day down
 const int monD[]= {160, 152, 185, 177};     //month down
 const int yeaD[]= {250, 152, 275, 177};     //year down
-const int stsT[]= {90, 105, 220, 175};     //start/stop
-const int tenM[]= {10, 120, 80, 160};       //-10s
-const int tenP[]= {230, 120, 300, 160};     //+10s
+const int stsT[]= {90, 155, 220, 225};     //start/stop
+const int tenM[]= {10, 170, 80, 210};       //-10s
+const int tenP[]= {230, 170, 300, 210};     //+10s
 const int segC[]= {250, 18, 275, 43};        //segundo para cima
 const int segB[]= {250, 69, 275, 92};        // segundo para baixo
 const int durC[]= {275, 18, 300, 43};        //duracao tpa para cima
@@ -204,4 +212,49 @@ void waitForIt(int x1, int y1, int x2, int y2)
 int NumMins(uint8_t ScheduleHour, uint8_t ScheduleMinute)
 {
   return (ScheduleHour*60) + ScheduleMinute;
+}
+//                   cor,       cor,   cor    locação x1, locação y1, locação x2, locação y2
+void desenhar_barras(int sbR, int sbG, int sbB, int sbX1, int sbY1, int sbX2, int sbY2)
+{   
+  myGLCD.setColor(sbR, sbG, sbB);          
+  myGLCD.fillRect(sbX1, y_tocado, sbX2, sbY2);  
+  myGLCD.setColor(0, 0, 0);  
+  myGLCD.fillRect(sbX1+1, y_tocado, sbX2-1, sbY1);
+  myGLCD.setColor(sbR, sbG, sbB);            
+  myGLCD.drawLine(sbX1, sbY1, sbX2, sbY1);
+  myGLCD.drawLine(sbX1, sbY2, sbX2, sbY2);  
+}
+ 
+void desenhar_barras_periodo ()
+{
+  if(bitRead(cor_selecionada,1) == true)
+  {
+    myGLCD.setColor(cor_canal1[0], cor_canal1[1],cor_canal1[2]); 
+    myGLCD.drawRect((setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195); 
+    desenhar_barras(cor_canal1[0], cor_canal1[1], cor_canal1[2], (setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+  }
+  else if(bitRead(cor_selecionada,2) == true)
+  {
+    myGLCD.setColor(cor_canal2[0], cor_canal2[1],cor_canal2[2]); 
+    myGLCD.drawRect((setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+    desenhar_barras(cor_canal2[0], cor_canal2[1], cor_canal2[2], (setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+  }
+  else if(bitRead(cor_selecionada,3) == true)
+  {
+    myGLCD.setColor(cor_canal3[0], cor_canal3[1],cor_canal3[2]); 
+    myGLCD.drawRect((setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+    desenhar_barras(cor_canal3[0], cor_canal3[1], cor_canal3[2], (setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+  }
+  else if(bitRead(cor_selecionada,4) == true)
+  {
+    myGLCD.setColor(cor_canal4[0], cor_canal4[1],cor_canal4[2]); 
+    myGLCD.drawRect((setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+    desenhar_barras(cor_canal4[0], cor_canal4[1], cor_canal4[2], (setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+  }
+  else if(bitRead(cor_selecionada,5) == true)
+  {
+    myGLCD.setColor(cor_canal5[0], cor_canal5[1],cor_canal5[2]); 
+    myGLCD.drawRect((setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+    desenhar_barras(cor_canal5[0], cor_canal5[1], cor_canal5[2], (setor_selecionado * 38)+5, 80, (setor_selecionado * 38)+39, 195);
+  }
 }

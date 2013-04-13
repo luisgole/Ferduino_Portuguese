@@ -64,9 +64,6 @@ struct config_dos
   int dose_dosadora_1_personalizada_temp;
   int dose_dosadora_2_personalizada_temp;
   int dose_dosadora_3_personalizada_temp;
-  int dose_dosadora_1_automatica_temp;
-  int dose_dosadora_2_automatica_temp;
-  int dose_dosadora_3_automatica_temp;
   int hora_inicial_dosagem_personalizada_1_temp; 
   int minuto_inicial_dosagem_personalizada_1_temp;
   int hora_final_dosagem_personalizada_1_temp; 
@@ -103,27 +100,54 @@ struct config_dos
   int quantidade_dose_dosadora_1_personalizada_temp;
   int quantidade_dose_dosadora_2_personalizada_temp;
   int quantidade_dose_dosadora_3_personalizada_temp;
-  int quantidade_dose_dosadora_1_automatica_temp;
-  int quantidade_dose_dosadora_2_automatica_temp;
-  int quantidade_dose_dosadora_3_automatica_temp;
   int modo_personalizado_on_1_temp;
-  int modo_automatico_on_1_temp;
   int modo_personalizado_on_2_temp;
-  int modo_automatico_on_2_temp;
   int modo_personalizado_on_3_temp;
-  int modo_automatico_on_3_temp;
-  int hora_inicial_dosagem_automatica_1_temp; 
-  int minuto_inicial_dosagem_automatica_1_temp;
-  int hora_final_dosagem_automatica_1_temp; 
-  int minuto_final_dosagem_automatica_1_temp;
-  int hora_inicial_dosagem_automatica_2_temp; 
-  int minuto_inicial_dosagem_automatica_2_temp;
-  int hora_final_dosagem_automatica_2_temp; 
-  int minuto_final_dosagem_automatica_2_temp;  
-  int hora_inicial_dosagem_automatica_3_temp; 
-  int minuto_inicial_dosagem_automatica_3_temp;
-  int hora_final_dosagem_automatica_3_temp; 
-  int minuto_final_dosagem_automatica_3_temp;
+  int fator_calib_dosadora_4_temp;
+  int fator_calib_dosadora_5_temp;
+  int fator_calib_dosadora_6_temp;
+  int dose_dosadora_4_personalizada_temp;
+  int dose_dosadora_5_personalizada_temp;
+  int dose_dosadora_6_personalizada_temp;
+  int hora_inicial_dosagem_personalizada_4_temp; 
+  int minuto_inicial_dosagem_personalizada_4_temp;
+  int hora_final_dosagem_personalizada_4_temp; 
+  int minuto_final_dosagem_personalizada_4_temp; 
+  int segunda_dosagem_personalizada_4_temp; 
+  int terca_dosagem_personalizada_4_temp; 
+  int quarta_dosagem_personalizada_4_temp; 
+  int quinta_dosagem_personalizada_4_temp; 
+  int sexta_dosagem_personalizada_4_temp; 
+  int sabado_dosagem_personalizada_4_temp; 
+  int domingo_dosagem_personalizada_4_temp;
+  int hora_inicial_dosagem_personalizada_5_temp; 
+  int minuto_inicial_dosagem_personalizada_5_temp;
+  int hora_final_dosagem_personalizada_5_temp; 
+  int minuto_final_dosagem_personalizada_5_temp; 
+  int segunda_dosagem_personalizada_5_temp; 
+  int terca_dosagem_personalizada_5_temp; 
+  int quarta_dosagem_personalizada_5_temp; 
+  int quinta_dosagem_personalizada_5_temp; 
+  int sexta_dosagem_personalizada_5_temp; 
+  int sabado_dosagem_personalizada_5_temp; 
+  int domingo_dosagem_personalizada_5_temp;
+  int hora_inicial_dosagem_personalizada_6_temp; 
+  int minuto_inicial_dosagem_personalizada_6_temp;
+  int hora_final_dosagem_personalizada_6_temp; 
+  int minuto_final_dosagem_personalizada_6_temp; 
+  int segunda_dosagem_personalizada_6_temp; 
+  int terca_dosagem_personalizada_6_temp; 
+  int quarta_dosagem_personalizada_6_temp; 
+  int quinta_dosagem_personalizada_6_temp; 
+  int sexta_dosagem_personalizada_6_temp; 
+  int sabado_dosagem_personalizada_6_temp; 
+  int domingo_dosagem_personalizada_6_temp;
+  int quantidade_dose_dosadora_4_personalizada_temp;
+  int quantidade_dose_dosadora_5_personalizada_temp;
+  int quantidade_dose_dosadora_6_personalizada_temp;
+  int modo_personalizado_on_4_temp;
+  int modo_personalizado_on_5_temp;
+  int modo_personalizado_on_6_temp;
 }
 dosaconfig;
 
@@ -170,6 +194,9 @@ void SaveLEDToEEPROM()
   for (int i=1; i<97; i++)  {
     EEPROM.write(i, wled[i]);
     EEPROM.write(i+96, bled[i]);
+    EEPROM.write(i+(96*2), rbled[i]);
+    EEPROM.write(i+(96*3), rled[i]);
+    EEPROM.write(i+(96*4), uvled[i]);
   } 
 }
 
@@ -178,7 +205,7 @@ void SaveTempToEEPROM()
   tempSettings.tempset = int(setTempC*10);
   tempSettings.tempoff = int(offTempC*10);
   tempSettings.tempalarm = int(alarmTempC*10);
-  EEPROM_writeAnything(194, tempSettings);
+  EEPROM_writeAnything(482, tempSettings);
 }
 
 void SalvartpaEEPROM()
@@ -193,7 +220,7 @@ void SalvartpaEEPROM()
   tpaconfig.tempsexta = int(sexta);
   tpaconfig.tempsabado = int(sabado);
   tpaconfig.tempdomingo = int(domingo);
-  EEPROM_writeAnything(200, tpaconfig);
+  EEPROM_writeAnything(488, tpaconfig);
 }
 
 void SavePHRToEEPROM()
@@ -201,7 +228,7 @@ void SavePHRToEEPROM()
   PHRSettings.PHRset = int(setPHR*10);
   PHRSettings.PHRoff = int(offPHR*10);
   PHRSettings.PHRalarm = int(alarmPHR*10);
-  EEPROM_writeAnything(220, PHRSettings);
+  EEPROM_writeAnything(508, PHRSettings);
 }
 
 void SaveORPToEEPROM()
@@ -209,7 +236,7 @@ void SaveORPToEEPROM()
   ORPSettings.ORPset = int(setORP);
   ORPSettings.ORPoff = int(offORP);
   ORPSettings.ORPalarm = int(alarmORP);
-  EEPROM_writeAnything(226, ORPSettings);
+  EEPROM_writeAnything(514, ORPSettings);
 }
 
 void SavePHAToEEPROM()
@@ -217,7 +244,7 @@ void SavePHAToEEPROM()
   PHASettings.PHAset = int(setPHA*10);
   PHASettings.PHAoff = int(offPHA*10);
   PHASettings.PHAalarm = int(alarmPHA*10);
-  EEPROM_writeAnything(232, PHASettings);
+  EEPROM_writeAnything(520, PHASettings);
 }
 
 void SaveDENToEEPROM()
@@ -225,7 +252,7 @@ void SaveDENToEEPROM()
   DENSettings.DENset = int(setDEN-1000);
   DENSettings.DENoff = int(offDEN);
   DENSettings.DENalarm = int(alarmDEN);
-  EEPROM_writeAnything(238, DENSettings);
+  EEPROM_writeAnything(526, DENSettings);
 
 }
 
@@ -237,9 +264,6 @@ void Salvar_dosadora_EEPROM()
   dosaconfig.dose_dosadora_1_personalizada_temp = int(dose_dosadora_1_personalizada*10);
   dosaconfig.dose_dosadora_2_personalizada_temp = int(dose_dosadora_2_personalizada*10);
   dosaconfig.dose_dosadora_3_personalizada_temp = int(dose_dosadora_3_personalizada*10);
-  dosaconfig.dose_dosadora_1_automatica_temp = int(dose_dosadora_1_automatica*10);
-  dosaconfig.dose_dosadora_2_automatica_temp = int(dose_dosadora_2_automatica*10);
-  dosaconfig.dose_dosadora_3_automatica_temp = int(dose_dosadora_3_automatica*10);
   dosaconfig.hora_inicial_dosagem_personalizada_1_temp = int(hora_inicial_dosagem_personalizada_1);
   dosaconfig.minuto_inicial_dosagem_personalizada_1_temp = int(minuto_inicial_dosagem_personalizada_1); 
   dosaconfig.hora_final_dosagem_personalizada_1_temp = int(hora_final_dosagem_personalizada_1);
@@ -276,35 +300,62 @@ void Salvar_dosadora_EEPROM()
   dosaconfig.quantidade_dose_dosadora_1_personalizada_temp = int(quantidade_dose_dosadora_1_personalizada);
   dosaconfig.quantidade_dose_dosadora_2_personalizada_temp = int(quantidade_dose_dosadora_2_personalizada);
   dosaconfig.quantidade_dose_dosadora_3_personalizada_temp = int(quantidade_dose_dosadora_3_personalizada);
-  dosaconfig.quantidade_dose_dosadora_1_automatica_temp = int(quantidade_dose_dosadora_1_automatica);
-  dosaconfig.quantidade_dose_dosadora_2_automatica_temp = int(quantidade_dose_dosadora_2_automatica);
-  dosaconfig.quantidade_dose_dosadora_3_automatica_temp = int(quantidade_dose_dosadora_3_automatica);
   dosaconfig.modo_personalizado_on_1_temp = int (modo_personalizado_on_1);
-  dosaconfig.modo_automatico_on_1_temp = int (modo_automatico_on_1);
   dosaconfig.modo_personalizado_on_2_temp = int (modo_personalizado_on_2);
-  dosaconfig.modo_automatico_on_2_temp = int (modo_automatico_on_2);
   dosaconfig.modo_personalizado_on_3_temp = int (modo_personalizado_on_3);
-  dosaconfig.modo_automatico_on_3_temp = int (modo_automatico_on_3);
-  dosaconfig.hora_inicial_dosagem_automatica_1_temp = int(hora_inicial_dosagem_automatica_1);
-  dosaconfig.minuto_inicial_dosagem_automatica_1_temp = int(minuto_inicial_dosagem_automatica_1); 
-  dosaconfig.hora_final_dosagem_automatica_1_temp = int(hora_final_dosagem_automatica_1);
-  dosaconfig.minuto_final_dosagem_automatica_1_temp = int(minuto_final_dosagem_automatica_1);
-  dosaconfig.hora_inicial_dosagem_automatica_2_temp = int(hora_inicial_dosagem_automatica_2);
-  dosaconfig.minuto_inicial_dosagem_automatica_2_temp = int(minuto_inicial_dosagem_automatica_2); 
-  dosaconfig.hora_final_dosagem_automatica_2_temp = int(hora_final_dosagem_automatica_2);
-  dosaconfig.minuto_final_dosagem_automatica_2_temp = int(minuto_final_dosagem_automatica_2);
-  dosaconfig.hora_inicial_dosagem_automatica_3_temp = int(hora_inicial_dosagem_automatica_3);
-  dosaconfig.minuto_inicial_dosagem_automatica_3_temp = int(minuto_inicial_dosagem_automatica_3); 
-  dosaconfig.hora_final_dosagem_automatica_3_temp = int(hora_final_dosagem_automatica_3);
-  dosaconfig.minuto_final_dosagem_automatica_3_temp = int(minuto_final_dosagem_automatica_3);
-  EEPROM_writeAnything(244, dosaconfig);
+  dosaconfig.fator_calib_dosadora_4_temp = int (fator_calib_dosadora_4*10);
+  dosaconfig.fator_calib_dosadora_5_temp = int (fator_calib_dosadora_5*10);
+  dosaconfig.fator_calib_dosadora_6_temp = int (fator_calib_dosadora_6*10);
+  dosaconfig.dose_dosadora_4_personalizada_temp = int(dose_dosadora_4_personalizada*10);
+  dosaconfig.dose_dosadora_5_personalizada_temp = int(dose_dosadora_5_personalizada*10);
+  dosaconfig.dose_dosadora_6_personalizada_temp = int(dose_dosadora_6_personalizada*10);
+  dosaconfig.hora_inicial_dosagem_personalizada_4_temp = int(hora_inicial_dosagem_personalizada_4);
+  dosaconfig.minuto_inicial_dosagem_personalizada_4_temp = int(minuto_inicial_dosagem_personalizada_4); 
+  dosaconfig.hora_final_dosagem_personalizada_4_temp = int(hora_final_dosagem_personalizada_4);
+  dosaconfig.minuto_final_dosagem_personalizada_4_temp = int(minuto_final_dosagem_personalizada_4);
+  dosaconfig.segunda_dosagem_personalizada_4_temp = int(segunda_dosagem_personalizada_4);
+  dosaconfig.terca_dosagem_personalizada_4_temp = int(terca_dosagem_personalizada_4);
+  dosaconfig.quarta_dosagem_personalizada_4_temp = int(quarta_dosagem_personalizada_4);
+  dosaconfig.quinta_dosagem_personalizada_4_temp = int(quinta_dosagem_personalizada_4);
+  dosaconfig.sexta_dosagem_personalizada_4_temp = int(sexta_dosagem_personalizada_4);
+  dosaconfig.sabado_dosagem_personalizada_4_temp = int(sabado_dosagem_personalizada_4);
+  dosaconfig.domingo_dosagem_personalizada_4_temp = int(domingo_dosagem_personalizada_4);
+  dosaconfig.hora_inicial_dosagem_personalizada_5_temp = int(hora_inicial_dosagem_personalizada_5);
+  dosaconfig.minuto_inicial_dosagem_personalizada_5_temp = int(minuto_inicial_dosagem_personalizada_5); 
+  dosaconfig.hora_final_dosagem_personalizada_5_temp = int(hora_final_dosagem_personalizada_5);
+  dosaconfig.minuto_final_dosagem_personalizada_5_temp = int(minuto_final_dosagem_personalizada_5);
+  dosaconfig.segunda_dosagem_personalizada_5_temp = int(segunda_dosagem_personalizada_5);
+  dosaconfig.terca_dosagem_personalizada_5_temp = int(terca_dosagem_personalizada_5);
+  dosaconfig.quarta_dosagem_personalizada_5_temp = int(quarta_dosagem_personalizada_5);
+  dosaconfig.quinta_dosagem_personalizada_5_temp = int(quinta_dosagem_personalizada_5);
+  dosaconfig.sexta_dosagem_personalizada_5_temp = int(sexta_dosagem_personalizada_5);
+  dosaconfig.sabado_dosagem_personalizada_5_temp = int(sabado_dosagem_personalizada_5);
+  dosaconfig.domingo_dosagem_personalizada_5_temp = int(domingo_dosagem_personalizada_5);
+  dosaconfig.hora_inicial_dosagem_personalizada_6_temp = int(hora_inicial_dosagem_personalizada_6);
+  dosaconfig.minuto_inicial_dosagem_personalizada_6_temp = int(minuto_inicial_dosagem_personalizada_6); 
+  dosaconfig.hora_final_dosagem_personalizada_6_temp = int(hora_final_dosagem_personalizada_6);
+  dosaconfig.minuto_final_dosagem_personalizada_6_temp = int(minuto_final_dosagem_personalizada_6);
+  dosaconfig.segunda_dosagem_personalizada_6_temp = int(segunda_dosagem_personalizada_6);
+  dosaconfig.terca_dosagem_personalizada_6_temp = int(terca_dosagem_personalizada_6);
+  dosaconfig.quarta_dosagem_personalizada_6_temp = int(quarta_dosagem_personalizada_6);
+  dosaconfig.quinta_dosagem_personalizada_6_temp = int(quinta_dosagem_personalizada_6);
+  dosaconfig.sexta_dosagem_personalizada_6_temp = int(sexta_dosagem_personalizada_6);
+  dosaconfig.sabado_dosagem_personalizada_6_temp = int(sabado_dosagem_personalizada_6);
+  dosaconfig.domingo_dosagem_personalizada_6_temp = int(domingo_dosagem_personalizada_6);
+  dosaconfig.quantidade_dose_dosadora_4_personalizada_temp = int(quantidade_dose_dosadora_4_personalizada);
+  dosaconfig.quantidade_dose_dosadora_5_personalizada_temp = int(quantidade_dose_dosadora_5_personalizada);
+  dosaconfig.quantidade_dose_dosadora_6_personalizada_temp = int(quantidade_dose_dosadora_6_personalizada);
+  dosaconfig.modo_personalizado_on_4_temp = int (modo_personalizado_on_4);
+  dosaconfig.modo_personalizado_on_5_temp = int (modo_personalizado_on_5);
+  dosaconfig.modo_personalizado_on_6_temp = int (modo_personalizado_on_6);
+  EEPROM_writeAnything(532, dosaconfig);
 }
 
 void Salvar_luz_noturna_EEPROM()
 {
   luznoturna.MinI_t = int(MinI);
   luznoturna.MaxI_t = int(MaxI);
-  EEPROM_writeAnything(376, luznoturna);
+  EEPROM_writeAnything(712, luznoturna);
 }
 void salvar_timers_EEPROM()
 {
@@ -333,20 +384,25 @@ void salvar_timers_EEPROM()
   timers.temporizador_3_ativado_temp = int(temporizador_3_ativado);
   timers.temporizador_4_ativado_temp = int(temporizador_4_ativado);
   timers.temporizador_5_ativado_temp = int(temporizador_5_ativado);
-  EEPROM_writeAnything(380, timers);
+  EEPROM_writeAnything(716, timers);
 }
 
 void ReadFromEEPROM()
 {
   int k = EEPROM.read(0);
-  if (k==123) {
-    for (int i=1; i<97; i++)  {
+  if (k==123) 
+  {
+    for (int i=1; i<97; i++) 
+    {
       wled[i] = EEPROM.read(i);
       bled[i] = EEPROM.read(i+96);
+      rbled[i] = EEPROM.read(i+(96*2));
+      rled[i] = EEPROM.read(i+(96*3));
+      uvled[i] = EEPROM.read(i+(96*4));
     }  
   }
 
-  EEPROM_readAnything(194, tempSettings);  
+  EEPROM_readAnything(482, tempSettings);  
   setTempC = tempSettings.tempset;
   setTempC /=10;
   offTempC = tempSettings.tempoff;
@@ -357,7 +413,7 @@ void ReadFromEEPROM()
 
 void lertpaEEPROM()
 {
-  EEPROM_readAnything(200, tpaconfig);  
+  EEPROM_readAnything(488, tpaconfig);  
   hora = tpaconfig.temphora;
   minuto = tpaconfig.tempminuto;
   duracaomaximatpa = tpaconfig.tempduracaomaximatpa;
@@ -372,7 +428,7 @@ void lertpaEEPROM()
 
 void lerPHREEPROM()
 {
-  EEPROM_readAnything(220, PHRSettings);  
+  EEPROM_readAnything(508, PHRSettings);  
   setPHR = PHRSettings.PHRset;
   setPHR /=10;
   offPHR = PHRSettings.PHRoff;
@@ -383,7 +439,7 @@ void lerPHREEPROM()
 
 void lerORPEEPROM()
 {
-  EEPROM_readAnything(226, ORPSettings);  
+  EEPROM_readAnything(514, ORPSettings);  
   setORP = ORPSettings.ORPset;
   offORP = ORPSettings.ORPoff;
   alarmORP = ORPSettings.ORPalarm;
@@ -391,7 +447,7 @@ void lerORPEEPROM()
 
 void lerPHAEEPROM()
 {
-  EEPROM_readAnything(232, PHASettings);  
+  EEPROM_readAnything(520, PHASettings);  
   setPHA = PHASettings.PHAset;
   setPHA /=10;
   offPHA = PHASettings.PHAoff;
@@ -402,7 +458,7 @@ void lerPHAEEPROM()
 
 void lerDENEEPROM()
 {
-  EEPROM_readAnything(238, DENSettings);  
+  EEPROM_readAnything(526, DENSettings);  
   setDEN = DENSettings.DENset;
   setDEN +=1000;
   offDEN = DENSettings.DENoff;
@@ -411,7 +467,7 @@ void lerDENEEPROM()
 
 void ler_dosadora_EEPROM()
 {
-  EEPROM_readAnything(244,dosaconfig);
+  EEPROM_readAnything(532,dosaconfig);
   fator_calib_dosadora_1 = dosaconfig.fator_calib_dosadora_1_temp;
   fator_calib_dosadora_1 /=10;
   fator_calib_dosadora_2 = dosaconfig.fator_calib_dosadora_2_temp;
@@ -424,12 +480,6 @@ void ler_dosadora_EEPROM()
   dose_dosadora_2_personalizada /= 10;
   dose_dosadora_3_personalizada = dosaconfig.dose_dosadora_3_personalizada_temp; 
   dose_dosadora_3_personalizada /= 10;
-  dose_dosadora_1_automatica = dosaconfig.dose_dosadora_1_automatica_temp;
-  dose_dosadora_1_automatica /=10; 
-  dose_dosadora_2_automatica = dosaconfig.dose_dosadora_2_automatica_temp; 
-  dose_dosadora_2_automatica /=10; 
-  dose_dosadora_3_automatica = dosaconfig.dose_dosadora_3_automatica_temp; 
-  dose_dosadora_3_automatica /=10;
   hora_inicial_dosagem_personalizada_1 = dosaconfig.hora_inicial_dosagem_personalizada_1_temp;
   minuto_inicial_dosagem_personalizada_1 = dosaconfig.minuto_inicial_dosagem_personalizada_1_temp;
   hora_final_dosagem_personalizada_1 = dosaconfig.hora_final_dosagem_personalizada_1_temp;  
@@ -466,37 +516,70 @@ void ler_dosadora_EEPROM()
   quantidade_dose_dosadora_1_personalizada = dosaconfig.quantidade_dose_dosadora_1_personalizada_temp;
   quantidade_dose_dosadora_2_personalizada = dosaconfig.quantidade_dose_dosadora_2_personalizada_temp;
   quantidade_dose_dosadora_3_personalizada = dosaconfig.quantidade_dose_dosadora_3_personalizada_temp;
-  quantidade_dose_dosadora_1_automatica = dosaconfig.quantidade_dose_dosadora_1_automatica_temp;
-  quantidade_dose_dosadora_2_automatica = dosaconfig.quantidade_dose_dosadora_2_automatica_temp;
-  quantidade_dose_dosadora_3_automatica = dosaconfig.quantidade_dose_dosadora_3_automatica_temp;
   modo_personalizado_on_1 = dosaconfig.modo_personalizado_on_1_temp;
-  modo_automatico_on_1 = dosaconfig.modo_automatico_on_1_temp;
   modo_personalizado_on_2 = dosaconfig.modo_personalizado_on_2_temp;
-  modo_automatico_on_2 = dosaconfig.modo_automatico_on_2_temp;
   modo_personalizado_on_3 = dosaconfig.modo_personalizado_on_3_temp;
-  modo_automatico_on_3 = dosaconfig.modo_automatico_on_3_temp;
-  hora_inicial_dosagem_automatica_1 = dosaconfig.hora_inicial_dosagem_automatica_1_temp;
-  minuto_inicial_dosagem_automatica_1 = dosaconfig.minuto_inicial_dosagem_automatica_1_temp;
-  hora_final_dosagem_automatica_1 = dosaconfig.hora_final_dosagem_automatica_1_temp;  
-  minuto_final_dosagem_automatica_1 = dosaconfig.minuto_final_dosagem_automatica_1_temp;
-  hora_inicial_dosagem_automatica_2 = dosaconfig.hora_inicial_dosagem_automatica_2_temp;
-  minuto_inicial_dosagem_automatica_2 = dosaconfig.minuto_inicial_dosagem_automatica_2_temp;
-  hora_final_dosagem_automatica_2 = dosaconfig.hora_final_dosagem_automatica_2_temp;  
-  minuto_final_dosagem_automatica_2 = dosaconfig.minuto_final_dosagem_automatica_2_temp;
-  hora_inicial_dosagem_automatica_3 = dosaconfig.hora_inicial_dosagem_automatica_3_temp;
-  minuto_inicial_dosagem_automatica_3 = dosaconfig.minuto_inicial_dosagem_automatica_3_temp;
-  hora_final_dosagem_automatica_3 = dosaconfig.hora_final_dosagem_automatica_3_temp;  
-  minuto_final_dosagem_automatica_3 = dosaconfig.minuto_final_dosagem_automatica_3_temp;  
+  fator_calib_dosadora_4 = dosaconfig.fator_calib_dosadora_4_temp;
+  fator_calib_dosadora_4 /=10;
+  fator_calib_dosadora_5 = dosaconfig.fator_calib_dosadora_5_temp;
+  fator_calib_dosadora_5 /=10;
+  fator_calib_dosadora_6 = dosaconfig.fator_calib_dosadora_6_temp;
+  fator_calib_dosadora_6 /=10;
+  dose_dosadora_4_personalizada = dosaconfig.dose_dosadora_4_personalizada_temp;
+  dose_dosadora_4_personalizada /= 10;
+  dose_dosadora_5_personalizada = dosaconfig.dose_dosadora_5_personalizada_temp;
+  dose_dosadora_5_personalizada /= 10;
+  dose_dosadora_6_personalizada = dosaconfig.dose_dosadora_6_personalizada_temp; 
+  dose_dosadora_6_personalizada /= 10;
+  hora_inicial_dosagem_personalizada_4 = dosaconfig.hora_inicial_dosagem_personalizada_4_temp;
+  minuto_inicial_dosagem_personalizada_4 = dosaconfig.minuto_inicial_dosagem_personalizada_4_temp;
+  hora_final_dosagem_personalizada_4 = dosaconfig.hora_final_dosagem_personalizada_4_temp;  
+  minuto_final_dosagem_personalizada_4 = dosaconfig.minuto_final_dosagem_personalizada_4_temp; 
+  segunda_dosagem_personalizada_4 = dosaconfig.segunda_dosagem_personalizada_4_temp; 
+  terca_dosagem_personalizada_4 = dosaconfig.terca_dosagem_personalizada_4_temp; 
+  quarta_dosagem_personalizada_4 = dosaconfig.quarta_dosagem_personalizada_4_temp;
+  quinta_dosagem_personalizada_4 = dosaconfig.quinta_dosagem_personalizada_4_temp;
+  sexta_dosagem_personalizada_4  = dosaconfig.sexta_dosagem_personalizada_4_temp;
+  sabado_dosagem_personalizada_4 = dosaconfig.sabado_dosagem_personalizada_4_temp;
+  domingo_dosagem_personalizada_4 = dosaconfig.domingo_dosagem_personalizada_4_temp;
+  hora_inicial_dosagem_personalizada_5 = dosaconfig.hora_inicial_dosagem_personalizada_5_temp;
+  minuto_inicial_dosagem_personalizada_5 = dosaconfig.minuto_inicial_dosagem_personalizada_5_temp;
+  hora_final_dosagem_personalizada_5 = dosaconfig.hora_final_dosagem_personalizada_5_temp;  
+  minuto_final_dosagem_personalizada_5 = dosaconfig.minuto_final_dosagem_personalizada_5_temp; 
+  segunda_dosagem_personalizada_5 = dosaconfig.segunda_dosagem_personalizada_5_temp; 
+  terca_dosagem_personalizada_5 = dosaconfig.terca_dosagem_personalizada_5_temp; 
+  quarta_dosagem_personalizada_5 = dosaconfig.quarta_dosagem_personalizada_5_temp;
+  quinta_dosagem_personalizada_5 = dosaconfig.quinta_dosagem_personalizada_5_temp;
+  sexta_dosagem_personalizada_5  = dosaconfig.sexta_dosagem_personalizada_5_temp;
+  sabado_dosagem_personalizada_5 = dosaconfig.sabado_dosagem_personalizada_5_temp;
+  domingo_dosagem_personalizada_5 = dosaconfig.domingo_dosagem_personalizada_5_temp;
+  hora_inicial_dosagem_personalizada_6 = dosaconfig.hora_inicial_dosagem_personalizada_6_temp;
+  minuto_inicial_dosagem_personalizada_6 = dosaconfig.minuto_inicial_dosagem_personalizada_6_temp;
+  hora_final_dosagem_personalizada_6 = dosaconfig.hora_final_dosagem_personalizada_6_temp;  
+  minuto_final_dosagem_personalizada_6 = dosaconfig.minuto_final_dosagem_personalizada_6_temp; 
+  segunda_dosagem_personalizada_6 = dosaconfig.segunda_dosagem_personalizada_6_temp; 
+  terca_dosagem_personalizada_6 = dosaconfig.terca_dosagem_personalizada_6_temp; 
+  quarta_dosagem_personalizada_6 = dosaconfig.quarta_dosagem_personalizada_6_temp;
+  quinta_dosagem_personalizada_6 = dosaconfig.quinta_dosagem_personalizada_6_temp;
+  sexta_dosagem_personalizada_6  = dosaconfig.sexta_dosagem_personalizada_6_temp;
+  sabado_dosagem_personalizada_6 = dosaconfig.sabado_dosagem_personalizada_6_temp;
+  domingo_dosagem_personalizada_6 = dosaconfig.domingo_dosagem_personalizada_6_temp;
+  quantidade_dose_dosadora_4_personalizada = dosaconfig.quantidade_dose_dosadora_4_personalizada_temp;
+  quantidade_dose_dosadora_5_personalizada = dosaconfig.quantidade_dose_dosadora_5_personalizada_temp;
+  quantidade_dose_dosadora_6_personalizada = dosaconfig.quantidade_dose_dosadora_6_personalizada_temp;
+  modo_personalizado_on_4 = dosaconfig.modo_personalizado_on_4_temp;
+  modo_personalizado_on_5 = dosaconfig.modo_personalizado_on_5_temp;
+  modo_personalizado_on_6 = dosaconfig.modo_personalizado_on_6_temp;
 }
 void ler_luz_noturna_EEPROM()
 {
-  EEPROM_readAnything(376, luznoturna);  
+  EEPROM_readAnything(712, luznoturna);  
   MinI = luznoturna.MinI_t;
   MaxI = luznoturna.MaxI_t;
 }
 void ler_timers_EEPROM()
 {
-  EEPROM_readAnything(380, timers);
+  EEPROM_readAnything(716, timers);
   on1_minuto = timers.on1_minuto_temp; 
   on1_hora = timers.on1_hora_temp;
   on2_minuto = timers.on2_minuto_temp; 

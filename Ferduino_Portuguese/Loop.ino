@@ -1,7 +1,7 @@
 //-----------------------main loop------------------------------
 void loop()
 {
-   t = rtc.getTime(); // Atualiza as variáveis que usam o RTC.
+  t = rtc.getTime(); // Atualiza as variáveis que usam o RTC.
   /*  int valor1=0;
    int valor2=0;
    int valor3=0;
@@ -16,12 +16,81 @@ void loop()
    valor5 = analogRead(sensor5);
    valor6 = analogRead(sensor6);*/
 
+  LED_levels_output(); // Atualiza a potência de saída dos leds
+
+
+  checktpa(); // Verifica e executa a TPA automática.
+  logtempgraf(); // Grava temperatura no cartão SD.
+  logphagraf(); // Grava o PH do aquário no cartão SD.
+  logphrgraf(); // Grava o PH do reator de cálcio no cartão SD.
+  logdengraf(); // Grava densidade no cartão SD.
+  logorpgraf(); // Grava o ORP no cartão SD.
+
+  if(Ethernet_Shield == true)
+  {
+    ether.packetLoop(ether.packetReceive()); // Envie e recebe os dados da internet.
+  }
+
+  if (myTouch.dataAvailable())  
+  { 
+    processMyTouch();  // Verifica se o LCD está sendo tocado e faz o processamento.
+  }
+
+  if(Stamps == true)
+  {
+    if((millis() - millis_antes) >= 120000) // Executa as funções a cada 2 minutos.
+    {
+      millis_antes = millis();        
+      parametros(); // Verifica os "stamps".
+    }
+  }
+
+  if((Ethernet_Shield == true) && (tpa_em_andamento == false)) // Condições para o envio de dados para o cosm.com.
+  {
+    cosm (); // Envia dados para o cosm.com.
+  }
+
+  if (millis() - logtempminutoantes > 300000) // Grava parametros a cada 5 minutos no cartao SD.
+  {
+    logtempminutoantes = millis();
+    logparametros();// Grava todos parêmtros no cartão SD.
+  }
+
+  if(dosadoras == true) // Verifica e executa as dosagens.
+  {
+    check_dosagem_personalizada_1(); // Dosadora 1 - Dosagem personalizado
+    check_dosagem_personalizada_2(); // Dosadora 2 - Dosagem personalizado
+    check_dosagem_personalizada_3(); //Dosadora 3 - Dosagem personalizado
+    check_dosagem_personalizada_4(); // Dosadora 4 - Dosagem personalizado
+    check_dosagem_personalizada_5(); // Dosadora 5 - Dosagem personalizado
+    check_dosagem_personalizada_6(); //Dosadora 6 - Dosagem personalizado
+  }
+
+  if (dispScreen != 22)
+  {
+    teste_em_andamento = false;
+  }
+
+/*  if(RFM12B == true)
+  {
+    if (rf12_recvDone())
+    {  
+      if (rf12_crc == 0 && (rf12_hdr & RF12_HDR_CTL) == 0)
+      {
+        int node_id = (rf12_hdr & 0x1F);		  //extract nodeID from payload
+        if (node_id == emonTx_NodeID)  
+        {             //check data is coming from node with the corrct ID
+          emontx=*(PayloadTX*) rf12_data;            // Extract the data from the payload 
+        }
+      }
+    }    
+  }*/
+
   if (millis() - previousMillis > 5000)    // Verifica as funções a cada 5 segundos.
   {
     previousMillis = millis();  
     checkTempC(); // Verifica as temperaturas.
-    min_cnt= NumMins(t.hour,t.min); // Atualiza o intervalo para determinar a potência dos leds.
-    LED_levels_output(); // Atualiza a potência de saída dos leds
+    min_cnt = NumMins(t.hour,t.min); // Atualiza o intervalo para determinar a potência dos leds.
     reposicao_agua_doce(); // Verifica se há a necessidade reposição da água doce.
     check_nivel(); // Verifica se há algum problema com os níveis dos aquários.
     check_PH_reator(); // Verifica o PH do reatpr de cálcio.
@@ -35,8 +104,10 @@ void loop()
     {
       mainScreen();  // Atualiza tela inicial.  
     }
-
-    
+    if(suavizar < 1)
+    {
+      suavizar += 0.1;
+    }
     /*
      Serial.println("Dia da semana");  
      Serial.println(rtc.getDOWStr()); 
@@ -44,10 +115,12 @@ void loop()
      Serial.println("Horario");
      Serial.println(rtc.getTimeStr(FORMAT_LONG));*/
 
+    Serial.println(teste_em_andamento);
+
     Serial.print ("Memoria livre:");
     Serial.println (FreeRam());
-
-/*     Serial.println("Sensor 1:");    
+    /*
+     Serial.println("Sensor 1:");    
      Serial.println(valor1);
      
      Serial.println("Sensor 2:");
@@ -99,50 +172,8 @@ void loop()
      Serial.println("Bomba3: desligada");
      }*/
   }
-  checktpa(); // Verifica e executa a TPA automática.
-  check_status(); // Atualiza os valores para envio ao cosm.com.
-  logtempgraf(); // Grava temperatura no cartão SD.
-  logphagraf(); // Grava o PH do aquário no cartão SD.
-  logphrgraf(); // Grava o PH do reator de cálcio no cartão SD.
-  logdengraf(); // Grava densidade no cartão SD.
-  logorpgraf(); // Grava o ORP no cartão SD.
-  
-   if(Ethernet_Shield == true)
-  {
-    ether.packetLoop(ether.packetReceive()); // Envie e recebe os dados da internet.
-  }
 
-  if (myTouch.dataAvailable())  
-  { 
-    processMyTouch();  // Verifica se o LCD está sendo tocado e faz o processamento.
-  }
-
-  if(Stamps == true)
-  {
-    if((millis() - millis_antes) >= 120000) // Executa as funções a cada 2 minutos.
-    {
-    millis_antes = millis();        
-   parametros(); // Verifica os "stamps".
-    }
-  }
-
-  if((Ethernet_Shield == true) && (tpa_em_andamento == false)) // Condições para o envio de dados para o cosm.com.
-  {
-    cosm (); // Envia dados para o cosm.com.
-  }
-
-  if (millis() - logtempminutoantes > 300000) // Grava parametros a cada 5 minutos no cartao SD.
-  {
-    logtempminutoantes = millis();
-    logparametros();// Grava todos parêmtros no cartão SD.
-  }
-  if(dosadoras == true) // Verifica e executa as dosagens.
-  {
-  check_dosagem_automatica_1(); // Dosadora 1 - Dosagem automática automática
-  check_dosagem_personalizada_1(); // Dosadora 1 - Dosagem personalizado
-  check_dosagem_automatica_2(); // Dosadora 2 - Dosagem automática
-  check_dosagem_personalizada_2(); // Dosadora 2 - Dosagem personalizado
-  check_dosagem_automatica_3(); // Dosadora 3 - Dosagem automática
-  check_dosagem_personalizada_3(); //Dosadora 3 - Dosagem personalizado
-  }
 } //-------------------end of main loop
+
+
+

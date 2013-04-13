@@ -19,21 +19,25 @@ void checkTempC()
 
   if (tempC < (setTempC + offTempC + alarmTempC) && tempC > (setTempC - offTempC - alarmTempC)) 
   {
-    tempAflag = false;
+    bitWrite(status_parametros,2,0);
+   // tempAflag = false;
   }
 
   if (alarmTempC > 0)                        //turn on alarm
   {
     if ((tempC >= (setTempC + offTempC + alarmTempC)) || (tempC <= (setTempC - offTempC - alarmTempC)))
     {
-      tempAflag=true;
+      bitWrite(status_parametros,2,1);
+     // tempAflag=true;
     }
   }
 
   if ((tempC < (setTempC + offTempC)) && (tempC > (setTempC - offTempC)))          //turn off cooler/heater
   {
-    tempCflag = false;
-    tempHflag = false;
+    bitWrite(status_parametros,0,0);
+    bitWrite(status_parametros,1,0);
+    //tempCflag = false;
+    //tempHflag = false;
     digitalWrite(aquecedorPin, LOW);
     digitalWrite(chillerPin, LOW);   
   }
@@ -42,20 +46,24 @@ void checkTempC()
   {
     if ((tempC > (setTempC + offTempC)))            //liga o chiller
     {
-      tempCflag = true;
+      bitWrite(status_parametros,0,1);
+    //  tempCflag = true;
       digitalWrite(chillerPin, HIGH);
     }
     if ((tempC < (setTempC - offTempC)))             //liga o aquecedor
     {
-      tempHflag=true;
+      bitWrite(status_parametros,1,1);
+    //  tempHflag=true;
       digitalWrite(aquecedorPin, HIGH);
     }
   }
 
   if ((tempC > 50) || (tempC <10))
   {
-    tempCflag = false;
-    tempHflag = false;
+    bitWrite(status_parametros,0,0);
+    bitWrite(status_parametros,1,0);
+   // tempCflag = false;
+   // tempHflag = false;
     digitalWrite(aquecedorPin, LOW);
     digitalWrite(chillerPin, LOW);
   }
@@ -86,31 +94,36 @@ void check_PH_reator()
 { 
   if (PHR < (setPHR + offPHR + alarmPHR) && PHR > (setPHR - offPHR - alarmPHR)) 
   {
-    PHRAflag = false;
+    bitWrite(status_parametros,6,0);
+   // PHRAflag = false;
   }
   if (alarmPHR > 0)           // liga o alarme
   {
     if ((PHR > (setPHR + offPHR + alarmPHR)) || (PHR <= (setPHR - offPHR - alarmPHR)))
     {
-      PHRAflag=true;
+      bitWrite(status_parametros,6,1);
+    //  PHRAflag=true;
     }
   }
   if (PHR < setPHR)       
   {
-    PHRflag = false;
+      bitWrite(status_parametros,5,0);
+  //  PHRflag = false;
     digitalWrite(reatorPin, LOW);  // Desliga co2 do reator de calcio
   }
   if (offPHR > 0)
   {
     if (PHR > setPHR)    
     {
-      PHRflag = true;
+      bitWrite(status_parametros,5,1);
+//      PHRflag = true;
       digitalWrite(reatorPin, HIGH); // Liga co2 do reator de calcio
     }
   }
   if ((PHR < 4) || (PHR > 10))
   {
-    PHRflag = false;
+    bitWrite(status_parametros,5,0);
+//    PHRflag = false;
     digitalWrite(reatorPin, LOW);  // Desliga co2 do reator de calcio
   }     
 }
@@ -119,18 +132,21 @@ void check_PH_aquario()
 { 
   if (PHA < (setPHA + offPHA + alarmPHA) && PHA > (setPHA - offPHA - alarmPHA)) 
   {
-    PHAAflag = false;
+    bitWrite(status_parametros,3,0);
+   // PHAAflag = false;
   }
   if (alarmPHA > 0)           // liga o alarme
   {
     if ((PHA >= (setPHA + offPHR + alarmPHA)) || (PHA <= (setPHA - offPHA - alarmPHA)))
     {
-      PHAAflag=true;
+    bitWrite(status_parametros,3,1);
+    //  PHAAflag=true;
     }
   }
   if (PHA < (setPHA - offPHA)) // Se PH do aquario menor que o desejado menos a variacao permitida. 
   {
-    PHRflag = false;
+    bitWrite(status_parametros,5,0);
+   // PHRflag = false;
     digitalWrite(reatorPin, LOW);  // Desliga co2 do reator de calcio
   }  
 }
@@ -139,13 +155,15 @@ void check_densidade()
 { 
   if (DEN < (setDEN + offDEN + alarmDEN) && DEN > (setDEN - offDEN - alarmDEN)) 
   {
-    DENAflag = false;
+   bitWrite(status_parametros,4,0);
+  //  DENAflag = false;
   }
   if (alarmDEN > 0)           // liga o alarme
   {
     if ((DEN >= (setDEN + offPHR + alarmDEN)) || (DEN <= (setDEN - offDEN - alarmDEN)))
     {
-      DENAflag=true;
+      bitWrite(status_parametros,4,1);
+    //  DENAflag=true;
     }
   }   
 }
@@ -154,37 +172,42 @@ void check_ORP()
 { 
   if (ORP < (setORP + offORP + alarmORP) && ORP > (setORP - offORP - alarmORP)) 
   {
-    ORPAflag = false;
+    bitWrite(status_parametros_1,0,0);
+   // ORPAflag = false;
   }
   if (alarmORP > 0)            // liga o alarme
   {
     if ((ORP >= (setORP + offORP + alarmORP)) || (ORP <= (setORP - offORP - alarmORP)))
     {
-      ORPAflag=true;
+     bitWrite(status_parametros_1,0,1);
+   //   ORPAflag=true;
     }
   }
   if (ORP > setORP)    
   {
-    ORPflag = false;
+    bitWrite(status_parametros,7,0);    
+ //   ORPflag = false;
     digitalWrite(ozonizadorPin, LOW);  // Desliga ozonizador
   }
   if (offORP > 0)
   {
     if (ORP < setORP)    
     {
-      ORPflag = true;
+    bitWrite(status_parametros,7,1);
+  //    ORPflag = true;
       digitalWrite(ozonizadorPin, HIGH); // Liga ozonizador
     }
     if ((ORP < 100) || (ORP > 500))
     {
-      ORPflag = false;
+    bitWrite(status_parametros,7,0);
+ //     ORPflag = false;
       digitalWrite(ozonizadorPin, LOW); // Desliga ozonizador
     }
   }
 }
 void check_alarme()
 {
-  if ((PHRAflag == true) || (tempAflag == true) || (PHAAflag == true) || (DENAflag == true) || (ORPAflag == true) || (falha_tpa == true))
+  if ((status_parametros > 0) || (status_parametros_1 > 0) || (falha_tpa == true))
   {
     digitalWrite (alarmPin, HIGH);
   }
@@ -197,7 +220,7 @@ void check_alarme()
 void reposicao_agua_doce () // abre a solenoide 1 se o nível estiver baixo e se a tpa não estiver em andamento
 //e se o chiller estiver desligado e se o nível do sump não estiver anormal e se não houve falha durante uma tpa.
 {
-  if((analogRead(sensor3) > 400) && (analogRead(sensor2) > 400) && (tpa_em_andamento == false) && (tempCflag==false) && (falha_tpa == false))
+  if((analogRead(sensor3) > 400) && (analogRead(sensor2) > 400) && (tpa_em_andamento == false) && (bitRead(status_parametros,0) == false) && (falha_tpa == false))
   {
     digitalWrite(solenoide1Pin,HIGH);
     ato = true; //sinaliza reposição em andamento
@@ -208,4 +231,5 @@ void reposicao_agua_doce () // abre a solenoide 1 se o nível estiver baixo e se
     digitalWrite(solenoide1Pin,LOW);
   }
 }
+
 

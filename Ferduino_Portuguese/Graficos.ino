@@ -31,34 +31,8 @@ for(int i = 22; i > 0; i -= 2)
   myGLCD.printNumI(i, f, 193);
   f -= 20;
 }
-  /* 
-  myGLCD.print("22,5", 5, 180);
-  myGLCD.print("23,0", 5, 165);
-  myGLCD.print("23,5", 5, 150);
-  myGLCD.print("24,0", 5, 135);
-  myGLCD.print("24,5", 5, 120);
-  myGLCD.print("25,0", 5, 105);
-  myGLCD.print("25,5", 5, 90);
-  myGLCD.print("26,0", 5, 75);
-  myGLCD.print("26,5", 5, 60);
-  myGLCD.print("27,0", 5, 45);
-  myGLCD.print("27,5", 5, 30); 
- 
-  myGLCD.print("2", 60, 193);
-  myGLCD.print("4", 80, 193);
-  myGLCD.print("6", 100, 193);
-  myGLCD.print("8", 120, 193);
-  myGLCD.print("10", 135, 193);
-  myGLCD.print("12", 155, 193);
-  myGLCD.print("14", 175, 193);
-  myGLCD.print("16", 195, 193);
-  myGLCD.print("18", 215, 193);
-  myGLCD.print("20", 235, 193);
-  myGLCD.print("22", 255, 193);
-  */
+
   myGLCD.print("0", 275, 193); 
-   
-  
   myGLCD.drawCircle(15, 21, 2);  
   myGLCD.print("C", 20, 18);
   myGLCD.print("H", 290, 193);
@@ -208,33 +182,6 @@ for(int i = 22; i > 0; i -= 2)
   myGLCD.printNumI(i, f, 193);
   f -= 20;
 }
-
-/*
-  myGLCD.print("180", 10, 180);
-  myGLCD.print("210", 10, 165);
-  myGLCD.print("240", 10, 150);
-  myGLCD.print("270", 10, 135);
-  myGLCD.print("300", 10, 120);
-  myGLCD.print("330", 10, 105);
-  myGLCD.print("360", 10, 90);
-  myGLCD.print("390", 10, 75);
-  myGLCD.print("420", 10, 60);
-  myGLCD.print("450", 10, 45);
-  myGLCD.print("480", 10, 30); 
-  
-  myGLCD.print("2", 55, 193);
-  myGLCD.print("4", 75, 193);
-  myGLCD.print("6", 95, 193);
-  myGLCD.print("8", 115, 193);
-  myGLCD.print("10", 135, 193);
-  myGLCD.print("12", 155, 193);
-  myGLCD.print("14", 175, 193);
-  myGLCD.print("16", 195, 193);
-  myGLCD.print("18", 215, 193);
-  myGLCD.print("20", 235, 193);
-  myGLCD.print("22", 255, 193);
-  */
-  
   myGLCD.print("0", 275, 193);    
   myGLCD.print("MV", 20, 18);
   myGLCD.print("H", 290, 193);
@@ -384,32 +331,6 @@ for(int i = 22; i > 0; i -= 2)
   myGLCD.printNumI(i, f, 193);
   f -= 20;
 }
-
-/*
-  myGLCD.print("7,0", 10, 180);
-  myGLCD.print("7,2", 10, 165);
-  myGLCD.print("7,4", 10, 150);
-  myGLCD.print("7,6", 10, 135);
-  myGLCD.print("7,8", 10, 120);
-  myGLCD.print("8,0", 10, 105);
-  myGLCD.print("8,2", 10, 90);
-  myGLCD.print("8,4", 10, 75);
-  myGLCD.print("8,6", 10, 60);
-  myGLCD.print("8,8", 10, 45);
-  myGLCD.print("9,0", 10, 30);  
-
-  myGLCD.print("2", 55, 193);
-  myGLCD.print("4", 75, 193);
-  myGLCD.print("6", 95, 193);
-  myGLCD.print("8", 115, 193);
-  myGLCD.print("10", 135, 193);
-  myGLCD.print("12", 155, 193);
-  myGLCD.print("14", 175, 193);
-  myGLCD.print("16", 195, 193);
-  myGLCD.print("18", 215, 193);
-  myGLCD.print("20", 235, 193);
-  myGLCD.print("22", 255, 193);
-  */
   myGLCD.print("0", 275, 193);   
   myGLCD.print("PH", 20, 18);
   myGLCD.print("H", 290, 193);
@@ -559,31 +480,6 @@ for(int i = 22; i > 0; i -= 2)
   myGLCD.printNumI(i, f, 193);
   f -= 20;
 }
-/*
-  myGLCD.print("5,4", 10, 180);
-  myGLCD.print("5,6", 10, 165);
-  myGLCD.print("5,8", 10, 150);
-  myGLCD.print("6,0", 10, 135);
-  myGLCD.print("6,2", 10, 120);
-  myGLCD.print("6,4", 10, 105);
-  myGLCD.print("6,6", 10, 90);
-  myGLCD.print("6,8", 10, 75);
-  myGLCD.print("7,0", 10, 60);
-  myGLCD.print("7,2", 10, 45);
-  myGLCD.print("7,4", 10, 30);  
-
-  myGLCD.print("2", 55, 193);
-  myGLCD.print("4", 75, 193);
-  myGLCD.print("6", 95, 193);
-  myGLCD.print("8", 115, 193);
-  myGLCD.print("10", 135, 193);
-  myGLCD.print("12", 155, 193);
-  myGLCD.print("14", 175, 193);
-  myGLCD.print("16", 195, 193);
-  myGLCD.print("18", 215, 193);
-  myGLCD.print("20", 235, 193);
-  myGLCD.print("22", 255, 193);
-*/
   myGLCD.print("0", 275, 193);   
   myGLCD.print("PH", 20, 18);
   myGLCD.print("H", 290, 193);
@@ -733,31 +629,6 @@ for(int i = 22; i > 0; i -= 2)
   f -= 20;
 }
 
-/*
-  myGLCD.print("1010", 10, 180);
-  myGLCD.print("1012", 10, 165);
-  myGLCD.print("1014", 10, 150);
-  myGLCD.print("1016", 10, 135);
-  myGLCD.print("1018", 10, 120);
-  myGLCD.print("1020", 10, 105);
-  myGLCD.print("1022", 10, 90);
-  myGLCD.print("1024", 10, 75);
-  myGLCD.print("1026", 10, 60);
-  myGLCD.print("1028", 10, 45);
-  myGLCD.print("1030", 10, 30);  
-
-  myGLCD.print("2", 55, 193);
-  myGLCD.print("4", 75, 193);
-  myGLCD.print("6", 95, 193);
-  myGLCD.print("8", 115, 193);
-  myGLCD.print("10", 135, 193);
-  myGLCD.print("12", 155, 193);
-  myGLCD.print("14", 175, 193);
-  myGLCD.print("16", 195, 193);
-  myGLCD.print("18", 215, 193);
-  myGLCD.print("20", 235, 193);
-  myGLCD.print("22", 255, 193);
-  */
   myGLCD.print("0", 285, 193);   
   myGLCD.print("DENS.", 10, 18);
   myGLCD.print("H", 300, 193);

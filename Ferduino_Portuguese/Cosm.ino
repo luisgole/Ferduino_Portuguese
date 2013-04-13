@@ -1,60 +1,3 @@
-void check_status()
-{
-
-  if (tempCflag==true)
-  {
-    chiller_status = 100;
-  }
-  else
-  {
-    chiller_status = 0;
-  }
-
-  if (tempHflag==true)
-  {
-    aquecedor_status = 100;
-  }
-  else
-  {
-    aquecedor_status = 0;
-  }
-  if (PHRflag==true)
-  {
-    reator_status = 100;
-  }
-  else
-  {
-    reator_status =0;
-  }
-  if (ORPflag==true)
-  {
-    ozonio_status = 100;
-  }
-  else
-  {
-    ozonio_status = 0;
-  }
-  if (ato==true)
-  {
-    reposicao_status = 100;
-  }
-  else
-  {
-    reposicao_status = 0;
-  }
-  if (nivel_status==false)
-  {
-    niveis_status = 100;
-  }
-  else
-  {
-    niveis_status = 0;
-  }
-  if (falha_tpa == true)
-  {
-    tpa_status = 100;
-  }
-}
 
 void cosm () //--------------- Envia dados para o cosm.com ------------------------------------
 {
@@ -65,6 +8,7 @@ void cosm () //--------------- Envia dados para o cosm.com ---------------------
 
     if(ether.dnsLookup(website))
     {
+//      check_status(); // Atualiza os valores para envio ao cosm.com.
       byte sd = stash.create();
       stash.print("1,"); //Temp. da água
       stash.println(tempC,DEC);
@@ -79,19 +23,19 @@ void cosm () //--------------- Envia dados para o cosm.com ---------------------
       stash.print("6,"); //ORP
       stash.println(ORP);
       stash.print("7,"); //Status chiller 0 = desligado, 100 = ligado
-      stash.println(chiller_status);
+      stash.println(bitRead(status_parametros,0));
       stash.print("8,"); //Status aquecedor 0 = desligado, 100 = ligado
-      stash.println(aquecedor_status);
+      stash.println(bitRead(status_parametros,1));
       stash.print("9,"); //Status reator de cálcio 0 = desligado, 100 = ligado
-      stash.println(reator_status);
+      stash.println(bitRead(status_parametros,5));
       stash.print("10,"); // Status ozonizador 0 = desligado, 100 = ligado
-      stash.println(ozonio_status);
+      stash.println(bitRead(status_parametros,7));
       stash.print("11,"); //Status reposicao de agua doce 0 = desligado, 100 = ligado
-      stash.println(reposicao_status);
+      stash.println(bitRead(Status,1));
       stash.print("12,"); //Status niveis 0 = baixo, 100 = normal
-      stash.println(niveis_status);
+      stash.println(bitRead(Status,2));
       stash.print("13,"); //Status TPA 0 = desligado, 100 = ligado
-      stash.println(tpa_status);
+      stash.println(bitRead(Status,3));
       stash.print("14,"); //Potência dos leds azuis
       stash.println(LedToPercent(bled_out));
       stash.print("15,"); //Potência dos leds brancos
