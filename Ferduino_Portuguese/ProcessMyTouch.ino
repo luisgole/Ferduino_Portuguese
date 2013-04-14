@@ -543,7 +543,7 @@ void processMyTouch()
           {
             if(mensagem == true)
             {
-            ledChangeScreen();
+              ledChangeScreen();
             }
             myGLCD.setColor(0, 0, 0);
             myGLCD.fillRect((oldLCT*26)+5, 21, (oldLCT*26)+29, 45);
@@ -646,7 +646,7 @@ void processMyTouch()
         ReadFromEEPROM();
         periodo_selecionado = false; 
       }
-       else if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta a tela configurar leds
+      else if ((x>=volT[0]) && (x<=volT[2]) && (y>=volT[1]) && (y<=volT[3]))           // volta a tela configurar leds
       {
         waitForIt(volT[0], volT[1], volT[2], volT[3]);
         dispScreen=5;
@@ -790,22 +790,20 @@ void processMyTouch()
       }
       if ((x >= proX[0]) && (x <= proX[2]) && (y >= proX[1]) && (y <= proX[3])) 
       {
-        if (falha_tpa == true)
+        if (bitRead(tpa_status,2) == true)
         {
-          falha_tpa = false;
-          tpa_em_andamento = false;
+          tpa_status = 0x0;
           tpaScreen();
         }
         else
         {
-          falha_tpa = true;
+          bitWrite(tpa_status,2,1);
           tpaScreen();
         }
       }
 
       break;
     case 8: //--------------------------------------------- Escolher dosadora -----------------------------------
-
       if ((x>=manU[0]) && (x<=manU[2]) && (y>=manU[1]) && (y<=manU[3]))
       {
         waitForIt(manU[0], manU[1], manU[2], manU[3]);
@@ -872,7 +870,7 @@ void processMyTouch()
         clearScreen();
         desativar_dosadoras(true);
       }
-      break;    
+      break;
 
     case 9: //  -----------------------------------------Tela escolher graficos-----------------------------------------
       if ((x >= orP[0]) && (x <= orP[2]) && (y >= orP[1]) && (y <= orP[3]))           
@@ -2049,9 +2047,9 @@ void processMyTouch()
       {
         waitForIt(100, 45, 220, 85);
 
-        if(ativar_desativar_4 == 1)
+        if(bitRead(ativar_desativar,4) == true)
         {
-          ativar_desativar_4 = 0;
+          bitWrite(ativar_desativar,4 ,0);
           desativar_dosadoras_2();
         }
         else
@@ -2063,9 +2061,9 @@ void processMyTouch()
       {
         waitForIt(100, 115, 220, 155);
 
-        if(ativar_desativar_5 == 1)
+        if(bitRead(ativar_desativar,5) == true)
         {
-          ativar_desativar_5 = 0;
+          bitWrite(ativar_desativar,5 ,0);
           desativar_dosadoras_2();
         }
         else
@@ -2077,9 +2075,9 @@ void processMyTouch()
       {
         waitForIt(100, 185, 220, 225);
 
-        if(ativar_desativar_6 == 1)
+        if(bitRead(ativar_desativar,6) == true)
         {
-          ativar_desativar_6 = 0;
+          bitWrite(ativar_desativar,6 ,0);
           desativar_dosadoras_2();
         }
         else
@@ -2090,17 +2088,17 @@ void processMyTouch()
       if ((x>=salV[0]) && (x<=salV[2]) && (y>=salV[1]) && (y<=salV[3]))           //Salvar alterações
       {
         waitForIt(salV[0], salV[1], salV[2], salV[3]);
-        if(ativar_desativar_4 == 0)
+        if(bitRead(ativar_desativar,4) == false)
         {
-          modo_personalizado_on_4 = 0;
+          bitWrite(modo_personalizado_on,4, 0);
         }
-        if(ativar_desativar_5 == 0)
+        if(bitRead(ativar_desativar,5) == false)
         {
-          modo_personalizado_on_5 = 0;
+          bitWrite(modo_personalizado_on,5, 0);
         }
-        if(ativar_desativar_6 == 0)
+        if(bitRead(ativar_desativar,6) == false)
         {
-          modo_personalizado_on_6 = 0;
+          bitWrite(modo_personalizado_on,6, 0);
         }
         Salvar_dosadora_EEPROM(); 
         dispScreen = 0;
@@ -3801,13 +3799,11 @@ void processMyTouch()
           if(modo_personalizado_on_1_temp2 == 0)
           {
             modo_personalizado_on_1_temp2 = 1;
-            modo_automatico_on_1_temp2 = 0;
             config_dosagem_personalizada_2();
           }
           else
           {
             modo_personalizado_on_1_temp2 = 0;
-            modo_automatico_on_1_temp2 = 1;
             config_dosagem_personalizada_2();
           }
         }
@@ -3816,12 +3812,12 @@ void processMyTouch()
           waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
           dose_dosadora_1_personalizada = dose_dosadora_1_personalizada_temp2;
           quantidade_dose_dosadora_1_personalizada = quantidade_dose_dosadora_1_personalizada_temp2;
-          modo_personalizado_on_1 = modo_personalizado_on_1_temp2;
+          bitWrite(modo_personalizado_on,1,modo_personalizado_on_1_temp2);
           hora_inicial_dosagem_personalizada_1 = temp2hora_inicial_dosagem_personalizada_1;
           minuto_inicial_dosagem_personalizada_1 = temp2minuto_inicial_dosagem_personalizada_1;
           hora_final_dosagem_personalizada_1 = temp2hora_final_dosagem_personalizada_1;
           minuto_final_dosagem_personalizada_1 = temp2minuto_final_dosagem_personalizada_1;
-          segunda_dosagem_personalizada_1 = temp2segunda_dosagem_personalizada_1;
+          bitWrite(segunda_dosagem_personalizada,1,temp2segunda_dosagem_personalizada_1);
           terca_dosagem_personalizada_1 = temp2terca_dosagem_personalizada_1;
           quarta_dosagem_personalizada_1 = temp2quarta_dosagem_personalizada_1;
           quinta_dosagem_personalizada_1 = temp2quinta_dosagem_personalizada_1;
@@ -4067,12 +4063,12 @@ void processMyTouch()
           waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
           dose_dosadora_2_personalizada = dose_dosadora_2_personalizada_temp2;
           quantidade_dose_dosadora_2_personalizada = quantidade_dose_dosadora_2_personalizada_temp2;
-          modo_personalizado_on_2 = modo_personalizado_on_2_temp2;
+          bitWrite(modo_personalizado_on,2,modo_personalizado_on_2_temp2);
           hora_inicial_dosagem_personalizada_2 = temp2hora_inicial_dosagem_personalizada_2;
           minuto_inicial_dosagem_personalizada_2 = temp2minuto_inicial_dosagem_personalizada_2;
           hora_final_dosagem_personalizada_2 = temp2hora_final_dosagem_personalizada_2;
           minuto_final_dosagem_personalizada_2 = temp2minuto_final_dosagem_personalizada_2;
-          segunda_dosagem_personalizada_2 = temp2segunda_dosagem_personalizada_2;
+          bitWrite(segunda_dosagem_personalizada,2,temp2segunda_dosagem_personalizada_2);
           terca_dosagem_personalizada_2 = temp2terca_dosagem_personalizada_2;
           quarta_dosagem_personalizada_2 = temp2quarta_dosagem_personalizada_2;
           quinta_dosagem_personalizada_2 = temp2quinta_dosagem_personalizada_2;
@@ -4308,12 +4304,12 @@ void processMyTouch()
           waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
           dose_dosadora_3_personalizada = dose_dosadora_3_personalizada_temp2;
           quantidade_dose_dosadora_3_personalizada = quantidade_dose_dosadora_3_personalizada_temp2;
-          modo_personalizado_on_3 = modo_personalizado_on_3_temp2;
+          bitWrite(modo_personalizado_on,3,modo_personalizado_on_3_temp2);
           hora_inicial_dosagem_personalizada_3 = temp2hora_inicial_dosagem_personalizada_3;
           minuto_inicial_dosagem_personalizada_3 = temp2minuto_inicial_dosagem_personalizada_3;
           hora_final_dosagem_personalizada_3 = temp2hora_final_dosagem_personalizada_3;
           minuto_final_dosagem_personalizada_3 = temp2minuto_final_dosagem_personalizada_3;
-          segunda_dosagem_personalizada_3 = temp2segunda_dosagem_personalizada_3;
+          bitWrite(segunda_dosagem_personalizada,3,temp2segunda_dosagem_personalizada_3);
           terca_dosagem_personalizada_3 = temp2terca_dosagem_personalizada_3;
           quarta_dosagem_personalizada_3 = temp2quarta_dosagem_personalizada_3;
           quinta_dosagem_personalizada_3 = temp2quinta_dosagem_personalizada_3;
@@ -4548,12 +4544,12 @@ void processMyTouch()
           waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
           dose_dosadora_4_personalizada = dose_dosadora_4_personalizada_temp2;
           quantidade_dose_dosadora_4_personalizada = quantidade_dose_dosadora_4_personalizada_temp2;
-          modo_personalizado_on_4 = modo_personalizado_on_4_temp2;
+          bitWrite(modo_personalizado_on,4 , modo_personalizado_on_4_temp2);
           hora_inicial_dosagem_personalizada_4 = temp2hora_inicial_dosagem_personalizada_4;
           minuto_inicial_dosagem_personalizada_4 = temp2minuto_inicial_dosagem_personalizada_4;
           hora_final_dosagem_personalizada_4 = temp2hora_final_dosagem_personalizada_4;
           minuto_final_dosagem_personalizada_4 = temp2minuto_final_dosagem_personalizada_4;
-          segunda_dosagem_personalizada_4 = temp2segunda_dosagem_personalizada_4;
+          bitWrite(segunda_dosagem_personalizada,4,temp2segunda_dosagem_personalizada_4);
           terca_dosagem_personalizada_4 = temp2terca_dosagem_personalizada_4;
           quarta_dosagem_personalizada_4 = temp2quarta_dosagem_personalizada_4;
           quinta_dosagem_personalizada_4 = temp2quinta_dosagem_personalizada_4;
@@ -4799,12 +4795,12 @@ void processMyTouch()
           waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
           dose_dosadora_5_personalizada = dose_dosadora_5_personalizada_temp2;
           quantidade_dose_dosadora_5_personalizada = quantidade_dose_dosadora_5_personalizada_temp2;
-          modo_personalizado_on_5 = modo_personalizado_on_5_temp2;
+          bitWrite(modo_personalizado_on,5 , modo_personalizado_on_5_temp2);
           hora_inicial_dosagem_personalizada_5 = temp2hora_inicial_dosagem_personalizada_5;
           minuto_inicial_dosagem_personalizada_5 = temp2minuto_inicial_dosagem_personalizada_5;
           hora_final_dosagem_personalizada_5 = temp2hora_final_dosagem_personalizada_5;
           minuto_final_dosagem_personalizada_5 = temp2minuto_final_dosagem_personalizada_5;
-          segunda_dosagem_personalizada_5 = temp2segunda_dosagem_personalizada_5;
+          bitWrite(segunda_dosagem_personalizada,5,temp2segunda_dosagem_personalizada_5);
           terca_dosagem_personalizada_5 = temp2terca_dosagem_personalizada_5;
           quarta_dosagem_personalizada_5 = temp2quarta_dosagem_personalizada_5;
           quinta_dosagem_personalizada_5 = temp2quinta_dosagem_personalizada_5;
@@ -5040,12 +5036,12 @@ void processMyTouch()
           waitForIt(prOK[0], prOK[1], prOK[2], prOK[3]); //funcao salvar
           dose_dosadora_6_personalizada = dose_dosadora_6_personalizada_temp2;
           quantidade_dose_dosadora_6_personalizada = quantidade_dose_dosadora_6_personalizada_temp2;
-          modo_personalizado_on_6 = modo_personalizado_on_6_temp2;
+          bitWrite(modo_personalizado_on,6 , modo_personalizado_on_6_temp2);
           hora_inicial_dosagem_personalizada_6 = temp2hora_inicial_dosagem_personalizada_6;
           minuto_inicial_dosagem_personalizada_6 = temp2minuto_inicial_dosagem_personalizada_6;
           hora_final_dosagem_personalizada_6 = temp2hora_final_dosagem_personalizada_6;
           minuto_final_dosagem_personalizada_6 = temp2minuto_final_dosagem_personalizada_6;
-          segunda_dosagem_personalizada_6 = temp2segunda_dosagem_personalizada_6;
+          bitWrite(segunda_dosagem_personalizada,6,temp2segunda_dosagem_personalizada_6);
           terca_dosagem_personalizada_6 = temp2terca_dosagem_personalizada_6;
           quarta_dosagem_personalizada_6 = temp2quarta_dosagem_personalizada_6;
           quinta_dosagem_personalizada_6 = temp2quinta_dosagem_personalizada_6;
@@ -5279,9 +5275,9 @@ void processMyTouch()
       {
         waitForIt(100, 45, 220, 85);
 
-        if(ativar_desativar_1 == 1)
+        if(bitRead(ativar_desativar,1) == true)
         {
-          ativar_desativar_1 = 0;
+          bitWrite(ativar_desativar,1, 0);
           desativar_dosadoras();
         }
         else
@@ -5293,9 +5289,9 @@ void processMyTouch()
       {
         waitForIt(100, 115, 220, 155);
 
-        if(ativar_desativar_2 == 1)
+        if(bitRead(ativar_desativar,2) == true)
         {
-          ativar_desativar_2 = 0;
+          bitWrite(ativar_desativar,2, 0);
           desativar_dosadoras();
         }
         else
@@ -5307,9 +5303,9 @@ void processMyTouch()
       {
         waitForIt(100, 185, 220, 225);
 
-        if(ativar_desativar_3 == 1)
+        if(bitRead(ativar_desativar,3) == true)
         {
-          ativar_desativar_3 = 0;
+          bitWrite(ativar_desativar,3, 0);
           desativar_dosadoras();
         }
         else
@@ -5320,17 +5316,17 @@ void processMyTouch()
       if ((x>=salV[0]) && (x<=salV[2]) && (y>=salV[1]) && (y<=salV[3]))           //Salvar alterações
       {
         waitForIt(salV[0], salV[1], salV[2], salV[3]);
-        if(ativar_desativar_1 == 0)
+        if(bitRead(ativar_desativar,1) == false)
         {
-          modo_personalizado_on_1 = 0;
+          bitWrite(modo_personalizado_on,1, 0);
         }
-        if(ativar_desativar_2 == 0)
+        if(bitRead(ativar_desativar,2) == false)
         {
-          modo_personalizado_on_2 = 0;
+          bitWrite(modo_personalizado_on,2, 0);
         }
-        if(ativar_desativar_3 == 0)
+        if(bitRead(ativar_desativar,3) == false)
         {
-          modo_personalizado_on_3 = 0;
+          bitWrite(modo_personalizado_on,3, 0);
         }
         Salvar_dosadora_EEPROM(); 
         dispScreen = 0;
@@ -6090,6 +6086,7 @@ void processMyTouch()
     }
   }
 }
+
 
 
 

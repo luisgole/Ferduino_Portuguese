@@ -63,7 +63,7 @@ void setup()
   }
 
   rtc.halt(false); // Inicia o funcionamento do RTC.
-
+  
   //Lê a variáveis guardadas na EEPROM.
   ReadFromEEPROM();
   lertpaEEPROM();

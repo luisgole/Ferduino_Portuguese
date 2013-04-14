@@ -67,8 +67,10 @@
 //****************************************************************************************************
 OneWire OneWireBus(47);                   //Sensor de temperatura da água e dissipador ligados ao pino 47.
 DallasTemperature sensors(&OneWireBus);  // Pass our oneWire reference to Dallas Temperature. 
-DeviceAddress sensor_agua= {0x28, 0x9C, 0xA9, 0xAA, 0x03, 0x00, 0x00, 0x44 }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
-DeviceAddress sensor_dissipador = {0x28, 0xE1, 0x96, 0xAA, 0x03, 0x00, 0x00, 0x7D }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
+DeviceAddress sensor_agua= {
+  0x28, 0x9C, 0xA9, 0xAA, 0x03, 0x00, 0x00, 0x44 }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
+DeviceAddress sensor_dissipador = {
+  0x28, 0xE1, 0x96, 0xAA, 0x03, 0x00, 0x00, 0x7D }; // Atribui os endereços dos sensores de temperatura. Adicionar / Alterar os endereços conforme necessário.
 
 //****************************************************************************************************
 //****************** Variáveis de textos e fontes ****************************************************
@@ -103,23 +105,23 @@ const int sensor3 = A2;        //Pino analógico que verifica se há tensão na 
 const int sensor4 = A3;        //Pino analógico que verifica se há tensão na bóia inferior do reservatório.
 const int sensor5 = A4;        //Pino analógico que verifica o nível do reef.
 const int sensor6 = A5;        //Pino analógico que verifica o nível do fish only.
-const int dosadora1 = A6;     // Bomba dosadora 1
-const int dosadora2 = A7;     // Bomba dosadora 2
-const int dosadora3 = A8;     // Bomba dosadora 3
-const int dosadora4 = A9;     // Bomba dosadora 4
-const int dosadora5 = A10;     // Bomba dosadora 5
-const int dosadora6 = A11;     // Bomba dosadora 6
+const int dosadora1 = 0;//A6;     // Bomba dosadora 1
+const int dosadora2 = 0;//A7;     // Bomba dosadora 2
+const int dosadora3 = 0;//A8;     // Bomba dosadora 3
+const int dosadora4 = 0;//A9;     // Bomba dosadora 4
+const int dosadora5 = 0;//A10;     // Bomba dosadora 5
+const int dosadora6 = 0;//A11;     // Bomba dosadora 6
 // Pino A12 reservado para SS do RFM12B
 const int bomba1Pin = A13;      // Bomba que tira água da quarentena.
 const int bomba2Pin = A14;     // Bomba que tira água do sump.
 const int bomba3Pin = A15;     // Bomba que coloca água no sump.
 
 ///**************** PCF8575TS **********************************
-const int temporizador1 = 0;       //P0        //Pino que liga o timer 1.
-const int temporizador2 = 1;       //P1        //Pino que liga o timer 2.
-const int temporizador3 = 2;       //P2         //Pino que liga o timer 3.
-const int temporizador4 = 3;       //P3        //Pino que liga o timer 4.
-const int temporizador5 = 4;       //P4        //Pino que liga o timer 5.
+const int temporizador1 = A6;//0;       //P0        //Pino que liga o timer 1.
+const int temporizador2 = A7;//1;       //P1        //Pino que liga o timer 2.
+const int temporizador3 = A8;//2;       //P2         //Pino que liga o timer 3.
+const int temporizador4 = A9;//3;       //P3        //Pino que liga o timer 4.
+const int temporizador5 = A10;//4;       //P4        //Pino que liga o timer 5.
 const int alarmPin = 5;            //P5     // Pino que aciona o alarme
 const int multiplexadorS0Pin = 6;  //P6 // Pino S0 de controle dos stamps
 const int multiplexadorS1Pin = 7;  //P7 // Pino S1 de controle dos stamps
@@ -135,14 +137,14 @@ Time t_temp, t;
 //*******************************************************************************************************
 //********************** Variáveis das fuções do touch screen e tela inicial ****************************
 //*******************************************************************************************************
-UTFT        myGLCD(ITDB32WC, 38,39,40,41);   //"X" é o modelo do LCD
+UTFT        myGLCD("X", 38,39,40,41);   //"X" é o modelo do LCD
 UTouch      myTouch(6,5,4,3,2); 
 //UTouch      myTouch(7,6,5,4,3);
 
 long previousMillis = 0;
 byte data[56];
 String day; 
-int whiteLed, blueLed;    // Valor anterior de PWM.
+int whiteLed, blueLed, azulroyalLed, vermelhoLed, violetaLed;    // Valor anterior de PWM.
 int dispScreen = 0;
 
 // tela inicio =0, 
@@ -307,18 +309,21 @@ float suavizar = 0.0; // LEDS iniciam suavemente e chega ao valor especificado e
 //*************************************************************************************************
 //***************LED design ***********************************************************
 //*************************************************************************************************     
-const byte cor_canal1[] = {255, 255, 255};  // Branco 
-const byte cor_canal2[] = {9, 184, 255};    // Azul
-const byte cor_canal3[] = {58, 95, 205};    // Azul Royal 
-const byte cor_canal4[] = {255, 0, 0};      // Vermelho
-const byte cor_canal5[] = {224, 102, 255};  // Violeta
+const byte cor_canal1[] = {
+  255, 255, 255};  // Branco 
+const byte cor_canal2[] = {
+  9, 184, 255};    // Azul
+const byte cor_canal3[] = {
+  58, 95, 205};    // Azul Royal 
+const byte cor_canal4[] = {
+  255, 0, 0};      // Vermelho
+const byte cor_canal5[] = {
+  224, 102, 255};  // Violeta
 
 //*****************************************************************************************
 //************************ Variáveis da fase lunar ******************************************
 //*****************************************************************************************
-float LC = 29.53059;  // 1 ciclo lunar = 29.53059 dias.
 String LP;
-double AG;
 int MaxI , tMaxI;  // Potência  máxima na Lua cheia.             
 int MinI, tMinI;  // Potência  mínima na Lua nova.
 
@@ -336,8 +341,9 @@ int sexta = 0;
 int sabado = 0;
 int domingo = 0;
 int tpa = 0;                             // Controla os estágios da TPA automática
-boolean tpa_em_andamento = false;           // Sinaliza TPA automática em andamento
-boolean falha_tpa = false;           // Sinaliza falha durante a TPA automática
+byte tpa_status = 0x0; // 0 = false e 1 = true
+// bit 1 = Sinaliza TPA automática em andamento
+// bit 2 = Sinaliza falha durante a TPA automática          
 unsigned long tempo = 0;                 // Duração de cada estágio da TPA automática
 unsigned long marcadoriniciotpa = 0;   // Evita que uma tpa inicie próximo do millis zerar
 unsigned long shiftedmillis = 0;       // Evita que uma tpa inicie próximo do millis zerar
@@ -396,9 +402,12 @@ byte Status = 0x0;
 boolean Ethernet_Shield = false; // Altere para "false" caso não tenha um Ethernet Shield conectado ao Arduino.
 #define FEED    "xxxxx"               // Número do projeto(cosm.com).
 #define APIKEY  "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" //Senha do projeto(cosm.com)
-static byte mymac[] = {0x54, 0x55, 0x58, 0x10, 0x00, 0x26}; // Este mac deve ser único na rede.
-static byte myip[] = {192, 168, 2, 105};
-static byte gwip[] = {192, 168, 2, 1};
+static byte mymac[] = {
+  0x54, 0x55, 0x58, 0x10, 0x00, 0x26}; // Este mac deve ser único na rede.
+static byte myip[] = {
+  192, 168, 2, 105};
+static byte gwip[] = {
+  192, 168, 2, 1};
 char website[] PROGMEM = "api.cosm.com";
 byte Ethernet::buffer[500];
 Stash stash;
@@ -425,12 +434,13 @@ int done = 0;
 char stCurrent[7]="";
 char limpar_senha [7] = "";
 int stCurrentLen=0;
-char senha [7] = {'1','2','3','4','5','6','\0'}; // Insira sua senha aqui. O caracter '\0' não deve ser alterado.
+char senha [7] = {
+  '1','2','3','4','5','6','\0'}; // Insira sua senha aqui. O caracter '\0' não deve ser alterado.
 
 //*****************************************************************************************
 //************************** Variáveis dosadoras ******************************************
 //*****************************************************************************************
-boolean dosadoras = true; //Altere para "false" caso não tenha as dosadoras.
+boolean dosadoras = false; //Altere para "false" caso não tenha as dosadoras.
 char time9;
 char time10;
 char time11;
@@ -440,7 +450,6 @@ char time17;
 int contador = 0;
 int minuto01 = 0;
 int minuto11 = 0;
-//int deslocamento_botao_x = 155;
 long tempo_dosagem = 0;
 float dose_dosadora_1_manual = 0.0;
 float dose_dosadora_2_manual = 0.0;
@@ -452,18 +461,15 @@ boolean modo_manual = false;
 boolean modo_personalizado = false;
 boolean modo_calibrar = false;
 byte dosadora_selecionada = 0x0; // 0 = false, 1 = true
+byte ativar_desativar = 0x0;     // 0 = false, 1 = true
+byte modo_personalizado_on = 0x0; // 0 = false, 1 = true
+byte segunda_dosagem_personalizada = 0x0; // 0 = false, 1 = true
 // bit 1 = dosadora 1
 // bit 2 = dosadora 2
 // bit 3 = dosadora 3
 // bit 4 = dosadora 4
 // bit 5 = dosadora 5
 // bit 6 = dosadora 6
-int ativar_desativar_1 = 0;
-int ativar_desativar_2 = 0;
-int ativar_desativar_3 = 0;
-int modo_personalizado_on_1 = 0;
-int modo_personalizado_on_2 = 0;
-int modo_personalizado_on_3 = 0;
 float fator_calib_dosadora_1 = 0.0;
 float fator_calib_dosadora_2 = 0.0;
 float fator_calib_dosadora_3 = 0.0;
@@ -474,7 +480,6 @@ int hora_inicial_dosagem_personalizada_1 = 0;
 int minuto_inicial_dosagem_personalizada_1 = 0;
 int hora_final_dosagem_personalizada_1 = 0;
 int minuto_final_dosagem_personalizada_1 = 0;
-int segunda_dosagem_personalizada_1 = 0;
 int terca_dosagem_personalizada_1 = 0;
 int quarta_dosagem_personalizada_1 = 0;
 int quinta_dosagem_personalizada_1 = 0;
@@ -485,7 +490,6 @@ int hora_inicial_dosagem_personalizada_2 = 0;
 int minuto_inicial_dosagem_personalizada_2 = 0;
 int hora_final_dosagem_personalizada_2 = 0;
 int minuto_final_dosagem_personalizada_2 = 0;
-int segunda_dosagem_personalizada_2 = 0;
 int terca_dosagem_personalizada_2 = 0;
 int quarta_dosagem_personalizada_2 = 0;
 int quinta_dosagem_personalizada_2 = 0;
@@ -496,7 +500,6 @@ int hora_inicial_dosagem_personalizada_3 = 0;
 int minuto_inicial_dosagem_personalizada_3 = 0;
 int hora_final_dosagem_personalizada_3 = 0;
 int minuto_final_dosagem_personalizada_3 = 0;
-int segunda_dosagem_personalizada_3 = 0;
 int terca_dosagem_personalizada_3 = 0;
 int quarta_dosagem_personalizada_3 = 0;
 int quinta_dosagem_personalizada_3 = 0;
@@ -506,12 +509,6 @@ int domingo_dosagem_personalizada_3 = 0;
 int quantidade_dose_dosadora_1_personalizada = 0;
 int quantidade_dose_dosadora_2_personalizada = 0;
 int quantidade_dose_dosadora_3_personalizada = 0;
-int ativar_desativar_4 = 0;
-int ativar_desativar_5 = 0;
-int ativar_desativar_6 = 0;
-int modo_personalizado_on_4 = 0;
-int modo_personalizado_on_5 = 0;
-int modo_personalizado_on_6 = 0;
 float fator_calib_dosadora_4 = 0.0;
 float fator_calib_dosadora_5 = 0.0;
 float fator_calib_dosadora_6 = 0.0;
@@ -522,7 +519,6 @@ int hora_inicial_dosagem_personalizada_4 = 0;
 int minuto_inicial_dosagem_personalizada_4 = 0;
 int hora_final_dosagem_personalizada_4 = 0;
 int minuto_final_dosagem_personalizada_4 = 0;
-int segunda_dosagem_personalizada_4 = 0;
 int terca_dosagem_personalizada_4 = 0;
 int quarta_dosagem_personalizada_4 = 0;
 int quinta_dosagem_personalizada_4 = 0;
@@ -533,7 +529,6 @@ int hora_inicial_dosagem_personalizada_5 = 0;
 int minuto_inicial_dosagem_personalizada_5 = 0;
 int hora_final_dosagem_personalizada_5 = 0;
 int minuto_final_dosagem_personalizada_5 = 0;
-int segunda_dosagem_personalizada_5 = 0;
 int terca_dosagem_personalizada_5 = 0;
 int quarta_dosagem_personalizada_5 = 0;
 int quinta_dosagem_personalizada_5 = 0;
@@ -544,7 +539,6 @@ int hora_inicial_dosagem_personalizada_6 = 0;
 int minuto_inicial_dosagem_personalizada_6 = 0;
 int hora_final_dosagem_personalizada_6 = 0;
 int minuto_final_dosagem_personalizada_6 = 0;
-int segunda_dosagem_personalizada_6 = 0;
 int terca_dosagem_personalizada_6 = 0;
 int quarta_dosagem_personalizada_6 = 0;
 int quinta_dosagem_personalizada_6 = 0;
@@ -557,6 +551,12 @@ int quantidade_dose_dosadora_6_personalizada = 0;
 //*****************************************************************************************
 //************************** Variáveis temporárias das dosadoras **************************
 //*****************************************************************************************
+byte    modo_personalizado_on_1_temp2;
+byte    modo_personalizado_on_2_temp2;
+byte    modo_personalizado_on_3_temp2;
+byte    modo_personalizado_on_4_temp2;
+byte    modo_personalizado_on_5_temp2;
+byte    modo_personalizado_on_6_temp2;
 float fator_calib_dosadora_1_temp2;
 float fator_calib_dosadora_2_temp2;
 float fator_calib_dosadora_3_temp2;
@@ -602,10 +602,6 @@ int temp2domingo_dosagem_personalizada_3;
 int quantidade_dose_dosadora_1_personalizada_temp2;
 int quantidade_dose_dosadora_2_personalizada_temp2;
 int quantidade_dose_dosadora_3_personalizada_temp2;
-int modo_personalizado_on_1_temp2;
-int modo_automatico_on_1_temp2;
-int modo_personalizado_on_2_temp2;
-int modo_personalizado_on_3_temp2;
 float fator_calib_dosadora_4_temp2;
 float fator_calib_dosadora_5_temp2;
 float fator_calib_dosadora_6_temp2;
@@ -651,13 +647,11 @@ int temp2domingo_dosagem_personalizada_6;
 int quantidade_dose_dosadora_4_personalizada_temp2;
 int quantidade_dose_dosadora_5_personalizada_temp2;
 int quantidade_dose_dosadora_6_personalizada_temp2;
-int modo_personalizado_on_4_temp2;
-int modo_personalizado_on_5_temp2;
-int modo_personalizado_on_6_temp2;
 //*****************************************************************************************
 //************************** Variáveis dos timers *****************************************
 //*****************************************************************************************
 byte temporizador =0x0; // 0 = false, 1 = true
+byte temporizador_status = 0x0; // 1 = true e 0 = false
 //bit 1 = temporizador 1
 //bit 2 = temporizador 2
 //bit 3 = temporizador 3
@@ -722,20 +716,21 @@ int temporizador_5_ativado_temp2;
 //************************** Variáveis do PCF8575 *****************************************
 //*****************************************************************************************
 /*boolean PCF8575TS_S = false; // Altere para "false" caso não tenha um PCF8575
-PCF8575 PCF8575TS;
-byte endereco_PCF8575TS = 0x20; // Endereço em hexadecimal = 0x20
-*/
+ PCF8575 PCF8575TS;
+ byte endereco_PCF8575TS = 0x20; // Endereço em hexadecimal = 0x20
+ */
 
 //*****************************************************************************************
 //************************** Comunicação RF ***********************************************
 //*****************************************************************************************
+int consumo = 0;
 /*boolean RFM12B = false; // Altere para "false" caso não tenha um RFM12B
-#define myNodeID 30          // ID do emissor (intervalo 0-30) 
-#define network     210      // Grupo (pode ser no intervalo de 1-250).
-#define freq RF12_915MHZ     // Frequência de RF12B pode ser RF12_433MHZ, RF12_868MHZ ou RF12_915MHZ. Corresponde a frequência do módulo
-typedef struct { int power1, power2, power3, battery; } PayloadTX;      // Cria uma estrutura
-PayloadTX emontx;  
-const int emonTx_NodeID = 10;            // ID do receptor*/
+ #define myNodeID 30          // ID do emissor (intervalo 0-30) 
+ #define network     210      // Grupo (pode ser no intervalo de 1-250).
+ #define freq RF12_915MHZ     // Frequência de RF12B pode ser RF12_433MHZ, RF12_868MHZ ou RF12_915MHZ. Corresponde a frequência do módulo
+ typedef struct { int power1, power2, power3, battery; } PayloadTX;      // Cria uma estrutura
+ PayloadTX emontx;  
+ const int emonTx_NodeID = 10;            // ID do receptor*/
 
 //*****************************************************************************************
 //************************** Variáveis de controle da potência dos leds *******************
@@ -812,4 +807,5 @@ byte uvled[96] = {                         //Potência de saída dos leds branco
   0, 0, 0, 0, 0, 0, 0, 0          // 22 a 24
 };
 byte tled[96];
+
 

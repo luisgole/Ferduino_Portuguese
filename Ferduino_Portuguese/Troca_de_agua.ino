@@ -2,7 +2,7 @@ void checktpa()
 {
   tempo = (duracaomaximatpa * 60000ul);
 
-  if ((segunda==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5) && (falha_tpa == false))
+  if ((segunda==t.dow) && (hora==t.hour) && (minuto==t.min) && (t.sec<=5) && (bitRead(tpa_status,2) == false))
   {
     tpa=1;
     if ((4294967295ul - tempo) < millis())
@@ -108,7 +108,7 @@ void checktpa()
     digitalWrite(bomba2Pin,LOW);
     digitalWrite(bomba3Pin,LOW);
     tpa=2;
-    tpa_em_andamento =true;
+    bitWrite(tpa_status,1,1);
     if ((4294967295ul - tempo) < millis()) //zera o cronometro para o proximo estagio
     {
       marcadoriniciotpa= millis() - (tempo*2);
@@ -124,7 +124,7 @@ void checktpa()
     digitalWrite(bomba2Pin,HIGH);
     digitalWrite(bomba3Pin,LOW);
     tpa=3;
-    tpa_em_andamento =true;
+    bitWrite(tpa_status,1,1);
     if ((4294967295ul - tempo) < millis()) //zera o cronometro para o proximo estagio
     {
       marcadoriniciotpa= millis() - (tempo*2);
@@ -140,7 +140,7 @@ void checktpa()
     digitalWrite(bomba2Pin,LOW);
     digitalWrite(bomba3Pin,HIGH);
     tpa=4;
-    tpa_em_andamento =true;
+    bitWrite(tpa_status,1,1);
     if ((4294967295ul - tempo) < millis()) //zera o cronometro para o proximo estagio
     {
       marcadoriniciotpa= millis() - (tempo*2);
@@ -155,16 +155,16 @@ void checktpa()
     digitalWrite(bomba1Pin,LOW); // estagio 0
     digitalWrite(bomba2Pin,LOW);
     digitalWrite(bomba3Pin,LOW);
-    tpa_em_andamento = false;
+    bitWrite(tpa_status,1,0);
   }
-  else if (((shiftedmillis - marcadoriniciotpa) >= tempo) && (tpa_em_andamento == true))
+  else if (((shiftedmillis - marcadoriniciotpa) >= tempo) && (bitRead(tpa_status,1)== true))
   {
     digitalWrite(bomba1Pin,LOW); //desliga as bombas todas e mete tpa=0 para não entrar no ciclo outra vez
     digitalWrite(bomba2Pin,LOW);
     digitalWrite(bomba3Pin,LOW);
     tpa=0;
-    tpa_em_andamento = false;
-    falha_tpa = true;
+    bitWrite(tpa_status,1,0);
+    bitWrite(tpa_status,2,1);
   }
 }
 

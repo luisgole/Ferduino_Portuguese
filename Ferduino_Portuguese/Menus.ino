@@ -610,12 +610,12 @@ void tpaScreen(boolean refreshAll = false) //-----------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[65])));
     printButton(buffer, domI[0], domI[1], domI[2], domI[3]); //botao domingo
   }
-  if (falha_tpa == true) 
+  if (bitRead(tpa_status,2) == true) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[86])));
     printButton_vermelho(buffer, proX[0], proX[1], proX[2], proX[3]); //Sinaliza que houve uma falha durante a TPA. // "FALHA!!"
   } 
-  else 
+  else
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[87])));
     printButton(buffer, proX[0], proX[1], proX[2], proX[3]); //Sinaliza que a TPA foi realizada normalmente ou não foi realizada. // "NORMAL"
@@ -1188,7 +1188,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
   {
     myGLCD.printNumI(minuto_final_dosagem_personalizada_4, 188, 50);
   }
-  if(segunda_dosagem_personalizada_4 == 1)
+  if(bitRead(segunda_dosagem_personalizada,4) == 1)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[70])));
     printButton_verde(buffer, 110, 23, 130, 43);
@@ -1258,7 +1258,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[73])));
     printButton(buffer, 290, 23, 310, 43);
   } 
-  if (modo_personalizado_on_4 == 1) 
+  if (bitRead(modo_personalizado_on,4) == true) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton_verde(buffer, 200, 65, 245, 85); 
@@ -1268,7 +1268,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton(buffer, 200, 65, 245, 85); 
   }
-  if (modo_personalizado_on_4 == 0) 
+  if (bitRead(modo_personalizado_on,4) == false) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[127])));
     printButton_verde(buffer, 250, 65, 295, 85); 
@@ -1337,7 +1337,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
   {
     myGLCD.printNumI(minuto_final_dosagem_personalizada_5, 188, 120);
   }
-  if(segunda_dosagem_personalizada_5 == 1)
+  if(bitRead(segunda_dosagem_personalizada,5) == 1)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[70])));
     printButton_verde(buffer, 110, 93, 130, 113);
@@ -1407,7 +1407,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[73])));
     printButton(buffer, 290, 93, 310, 113);
   } 
-  if (modo_personalizado_on_5 == 1) 
+  if (bitRead(modo_personalizado_on,5) == true) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton_verde(buffer, 200, 135, 245, 155); 
@@ -1417,7 +1417,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton(buffer, 200, 135, 245, 155); 
   }
-  if (modo_personalizado_on_5 == 0) 
+  if (bitRead(modo_personalizado_on,5) == false) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[127])));
     printButton_verde(buffer, 250, 135, 295, 155); 
@@ -1486,7 +1486,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
   {
     myGLCD.printNumI(minuto_final_dosagem_personalizada_6, 188, 190);
   }
-  if(segunda_dosagem_personalizada_6 == 1)
+  if(bitRead(segunda_dosagem_personalizada,6) == 1)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[70])));
     printButton_verde(buffer, 110, 163, 130, 183);
@@ -1556,7 +1556,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[73])));
     printButton(buffer, 290, 163, 310, 183);
   } 
-  if (modo_personalizado_on_6 == 1) 
+  if (bitRead(modo_personalizado_on,6) == true) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton_verde(buffer, 200, 205, 245, 225); 
@@ -1566,7 +1566,7 @@ void rever_dosagem_personalizada_2() // ----------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton(buffer, 200, 205, 245, 225); 
   }
-  if (modo_personalizado_on_6 == 0) 
+  if (bitRead(modo_personalizado_on,6) == false) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[127])));
     printButton_verde(buffer, 250, 205, 295, 225); 
@@ -1582,29 +1582,29 @@ void desativar_dosadoras_2(boolean refreshAll = false)
 {
   if(refreshAll == true)
   {
-    if((modo_personalizado_on_4 == 1))
+if (bitRead(modo_personalizado_on,4) == true)
     {
-      ativar_desativar_4 = 1;
+      bitWrite(ativar_desativar,4,1);
     }
     else
     {
-      ativar_desativar_4 = 0;
+      bitWrite(ativar_desativar,4,0);
     }
-    if((modo_personalizado_on_5 == 1))
+    if (bitRead(modo_personalizado_on,5) == true)
     {
-      ativar_desativar_5 = 1;
-    }
-    else
-    {
-      ativar_desativar_5 = 0;
-    }
-    if((modo_personalizado_on_6 == 1))
-    {
-      ativar_desativar_6 = 1;
+      bitWrite(ativar_desativar,5,1);
     }
     else
     {
-      ativar_desativar_6 = 0;
+      bitWrite(ativar_desativar,5,0);
+    }
+if (bitRead(modo_personalizado_on,6) == true)
+    {
+      bitWrite(ativar_desativar,6,1);
+    }
+    else
+    {
+      bitWrite(ativar_desativar,6,0);
     }
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[51])));
     printHeader(buffer); // tabela_textos[51] =  "DESATIVAR DOSADORAS"
@@ -1652,7 +1652,7 @@ void desativar_dosadoras_2(boolean refreshAll = false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[146])));
     myGLCD.print(buffer, 230, 135); // tabela_textos[146] = "DE DOSAGEM."
   }
-  if (ativar_desativar_4 == 1)
+  if (bitRead(ativar_desativar,4) == true)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[147])));
     printButton_verde(buffer, 100, 45, 220, 85); // tabela_textos[147]
@@ -1693,7 +1693,7 @@ void desativar_dosadoras_2(boolean refreshAll = false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[155])));
     myGLCD.print(buffer, 3, 75); 
   }
-  if (ativar_desativar_5 == 1)
+  if (bitRead(ativar_desativar,5) == true)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[147])));
     printButton_verde(buffer, 100, 115, 220, 155);
@@ -1734,7 +1734,7 @@ void desativar_dosadoras_2(boolean refreshAll = false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[155])));
     myGLCD.print(buffer, 3, 145); // tabela_textos[155] = "SERAO:"
   }
-  if (ativar_desativar_6 == 1)
+  if (bitRead(ativar_desativar,6) == true)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[147])));
     printButton_verde(buffer, 100, 185, 220, 225); 
@@ -2026,7 +2026,7 @@ void escolher_canal() //--------------------------------------------------------
 
   strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[66])));
   printButton(buffer, volT[0], volT[1], volT[2], volT[3]);// "VOLTAR"
-    
+
   strcpy_P(buffer, (char*)pgm_read_word_near(&(nome_canal[6])));
   printButton(buffer, tempG[0], tempG[1], tempG[2],tempG[3]); // "BRANCO"
 
@@ -2051,7 +2051,7 @@ void config_dosagem_personalizada(boolean refreshAll=false) // -----------------
     temp2minuto_inicial_dosagem_personalizada_1 = minuto_inicial_dosagem_personalizada_1;
     temp2hora_final_dosagem_personalizada_1 = hora_final_dosagem_personalizada_1;
     temp2minuto_final_dosagem_personalizada_1 = minuto_final_dosagem_personalizada_1;
-    temp2segunda_dosagem_personalizada_1 = segunda_dosagem_personalizada_1;
+    temp2segunda_dosagem_personalizada_1 = bitRead(segunda_dosagem_personalizada,1);
     temp2terca_dosagem_personalizada_1 = terca_dosagem_personalizada_1;
     temp2quarta_dosagem_personalizada_1 = quarta_dosagem_personalizada_1;
     temp2quinta_dosagem_personalizada_1 = quinta_dosagem_personalizada_1;
@@ -2062,7 +2062,7 @@ void config_dosagem_personalizada(boolean refreshAll=false) // -----------------
     temp2minuto_inicial_dosagem_personalizada_2 = minuto_inicial_dosagem_personalizada_2;
     temp2hora_final_dosagem_personalizada_2 = hora_final_dosagem_personalizada_2;
     temp2minuto_final_dosagem_personalizada_2 = minuto_final_dosagem_personalizada_2;
-    temp2segunda_dosagem_personalizada_2 = segunda_dosagem_personalizada_2;
+    temp2segunda_dosagem_personalizada_2 = bitRead(segunda_dosagem_personalizada,2);
     temp2terca_dosagem_personalizada_2 = terca_dosagem_personalizada_2;
     temp2quarta_dosagem_personalizada_2 = quarta_dosagem_personalizada_2;
     temp2quinta_dosagem_personalizada_2 = quinta_dosagem_personalizada_2;
@@ -2073,7 +2073,7 @@ void config_dosagem_personalizada(boolean refreshAll=false) // -----------------
     temp2minuto_inicial_dosagem_personalizada_3 = minuto_inicial_dosagem_personalizada_3;
     temp2hora_final_dosagem_personalizada_3 = hora_final_dosagem_personalizada_3;
     temp2minuto_final_dosagem_personalizada_3 = minuto_final_dosagem_personalizada_3;
-    temp2segunda_dosagem_personalizada_3 = segunda_dosagem_personalizada_3;
+    temp2segunda_dosagem_personalizada_3 = bitRead(segunda_dosagem_personalizada,3);
     temp2terca_dosagem_personalizada_3 = terca_dosagem_personalizada_3;
     temp2quarta_dosagem_personalizada_3 = quarta_dosagem_personalizada_3;
     temp2quinta_dosagem_personalizada_3 = quinta_dosagem_personalizada_3;
@@ -2084,7 +2084,7 @@ void config_dosagem_personalizada(boolean refreshAll=false) // -----------------
     temp2minuto_inicial_dosagem_personalizada_4 = minuto_inicial_dosagem_personalizada_4;
     temp2hora_final_dosagem_personalizada_4 = hora_final_dosagem_personalizada_4;
     temp2minuto_final_dosagem_personalizada_4 = minuto_final_dosagem_personalizada_4;
-    temp2segunda_dosagem_personalizada_4 = segunda_dosagem_personalizada_4;
+    temp2segunda_dosagem_personalizada_4 = bitRead(segunda_dosagem_personalizada,4);
     temp2terca_dosagem_personalizada_4 = terca_dosagem_personalizada_4;
     temp2quarta_dosagem_personalizada_4 = quarta_dosagem_personalizada_4;
     temp2quinta_dosagem_personalizada_4 = quinta_dosagem_personalizada_4;
@@ -2095,7 +2095,7 @@ void config_dosagem_personalizada(boolean refreshAll=false) // -----------------
     temp2minuto_inicial_dosagem_personalizada_5 = minuto_inicial_dosagem_personalizada_5;
     temp2hora_final_dosagem_personalizada_5 = hora_final_dosagem_personalizada_5;
     temp2minuto_final_dosagem_personalizada_5 = minuto_final_dosagem_personalizada_5;
-    temp2segunda_dosagem_personalizada_5 = segunda_dosagem_personalizada_5;
+    temp2segunda_dosagem_personalizada_5 = bitRead(segunda_dosagem_personalizada,5);
     temp2terca_dosagem_personalizada_5 = terca_dosagem_personalizada_5;
     temp2quarta_dosagem_personalizada_5 = quarta_dosagem_personalizada_5;
     temp2quinta_dosagem_personalizada_5 = quinta_dosagem_personalizada_5;
@@ -2106,7 +2106,7 @@ void config_dosagem_personalizada(boolean refreshAll=false) // -----------------
     temp2minuto_inicial_dosagem_personalizada_6 = minuto_inicial_dosagem_personalizada_6;
     temp2hora_final_dosagem_personalizada_6 = hora_final_dosagem_personalizada_6;
     temp2minuto_final_dosagem_personalizada_6 = minuto_final_dosagem_personalizada_6;
-    temp2segunda_dosagem_personalizada_6 = segunda_dosagem_personalizada_6;
+    temp2segunda_dosagem_personalizada_6 = bitRead(segunda_dosagem_personalizada,6);
     temp2terca_dosagem_personalizada_6 = terca_dosagem_personalizada_6;
     temp2quarta_dosagem_personalizada_6 = quarta_dosagem_personalizada_6;
     temp2quinta_dosagem_personalizada_6 = quinta_dosagem_personalizada_6;
@@ -2912,18 +2912,18 @@ void config_dosagem_personalizada_2(boolean refreshAll=false) // ----------tela 
     quantidade_dose_dosadora_1_personalizada_temp2 = quantidade_dose_dosadora_1_personalizada;
     quantidade_dose_dosadora_2_personalizada_temp2 = quantidade_dose_dosadora_2_personalizada;
     quantidade_dose_dosadora_3_personalizada_temp2 = quantidade_dose_dosadora_3_personalizada;
-    modo_personalizado_on_1_temp2 = modo_personalizado_on_1;
-    modo_personalizado_on_2_temp2 = modo_personalizado_on_2;
-    modo_personalizado_on_3_temp2 = modo_personalizado_on_3;
+    modo_personalizado_on_1_temp2 = bitRead(modo_personalizado_on,1);
+    modo_personalizado_on_2_temp2 = bitRead(modo_personalizado_on,2);
+    modo_personalizado_on_3_temp2 = bitRead(modo_personalizado_on,3);
     dose_dosadora_4_personalizada_temp2 = dose_dosadora_4_personalizada;
     dose_dosadora_5_personalizada_temp2 = dose_dosadora_5_personalizada;
     dose_dosadora_6_personalizada_temp2 = dose_dosadora_6_personalizada;
     quantidade_dose_dosadora_4_personalizada_temp2 = quantidade_dose_dosadora_4_personalizada;
     quantidade_dose_dosadora_5_personalizada_temp2 = quantidade_dose_dosadora_5_personalizada;
     quantidade_dose_dosadora_6_personalizada_temp2 = quantidade_dose_dosadora_6_personalizada;
-    modo_personalizado_on_4_temp2 = modo_personalizado_on_4;
-    modo_personalizado_on_5_temp2 = modo_personalizado_on_5;
-    modo_personalizado_on_6_temp2 = modo_personalizado_on_6;
+    modo_personalizado_on_4_temp2 = bitRead(modo_personalizado_on,4);
+    modo_personalizado_on_5_temp2 = bitRead(modo_personalizado_on,5);
+    modo_personalizado_on_6_temp2 = bitRead(modo_personalizado_on,6);
 
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[47])));
     printHeader(buffer); // tabela_textos[47] = "CONFIGURAR DOSAGEM PERSONALIZADA"
@@ -3240,7 +3240,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
   {
     myGLCD.printNumI(minuto_final_dosagem_personalizada_1, 188, 50);
   }
-  if(segunda_dosagem_personalizada_1 == 1)
+  if(bitRead(segunda_dosagem_personalizada,1) == 1)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[70])));
     printButton_verde(buffer, 110, 23, 130, 43);
@@ -3310,7 +3310,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[73])));
     printButton(buffer, 290, 23, 310, 43);
   } 
-  if (modo_personalizado_on_1 == 1) 
+  if (bitRead(modo_personalizado_on,1) == true) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton_verde(buffer, 200, 65, 245, 85); 
@@ -3320,7 +3320,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton(buffer, 200, 65, 245, 85); 
   }
-  if (modo_personalizado_on_1 == 0) 
+  if (bitRead(modo_personalizado_on,1) == false) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[127])));
     printButton_verde(buffer, 250, 65, 295, 85); 
@@ -3389,7 +3389,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
   {
     myGLCD.printNumI(minuto_final_dosagem_personalizada_2, 188, 120);
   }
-  if(segunda_dosagem_personalizada_2 == 1)
+  if(bitRead(segunda_dosagem_personalizada,2) == 1)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[70])));
     printButton_verde(buffer, 110, 93, 130, 113);
@@ -3459,7 +3459,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[73])));
     printButton(buffer, 290, 93, 310, 113);
   } 
-  if (modo_personalizado_on_2 == 1) 
+  if (bitRead(modo_personalizado_on,2) == true) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton_verde(buffer, 200, 135, 245, 155); 
@@ -3469,7 +3469,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton(buffer, 200, 135, 245, 155); 
   }
-  if (modo_personalizado_on_2 == 0) 
+  if (bitRead(modo_personalizado_on,2) == false) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[127])));
     printButton_verde(buffer, 250, 135, 295, 155); 
@@ -3538,7 +3538,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
   {
     myGLCD.printNumI(minuto_final_dosagem_personalizada_3, 188, 190);
   }
-  if(segunda_dosagem_personalizada_3 == 1)
+  if(bitRead(segunda_dosagem_personalizada,3) == 1)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[70])));
     printButton_verde(buffer, 110, 163, 130, 183);
@@ -3608,7 +3608,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[73])));
     printButton(buffer, 290, 163, 310, 183);
   } 
-  if (modo_personalizado_on_3 == 1) 
+  if (bitRead(modo_personalizado_on,3) == true) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton_verde(buffer, 200, 205, 245, 225); 
@@ -3618,7 +3618,7 @@ void rever_dosagem_personalizada() // ------------------------------------------
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[126])));
     printButton(buffer, 200, 205, 245, 225); 
   }
-  if (modo_personalizado_on_3 == 0) 
+  if (bitRead(modo_personalizado_on,3) == false) 
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[127])));
     printButton_verde(buffer, 250, 205, 295, 225); 
@@ -3635,29 +3635,29 @@ void desativar_dosadoras(boolean refreshAll = false)
 {
   if(refreshAll == true)
   {
-    if((modo_personalizado_on_1 == 1))
+    if (bitRead(modo_personalizado_on,1) == true)
     {
-      ativar_desativar_1 = 1;
+      bitWrite(ativar_desativar,1,1);
     }
     else
     {
-      ativar_desativar_1 = 0;
+      bitWrite(ativar_desativar,1,0);
     }
-    if((modo_personalizado_on_2 == 1))
+    if (bitRead(modo_personalizado_on,2) == true)
     {
-      ativar_desativar_2 = 1;
-    }
-    else
-    {
-      ativar_desativar_2 = 0;
-    }
-    if((modo_personalizado_on_3 == 1))
-    {
-      ativar_desativar_3 = 1;
+     bitWrite(ativar_desativar,2,1);
     }
     else
     {
-      ativar_desativar_3 = 0;
+      bitWrite(ativar_desativar,2,0);
+    }
+    if (bitRead(modo_personalizado_on,3) == true)
+    {
+     bitWrite(ativar_desativar,3,1);
+    }
+    else
+    {
+      bitWrite(ativar_desativar,3,0);
     }
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[51])));
     printHeader(buffer); // tabela_textos[51] =  "DESATIVAR DOSADORAS"
@@ -3708,7 +3708,7 @@ void desativar_dosadoras(boolean refreshAll = false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[146])));
     myGLCD.print(buffer, 230, 135); // tabela_textos[146] = "DE DOSAGEM."
   }
-  if (ativar_desativar_1 == 1)
+  if (bitRead(ativar_desativar,1) == true)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[147])));
     printButton_verde(buffer, 100, 45, 220, 85); // tabela_textos[147]
@@ -3749,7 +3749,7 @@ void desativar_dosadoras(boolean refreshAll = false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[155])));
     myGLCD.print(buffer, 3, 75); 
   }
-  if (ativar_desativar_2 == 1)
+  if (bitRead(ativar_desativar,2) == true)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[147])));
     printButton_verde(buffer, 100, 115, 220, 155);
@@ -3790,7 +3790,7 @@ void desativar_dosadoras(boolean refreshAll = false)
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[155])));
     myGLCD.print(buffer, 3, 145); // tabela_textos[155] = "SERAO:"
   }
-  if (ativar_desativar_3 == 1)
+  if (bitRead(ativar_desativar,3) == true)
   {
     strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[147])));
     printButton_verde(buffer, 100, 185, 220, 225); 
@@ -4597,6 +4597,7 @@ void config_leds()
   strcpy_P(buffer, (char*)pgm_read_word_near(&(tabela_textos[11])));
   printButton(buffer, iniC[0], iniC[1], iniC[2], iniC[3]); // "INICIO"
 }
+
 
 
 

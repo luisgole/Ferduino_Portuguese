@@ -45,7 +45,7 @@ void loop()
     }
   }
 
-  if((Ethernet_Shield == true) && (tpa_em_andamento == false)) // Condições para o envio de dados para o cosm.com.
+  if((Ethernet_Shield == true) && (bitRead(tpa_status,1) == false)) // Condições para o envio de dados para o cosm.com.
   {
     cosm (); // Envia dados para o cosm.com.
   }
@@ -113,9 +113,9 @@ void loop()
      Serial.println(rtc.getDOWStr()); 
      
      Serial.println("Horario");
-     Serial.println(rtc.getTimeStr(FORMAT_LONG));*/
+     Serial.println(rtc.getTimeStr(FORMAT_LONG));
 
-    Serial.println(teste_em_andamento);
+    Serial.println(teste_em_andamento);*/
 
     Serial.print ("Memoria livre:");
     Serial.println (FreeRam());

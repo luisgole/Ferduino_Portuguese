@@ -80,7 +80,7 @@ void checkTempC()
 
 void check_nivel() //verifica o nivel do reef e fish only.
 {
-  if((analogRead(sensor5) > 400) ||(analogRead(sensor6) > 400) || (analogRead(sensor2) < 100) && (tpa_em_andamento == false))
+  if((analogRead(sensor5) > 400) ||(analogRead(sensor6) > 400) || (analogRead(sensor2) < 100) && (bitRead(tpa_status,1) == false))
   {
     nivel_status =true; //sinaliza nivel baixo em um dos aquários ou sump
   }
@@ -207,7 +207,8 @@ void check_ORP()
 }
 void check_alarme()
 {
-  if ((status_parametros > 0) || (status_parametros_1 > 0) || (falha_tpa == true))
+  if ((bitRead(status_parametros,2) == true) || (bitRead(status_parametros,3) == true) || (bitRead(status_parametros,4) == true) || 
+      (bitRead(status_parametros,6) == true) || (bitRead(status_parametros_1,1)==true) || (bitRead(tpa_status,2) == true))
   {
     digitalWrite (alarmPin, HIGH);
   }
@@ -220,7 +221,7 @@ void check_alarme()
 void reposicao_agua_doce () // abre a solenoide 1 se o nível estiver baixo e se a tpa não estiver em andamento
 //e se o chiller estiver desligado e se o nível do sump não estiver anormal e se não houve falha durante uma tpa.
 {
-  if((analogRead(sensor3) > 400) && (analogRead(sensor2) > 400) && (tpa_em_andamento == false) && (bitRead(status_parametros,0) == false) && (falha_tpa == false))
+  if((analogRead(sensor3) > 400) && (analogRead(sensor2) > 400) && (bitRead(tpa_status,1) == false) && (bitRead(status_parametros,0) == false) && (bitRead(tpa_status,2) == false))
   {
     digitalWrite(solenoide1Pin,HIGH);
     ato = true; //sinaliza reposição em andamento
