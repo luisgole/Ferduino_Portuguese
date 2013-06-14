@@ -84,49 +84,57 @@ char buffer[45];
 //****************************************************************************************************
 //****************** Define funções dos pinos digitais e analógicos **********************************
 //****************************************************************************************************
+// Pinos 0 e 1 reservados para a porta serial 0.
+const int alarmPin = 0;          // Pino que aciona o alarme
+const int desativarFanPin = 1;   // Pino que desativa os coolers.
 // Pino 2 reservado para INT do RFM12B.
-// Pinos 3, 4, 5, 6 e 7 reservados para o Touch. 
-const int ledPinMoon = 8;      // Pino que liga os leds da luz noturna
-const int ledPinBlue = 9;      // Pino que liga os leds azuis
+// Pinos 3, 4, 5, 6 e 7 reservados para o Touch.
+// Pino 5 também é o chip select do cartãoSD.
+const int ledPinUV = 8;         // Pino que liga os leds violeta
+const int ledPinBlue = 9;       // Pino que liga os leds azuis
 const int ledPinWhite = 10;     // Pino que liga os leds brancos
 const int ledPinRoyBlue = 11;   // Pino que liga os leds "royal blue"
-const int ledPinRed = 12;      // Pino que liga os leds vermelho
-const int fanPin = 13;         // Pino que controla a velocidade das ventoinhas do dissipador
-const int ledPinUV = 44;       // Pino que liga os leds ultra violeta
-// Pinos 42 e 43 reservados para o RTC.
-const int aquecedorPin = 45;   // Pino que liga o aquecedor
-const int chillerPin = 46;     // Pino que liga o chiller
-// Pino 47 reservado para os sensores de temperatura
-const int ozonizadorPin = 48; // pino que liga o ozonizador
-const int reatorPin = 49;      // Pino que liga o CO2 do reator.
-const int sensor1 = A0;        //Pino analógico que verifica se há tensão na bóia da quarentena.
-const int sensor2 = A1;        //Pino analógico que verifica se há tensão na bóia inferior do sump.
-const int sensor3 = A2;        //Pino analógico que verifica se há tensão na bóia superior do sump.
-const int sensor4 = A3;        //Pino analógico que verifica se há tensão na bóia inferior do reservatório.
-const int sensor5 = A4;        //Pino analógico que verifica o nível do reef.
-const int sensor6 = A5;        //Pino analógico que verifica o nível do fish only.
-const int dosadora1 = 0;//A6;     // Bomba dosadora 1
-const int dosadora2 = 0;//A7;     // Bomba dosadora 2
-const int dosadora3 = 0;//A8;     // Bomba dosadora 3
-const int dosadora4 = 0;//A9;     // Bomba dosadora 4
-const int dosadora5 = 0;//A10;     // Bomba dosadora 5
-const int dosadora6 = 0;//A11;     // Bomba dosadora 6
-// Pino A12 reservado para SS do RFM12B
-const int bomba1Pin = A13;      // Bomba que tira água da quarentena.
-const int bomba2Pin = A14;     // Bomba que tira água do sump.
-const int bomba3Pin = A15;     // Bomba que coloca água no sump.
-
+const int ledPinRed = 12;       // Pino que liga os leds vermelho
+const int fanPin = 13;          // Pino que controla a velocidade das ventoinhas do dissipador
+// Pinos 14 e 15 reservados para a porta serial 3 que se comunica com os "Stamps"
+const int multiplexadorS0Pin = 16; // Pino S0 de controle dos stamps
+const int multiplexadorS1Pin = 17; // Pino S1 de controle dos stamps
+// Pinos 18 e 19 reservados para o RTC.
+// Pinos 20 e 21 reservados para comunicação I2C do PCF8575.
+// Pinos 22 à 41 reservados para o LCD.
+const int aquecedorPin = 42;   // Pino que liga o aquecedor
+const int chillerPin = 43;     // Pino que liga o chiller
+const int ledPinMoon = 44;     // Pino que liga os leds da luz noturna
+const int wavemaker1 = 45;     // Pino que controla o wavemaker 1
+const int wavemaker2 = 46;     // Pino que controla o wavemaker 2
+const int ozonizadorPin = 47;  // Pino que liga o ozonizador
+const int reatorPin = 48;      // Pino que liga o CO2 do reator.
+// Pino 49 reservado para os sensores de temperatura
+// Pinos 50, 51 e 52 reservados para comunicação SPI
+// Pino 53 reservado para "select slave do ethernet shield.
+const int sensor1 = A0;        // Pino analógico que verifica se há tensão na bóia da quarentena.
+const int sensor2 = A1;        // Pino analógico que verifica se há tensão na bóia inferior do sump.
+const int sensor3 = A2;        // Pino analógico que verifica se há tensão na bóia superior do sump.
+const int sensor4 = A3;        // Pino analógico que verifica se há tensão na bóia inferior do reservatório.
+const int sensor5 = A4;        // Pino analógico que verifica o nível do reef.
+const int sensor6 = A5;        // Pino analógico que verifica o nível do fish only.
+const int bomba1Pin = A6;      // Bomba que tira água da quarentena.
+const int bomba2Pin = A7;      // Bomba que tira água do sump.
+const int bomba3Pin = A8;      // Bomba que coloca água no sump.
+const int dosadora1 = A9;      // Bomba dosadora 1
+const int dosadora2 = A10;     // Bomba dosadora 2
+const int dosadora3 = A11;     // Bomba dosadora 3
+const int dosadora4 = A12;     // Bomba dosadora 4
+const int dosadora5 = A13;     // Bomba dosadora 5
+const int dosadora6 = A14;     // Bomba dosadora 6
+// Pino A15 reservado para SS do RFM12B
 ///**************** PCF8575TS **********************************
-const int temporizador1 = A6;//0;       //P0        //Pino que liga o timer 1.
-const int temporizador2 = A7;//1;       //P1        //Pino que liga o timer 2.
-const int temporizador3 = A8;//2;       //P2         //Pino que liga o timer 3.
-const int temporizador4 = A9;//3;       //P3        //Pino que liga o timer 4.
-const int temporizador5 = A10;//4;       //P4        //Pino que liga o timer 5.
-const int alarmPin = 5;            //P5     // Pino que aciona o alarme
-const int multiplexadorS0Pin = 6;  //P6 // Pino S0 de controle dos stamps
-const int multiplexadorS1Pin = 7;  //P7 // Pino S1 de controle dos stamps
-const int desativarFanPin = 8;     //P10 // Pino que desativa os coolers.
-const int solenoide1Pin = 9;       //P11 // Liga a reposicao de água doce.
+const int temporizador1 = 80;       // P0       // Pino que liga o timer 1.
+const int temporizador2 = 81;       // P1       // Pino que liga o timer 2.
+const int temporizador3 = 82;       // P2       // Pino que liga o timer 3.
+const int temporizador4 = 83;       // P3       // Pino que liga o timer 4.
+const int temporizador5 = 84;       // P4       // Pino que liga o timer 5.
+const int solenoide1Pin = 85;       // P5       // Liga a reposicao de água doce.
 
 //*******************************************************************************************************
 //********************** Funções do RTC ********************************************************************
@@ -137,7 +145,7 @@ Time t_temp, t;
 //*******************************************************************************************************
 //********************** Variáveis das fuções do touch screen e tela inicial ****************************
 //*******************************************************************************************************
-UTFT        myGLCD("X", 38,39,40,41);   //"X" é o modelo do LCD
+UTFT        myGLCD(X, 38,39,40,41);   // Onde X é o modelo do LCD
 UTouch      myTouch(6,5,4,3,2); 
 //UTouch      myTouch(7,6,5,4,3);
 
@@ -326,6 +334,7 @@ const byte cor_canal5[] = {
 String LP;
 int MaxI , tMaxI;  // Potência  máxima na Lua cheia.             
 int MinI, tMinI;  // Potência  mínima na Lua nova.
+
 
 //*****************************************************************************************
 //************************ Variáveis da TPA automática ************************************
