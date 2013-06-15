@@ -104,7 +104,7 @@ void loop()
     {
       mainScreen();  // Atualiza tela inicial.  
     }
-    if(suavizar < 1)
+    if(suavizar <= 1)
     {
       suavizar += 0.1;
     }
